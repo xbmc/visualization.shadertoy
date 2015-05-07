@@ -26,7 +26,7 @@
 #include <fstream>
 #include <streambuf>
 #include <ctime>
-#include "kodi/util/timeutils.h"
+#include "platform/util/timeutils.h"
 #include <math.h>
 #include <complex.h>
 #include <limits.h>
