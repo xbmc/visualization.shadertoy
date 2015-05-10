@@ -21,6 +21,10 @@ set(SHADERTOY_SOURCES src/lodepng.cpp
 
 set(DEPLIBS ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} kissfft)
 
+if(APPLE)
+  set(DEPLIBS ${DEPLIBS} "-framework CoreVideo")
+endif()
+
 add_options(CXX ALL_BUILDS -std=c++11)
 
 build_addon(visualization.shadertoy SHADERTOY DEPLIBS)
