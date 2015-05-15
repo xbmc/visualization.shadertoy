@@ -45,11 +45,11 @@ vec3 distanceLines( vec3 a, vec3 b, vec3 o, vec3 d )
 
 vec3 castRay( vec3 ro, vec3 rd, float linesSpeed )
 {
-	vec3 col = vec3(0.0);
+	vec3 col = vec3(0.0,0.0,0.0);
 	
 		
 	float mindist = 10000.0;
-	vec3 p = vec3(0.2);
+	vec3 p = vec3(0.2,0.2,0.2);
 	float h = 0.0;
 	float rad = 0.04 + 0.15*freqs[0];
 	float mint = 0.0;
@@ -145,7 +145,7 @@ float linesSpeed =  smoothstep( 22.7, 22.71, iChannelTime[0] );
     col *= 1.0 - smoothstep(218.0,228.00, iChannelTime[0] );
     col *=       smoothstep(  0.0,  4.00, iChannelTime[0] );
 	if( iChannelTime[0]>61.8 && iChannelTime[0]<65.0 )
-	col *= vec3(1.0)*clamp( (iChannelTime[0]-61.8)/(65.0-61.8), 0.0, 1.0 );
+	col *= vec3(1.0,1.0,1.0)*clamp( (iChannelTime[0]-61.8)/(65.0-61.8), 0.0, 1.0 );
 
     col *= 0.15+0.85*pow( 16.0*q.x*q.y*(1.0-q.x)*(1.0-q.y), 0.15 );
 

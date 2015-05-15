@@ -1,16 +1,16 @@
 // Taken from https://www.shadertoy.com/view/XsjGz3#
 
-vec3 COLOR1 = vec3(0.0, 0.0, 0.3);
-vec3 COLOR2 = vec3(0.5, 0.0, 0.0);
+static const vec3 COLOR1 = vec3(0.0, 0.0, 0.3);
+static const vec3 COLOR2 = vec3(0.5, 0.0, 0.0);
 float BLOCK_WIDTH = 0.01;
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
 	vec2 uv = fragCoord.xy / iResolution.xy;
 	
-	vec3 final_color = vec3(1.0);
-	vec3 bg_color = vec3(0.0);
-	vec3 wave_color = vec3(0.0);
+	vec3 final_color = vec3(1.0,1.0,1.0);
+	vec3 bg_color = vec3(0.0,0.0,0.0);
+	vec3 wave_color = vec3(0.0,0.0,0.0);
 	
 	bg_color = mix(COLOR1, COLOR2, uv.x) + texture2D(iChannel0, vec2(uv.x/8., abs(.5 - uv.y))).rgb - .7;
 	

@@ -18,14 +18,15 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	float dr = length(uv);
 	float radius = 1.8;
 	
-	vec3 col = vec3(0.);
+	vec3 col = vec3(0.,0.,0.);
 	if( abs(uv.y)<fft )
 	{
-		col = mix( vec3(0.), vec3( fft, fft*(1.0-fft), 1.0-fft ) * fft * fft, fft);
+		col = mix( vec3(0.,0.,0.), vec3( fft, fft*(1.0-fft), 1.0-fft ) * fft * fft, fft);
 	}
 
 
 	fragColor.x = 0.5 - smoothstep(dr, 0.0, radius * col.x);
 	fragColor.y = 1.5 - smoothstep(dr, 0.0, radius * col.z);
 	fragColor.z = 1.5 - smoothstep(dr, 0.0, radius * col.x);
+    fragColor.w = 1.0;
 }

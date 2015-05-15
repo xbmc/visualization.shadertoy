@@ -6,36 +6,49 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
 find_package(kodi REQUIRED)
 
-find_package(OpenGL)
-if(OPENGL_FOUND)
-  find_package(GLEW REQUIRED)
-  set(INCLUDES ${OpenGL_INCLUDE_DIR}
-               ${GLEW_INCLUDE_DIR})
-  add_definitions(-DHAS_OPENGL)
-  set(DEPLIBS ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
-else()
-  find_package(OpenGLES2)
-  if(OPENGLES2_FOUND)
-    set(INCLUDES ${OPENGLES2_INCLUDE_DIR})
-    add_definitions(-DHAS_GLES2 -DHAS_GLES)
-    set(DEPLIBS ${OPENGLES2_LIBRARIES})
-  else()
-    message(FATAL_ERROR "No rendering API found. Bailing")
-  endif()
-endif()
-
-include_directories(${OpenGL_INCLUDE_DIR}
-                    ${GLEW_INCLUDE_DIR}
-                    ${KODI_INCLUDE_DIR}
-                    ${PROJECT_SOURCE_DIR}/lib/kissfft
-                    ${CMAKE_INCLUDE_PATH})
-
 add_subdirectory(lib/kissfft)
 
-set(SHADERTOY_SOURCES src/lodepng.cpp
-                      src/main.cpp)
+set(DEPLIBS kissfft)
 
-set(DEPLIBS ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} kissfft)
+if (NOT WIN32)
+  find_package(OpenGL)
+  if(OPENGL_FOUND)
+    find_package(GLEW REQUIRED)
+    set(INCLUDES ${OpenGL_INCLUDE_DIR}
+                 ${GLEW_INCLUDE_DIR})
+    add_definitions(-DHAS_OPENGL)
+    set(DEPLIBS ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+  else()
+    find_package(OpenGLES2)
+    if(OPENGLES2_FOUND)
+      set(INCLUDES ${OPENGLES2_INCLUDE_DIR})
+      add_definitions(-DHAS_GLES2 -DHAS_GLES)
+      set(DEPLIBS ${OPENGLES2_LIBRARIES})
+    else()
+      message(FATAL_ERROR "No rendering API found. Bailing")
+    endif()
+  endif()
+
+  include_directories(${OpenGL_INCLUDE_DIR}
+                      ${GLEW_INCLUDE_DIR}
+                      ${KODI_INCLUDE_DIR}
+                      ${PROJECT_SOURCE_DIR}/lib/kissfft
+                      ${CMAKE_INCLUDE_PATH})
+
+  add_subdirectory(lib/kissfft)
+  set(SHADERTOY_SOURCES src/lodepng.cpp
+                        src/main.cpp)
+
+  set(DEPLIBS ${DEPLIBS} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+
+elseif(WIN32)
+  include_directories(${KODI_INCLUDE_DIR}
+                      ${PROJECT_SOURCE_DIR}/lib/kissfft
+                      ${CMAKE_INCLUDE_PATH})
+
+  set(SHADERTOY_SOURCES src/WICTextureLoader.cpp
+                        src/maindx.cpp)
+endif()
 
 if(APPLE)
   set(DEPLIBS ${DEPLIBS} "-framework CoreVideo")

@@ -44,7 +44,8 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     
     
     // bg
-    vec3 col = vec3(smoothstep(r, r + fft*0.02 + 0.01, length(p)));
+  float bg = smoothstep(r, r + fft*0.02 + 0.01, length(p));
+  vec3 col = vec3(bg,bg,bg);
     #ifdef GLOW
     	col *= 1.*smoothstep(0., r + fft*0.2, length(q));
     #endif

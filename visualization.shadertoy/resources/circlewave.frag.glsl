@@ -13,8 +13,8 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	
 	float seperation = 0.06;
 
-	vec3 wave = vec3(0.0);
-	const int n = 60;
+	vec3 wave = vec3(0.0,0.0,0.0);
+	const int n = 9;
 	for ( int i=0; i < n; i++ )
 	{
 /*		float u = uv.x*255.0;
@@ -33,7 +33,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	}
 	wave *= 3.0/float(n);
 		
-	vec3 col = vec3(0);
+	vec3 col = vec3(0,0,0);
 	col.z  += texture2D( iChannel0, vec2(.000,.25) ).x;
 	col.zy += texture2D( iChannel0, vec2(.125,.25) ).xx*vec2(1.5,.5);
 	col.zy += texture2D( iChannel0, vec2(.250,.25) ).xx;
