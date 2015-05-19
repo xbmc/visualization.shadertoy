@@ -24,11 +24,9 @@
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
 #include <assert.h>
-#define check() //assert(glGetError() == 0)
 #define TO_STRING(...) #__VA_ARGS__
 #else
 #include <GL/glew.h>
-#define check() //assert(glGetError() == 0)
 #endif
 #include <iostream>
 #include <algorithm>
@@ -216,21 +214,16 @@ float linearToDecibels(float linear) {
 
 GLuint createTexture(GLint format, unsigned int w, unsigned int h, const GLvoid * data) {
   GLuint texture = 0;
-  check();
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
-  check();
 
   glTexParameteri(GL_TEXTURE_2D,  GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-  check();
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  check();
 
   glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format, GL_UNSIGNED_BYTE, data);
-  check();
   return texture;
 }
 
@@ -238,24 +231,19 @@ GLuint createTexture(const GLvoid *data, GLint format, unsigned int w, unsigned 
   GLuint texture = 0;
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
-  check();
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, scaling);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, scaling);
-  check();
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, repeat);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, repeat);
-  check();
 
 #if defined(HAS_GLES)
   glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, w, h, 0, internalFormat, GL_UNSIGNED_BYTE, data);
 #else
   glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, w, h, 0, format, GL_UNSIGNED_BYTE, data);
 #endif
-  check();
   glBindTexture(GL_TEXTURE_2D, 0);
-  check();
 
   return texture;
 }
@@ -284,9 +272,7 @@ GLuint createTexture(const char *file, GLint internalFormat, GLint scaling, GLin
 }
 
 GLuint compileShader(GLenum shaderType, const char *shader) {
-  check();
   GLuint s = glCreateShader(shaderType);
-  check();
   if (s == 0) {
     cerr << "Failed to create shader from\n====" << endl;
     cerr << shader << endl;
@@ -296,13 +282,10 @@ GLuint compileShader(GLenum shaderType, const char *shader) {
   }
 
   glShaderSource(s, 1, &shader, NULL);
-  check();
   glCompileShader(s);
-  check();
 
   GLint param;
   glGetShaderiv(s, GL_COMPILE_STATUS, &param);
-  check();
   if (param != GL_TRUE) {
     cerr << "Failed to compile shader source\n====" << endl;
     cerr << shader << endl;
@@ -312,7 +295,6 @@ GLuint compileShader(GLenum shaderType, const char *shader) {
     char *infoLog;
 
     glGetShaderiv(s, GL_INFO_LOG_LENGTH, &infologLength);
-    check();
 
     if (infologLength > 0) {
       infoLog = new char[infologLength];
@@ -326,35 +308,26 @@ GLuint compileShader(GLenum shaderType, const char *shader) {
     return 0;
   }
 
-  check();
   return s;
 }
 
 GLuint compileAndLinkProgram(const char *vertexShader, const char *fragmentShader) {
-  check();
   GLuint program = glCreateProgram();
-  check();
   if (program == 0) {
     cerr << "Failed to create program" << endl;
     return 0;
   }
 
   GLuint vs = compileShader(GL_VERTEX_SHADER, vertexShader);
-  check();
   GLuint fs = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
-  check();
 
   if (vs && fs) {
     glAttachShader(program, vs);
-    check();
     glAttachShader(program, fs);
-    check();
     glLinkProgram(program);
-    check();
 
     GLint param;
     glGetProgramiv(program, GL_LINK_STATUS, &param);
-    check();
     if (param != GL_TRUE) {
       cerr << "Failed to link shader program " << endl;
       glGetError();
@@ -362,7 +335,6 @@ GLuint compileAndLinkProgram(const char *vertexShader, const char *fragmentShade
       char *infoLog;
 
       glGetShaderiv(program, GL_INFO_LOG_LENGTH, &infologLength);
-      check();
 
       if (infologLength > 0) {
         infoLog = new char[infologLength];
@@ -384,16 +356,13 @@ GLuint compileAndLinkProgram(const char *vertexShader, const char *fragmentShade
       glDeleteShader(fs);
 
       glDeleteProgram(program);
-      check();
       return 0;
     }
   } else {
   	glDeleteProgram(program);
-        check();
   }
 
   glUseProgram(0);
-  check();
 
   if (vs)
     glDeleteShader(vs);
@@ -401,7 +370,6 @@ GLuint compileAndLinkProgram(const char *vertexShader, const char *fragmentShade
   if (fs)
     glDeleteShader(fs);
 
-  check();
   return program;
 }
 
@@ -502,7 +470,6 @@ int width = 0;
 int height = 0;
 
 void unloadPreset() {
-  check();
   if (shader) {
     glDeleteProgram(shader);
     shader = 0;
@@ -530,7 +497,6 @@ void unloadPreset() {
     glDeleteTextures(1, &iChannel3);
     iChannel3 = 0;
   }
-  check();
 }
 
 GLuint createShader(const string &file)
@@ -594,7 +560,6 @@ GLint loadTexture(int number)
 
 void loadPreset(int number)
 {
-  check();
   if (number >= 0 && number < g_presets.size())
   {
     g_currentPreset = number;
@@ -616,15 +581,10 @@ void loadPreset(int number)
 
 #if defined(HAS_GLES)
     state->uScale         = glGetUniformLocation(shader, "uScale");
-    check();
     state->attr_vertex_e  = glGetAttribLocation(shader,  "vertex");
-    check();
     state->render_program = compileAndLinkProgram(render_vsSource.c_str(), render_fsSource.c_str());
-    check();
     state->uTexture       = glGetUniformLocation(state->render_program, "uTexture");
-    check();
     state->attr_vertex_r  = glGetAttribLocation(state->render_program,  "vertex");
-    check();
 #endif
 
     if (g_presets[g_currentPreset].channel1 >= 0)
@@ -633,7 +593,6 @@ void loadPreset(int number)
     if (g_presets[g_currentPreset].channel2 >= 0)
       iChannel2 = loadTexture(g_presets[g_currentPreset].channel2);
   }
-  check();
 }
 
 //-- Render -------------------------------------------------------------------
@@ -645,7 +604,6 @@ extern "C" void Render()
   //cout << "Render" << std::endl;
   if (initialized) {
 #if defined(HAS_GLES)
-    check();
 #else
     glDisable(GL_BLEND);
     glMatrixMode(GL_PROJECTION);
@@ -663,10 +621,8 @@ extern "C" void Render()
     glPushMatrix();
 #endif
     glBindTexture(GL_TEXTURE_2D, iChannel0);
-    check();
     if (needsUpload) {
       glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, NUM_BANDS, 2, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, audio_data);
-      check();
       needsUpload = false;
     }
 
@@ -674,7 +630,6 @@ extern "C" void Render()
     GLfloat tv[] = { t, t, t, t };
 
     glUseProgram(shader);
-    check();
 #if defined(HAS_GLES)
     if (state->fbwidth && state->fbheight)
       glUniform3f(iResolutionLoc, state->fbwidth, state->fbheight, 0.0f);
@@ -684,7 +639,6 @@ extern "C" void Render()
     glUniform1f(iGlobalTimeLoc, t);
     glUniform1f(iSampleRateLoc, samplesPerSec);
     glUniform1fv(iChannelTimeLoc, 4, tv);
-    check();
 
     time_t now = time(NULL);
     tm *ltm = localtime(&now);
@@ -695,18 +649,13 @@ extern "C" void Render()
     float sec = (ltm->tm_hour * 60 * 60) + (ltm->tm_min * 60) + ltm->tm_sec;
 
     glUniform4f(iDateLoc, year, month, day, sec);
-    check();
 
     glActiveTexture(GL_TEXTURE0);
-    check();
 #if !defined(HAS_GLES)
     glEnable(GL_TEXTURE_2D);
-    check();
 #endif
     glUniform1i(iChannel0Loc, 0);
-    check();
     glBindTexture(GL_TEXTURE_2D, iChannel0);
-    check();
 
     glActiveTexture(GL_TEXTURE1);
 #if !defined(HAS_GLES)
@@ -714,7 +663,6 @@ extern "C" void Render()
 #endif
     glUniform1i(iChannel1Loc, 1);
     glBindTexture(GL_TEXTURE_2D, iChannel1);
-    check();
 
     glActiveTexture(GL_TEXTURE2);
 #if !defined(HAS_GLES)
@@ -722,7 +670,6 @@ extern "C" void Render()
 #endif
     glUniform1i(iChannel2Loc, 2);
     glBindTexture(GL_TEXTURE_2D, iChannel2);
-    check();
 
     glActiveTexture(GL_TEXTURE3);
 #if !defined(HAS_GLES)
@@ -730,7 +677,6 @@ extern "C" void Render()
 #endif
     glUniform1i(iChannel3Loc, 3);
     glBindTexture(GL_TEXTURE_2D, iChannel3);
-    check();
 
 #if defined(HAS_GLES)
     // Draw the effect to a texture
@@ -738,54 +684,38 @@ extern "C" void Render()
       glBindFramebuffer(GL_FRAMEBUFFER, state->effect_fb);
     else
       glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    check();
 
     if (state->effect_fb)
       glUniform2f(state->uScale, (GLfloat)width/state->fbwidth, (GLfloat)height/state->fbheight);
     else
       glUniform2f(state->uScale, 1.0, 1.0);
-    check();
 
     glBindBuffer(GL_ARRAY_BUFFER, state->vertex_buffer);
-    check();
     glVertexAttribPointer(state->attr_vertex_e, 4, GL_FLOAT, 0, 16, 0);
-    check();
     glEnableVertexAttribArray(state->attr_vertex_e);
-    check();
     glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
-    check();
     glDisableVertexAttribArray(state->attr_vertex_e);
-    check();
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    check();
 
     if (state->framebuffer_texture)
     {
         // Now render to the main frame buffer
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        check();
 
         glBindBuffer(GL_ARRAY_BUFFER, state->vertex_buffer);
-        check();
         glUseProgram ( state->render_program );
-        check();
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, state->framebuffer_texture);
-        check();
         glUniform1i(state->uTexture, 0); // first currently bound texture "GL_TEXTURE0"
-        check();
 
         glVertexAttribPointer(state->attr_vertex_r, 4, GL_FLOAT, 0, 16, 0);
         glEnableVertexAttribArray(state->attr_vertex_r);
-        check();
 
         glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
-        check();
 
 	glDisableVertexAttribArray(state->attr_vertex_r);
         glBindTexture(GL_TEXTURE_2D, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
-        check();
     }
 #else
     glBegin(GL_QUADS);
@@ -796,26 +726,21 @@ extern "C" void Render()
     glEnd();
 #endif
     glUseProgram(0);
-    check();
 
 #if !defined(HAS_GLES)
     glPopMatrix();
 #endif
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, 0);
-    check();
 
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, 0);
-    check();
 
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, 0);
-    check();
 
     glActiveTexture(GL_TEXTURE3);
     glBindTexture(GL_TEXTURE_2D, 0);
-    check();
 
 #if !defined(HAS_GLES)
     glMatrixMode(GL_PROJECTION);
@@ -823,9 +748,7 @@ extern "C" void Render()
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
 #endif
-    check();
   }
-  check();
 }
 
 extern "C" void Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, const char* szSongName)
@@ -1045,28 +968,19 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     glGenBuffers(1, &state->vertex_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, state->vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
-    check();
     if (state->fbwidth && state->fbheight)
     {
       // Prepare a texture to render to
       glGenTextures(1, &state->framebuffer_texture);
-      check();
       glBindTexture(GL_TEXTURE_2D, state->framebuffer_texture);
-      check();
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, state->fbwidth, state->fbheight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
-      check();
       glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      check();
       // Prepare a framebuffer for rendering
       glGenFramebuffers(1, &state->effect_fb);
-      check();
       glBindFramebuffer(GL_FRAMEBUFFER, state->effect_fb);
-      check();
       glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, state->framebuffer_texture, 0);
-      check();
       glBindFramebuffer(GL_FRAMEBUFFER, 0);
-      check();
     }
 #endif
 
@@ -1130,16 +1044,13 @@ extern "C" void ADDON_Destroy()
   }
 #if defined(HAS_GLES)
   glDeleteBuffers(1, &state->vertex_buffer);
-  check();
   if (state->framebuffer_texture)
   {
     glDeleteTextures(1, &state->framebuffer_texture);
-    check();
   }
   if (state->effect_fb)
   {
     glDeleteFramebuffers(1, &state->effect_fb);
-    check();
   }
 #endif
 
