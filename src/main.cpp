@@ -40,121 +40,42 @@ using namespace std;
 
 string g_pathPresets;
 
-// TODO Move presets into a struct
-const char *g_presets[] = {
-  "Audio Reaktive by choard1895",
-  "AudioVisual by Passion",
-  "Beating Circles by Phoenix72",
-  "BPM by iq",
-  "Circle Wave by TekF",
-  "Circuits by Kali",
-  "Colored Bars by novalis",
-  "Cubescape by iq",
-  "The Disco Tunnel by poljere",
-  "Fractal Land by Kali",
-  "Gameboy by iq",
-  "I/O by movAX13h",
-  "Kaleidoscope Visualizer by Qqwy",
-  "Nyancat by mu6k",
-  "Polar Beats by sauj123",
-  "Revision 2015 Livecoding Round 1 by mu6k",
-  "Ribbons by XT95",
-  "Simplicity Galaxy by CBS",
-  "Sound Flower by iq",
-  "Sound sinus wave by Eitraz",
-  "symmetrical sound visualiser by thelinked",
-  "Twisted Rings by poljere",
-  "Undulant Spectre by mafik",
-  "Demo - Volumetric Lines by iq",
-  "Waves Remix by ADOB"
+struct Preset {
+  std::string name;
+  std::string file;
+  int channel1;
+  int channel2;
 };
 
-const char *g_filePresets[] = {
-  "audioreaktive.frag.glsl",
-  "audiovisual.frag.glsl",
-  "beatingcircles.frag.glsl",
-  "bpm.frag.glsl",
-  "circlewave.frag.glsl",
-  "circuits.frag.glsl",
-  "coloredbars.frag.glsl",
-  "cubescape.frag.glsl",
-  "discotunnel.frag.glsl",
-  "fractalland.frag.glsl",
-  "gameboy.frag.glsl",
-  "io.frag.glsl",
-  "kaleidoscopevisualizer.frag.glsl",
-  "nyancat.frag.glsl",
-  "polarbeats.frag.glsl",
-  "revision2015.frag.glsl",
-  "ribbons.frag.glsl",
-  "simplicitygalaxy.frag.glsl",
-  "soundflower.frag.glsl",
-  "soundsinuswave.frag.glsl",
-  "symmetricalsound.frag.glsl",
-  "twistedrings.frag.glsl",
-  "undulantspectre.frag.glsl",
-  "volumetriclines.frag.glsl",
-  "wavesremix.frag.glsl"
-};
+const std::vector<Preset> g_presets =
+  {{"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          -1, -1},
+   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            -1, -1},
+   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         -1, -1},
+   {"BPM by iq",                                "bpm.frag.glsl",                    -1, -1},
+   {"Circle Wave by TekF",                      "circlewave.frag.glsl",             -1, -1},
+   {"Circuits by Kali",                         "circuits.frag.glsl",                7, -1},
+   {"Colored Bars by novalis",                  "coloredbars.frag.glsl",            -1, -1},
+   {"Cubescape by iq",                          "cubescape.frag.glsl",               5, -1},
+   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 14},
+   {"Fractal Land by Kali",                     "fractalland.frag.glsl",            13, -1},
+   {"Gameboy by iq",                            "gameboy.frag.glsl",                -1, -1},
+   {"I/O by movAX13h",                          "io.frag.glsl",                     -1, -1},
+   {"Kaleidoscope Visualizer by Qqwy",          "kaleidoscopevisualizer.frag.glsl", 15, -1},
+   {"Nyancat by mu6k",                          "nyancat.frag.glsl",                13, -1},
+   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl"              -1, -1},
+   {"Revision 2015 Livecoding Round 1 by mu6k", "revision2015.frag.glsl"            -1, -1},
+   {"Ribbons by XT95",                          "ribbons.frag.glsl",                -1, -1},
+   {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       -1, -1},
+   {"Sound Flower by iq",                       "soundflower.frag.glsl",            -1, -1},
+   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         -1, -1},
+   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       -1, -1},
+   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           -1, -1},
+   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        -1, -1},
+   {"Demo - Volumetric Lines by iq",            "volumetriclines.frag.glsl",        -1, -1},
+   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             -1, -1}};
 
-int g_channel1Presets[] {
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  7,
-  -1,
-  5,
-  2,
-  13,
-  -1,
-  -1,
-  15,
-  13,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1
-};
-
-int g_channel2Presets[] {
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  14 // I think
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1
-};
-
-int g_numberPresets = 25;
 int g_currentPreset = 0;
+char** lpresets = nullptr;
 
 const char *g_fileTextures[] = {
   "tex00.png",
@@ -551,12 +472,12 @@ GLint loadTexture(int number)
 
 void loadPreset(int number)
 {
-  if (number >= 0 && number < g_numberPresets)
+  if (number >= 0 && number < g_presets.size())
   {
     g_currentPreset = number;
 
     unloadPreset();
-    shader = createShader(g_filePresets[g_currentPreset]);
+    shader = createShader(g_presets[g_currentPreset].file);
 
     iResolutionLoc        = glGetUniformLocation(shader, "iResolution");
     iGlobalTimeLoc        = glGetUniformLocation(shader, "iGlobalTime");
@@ -570,13 +491,11 @@ void loadPreset(int number)
     iChannel2Loc          = glGetUniformLocation(shader, "iChannel2");
     iChannel3Loc          = glGetUniformLocation(shader, "iChannel3");
 
-    if (g_channel1Presets[g_currentPreset] >= 0) {
-    	iChannel1 = loadTexture(g_channel1Presets[g_currentPreset]);
-    }
+    if (g_presets[g_currentPreset].channel1 >= 0)
+      iChannel1 = loadTexture(g_presets[g_currentPreset].channel1);
 
-    if (g_channel2Presets[g_currentPreset] >= 0) {
-    	iChannel2 = loadTexture(g_channel2Presets[g_currentPreset]);
-    }
+    if (g_presets[g_currentPreset].channel2 >= 0)
+      iChannel2 = loadTexture(g_presets[g_currentPreset].channel2);
   }
 }
 
@@ -773,11 +692,11 @@ extern "C" bool OnAction(long flags, const void *param)
   {
     case VIS_ACTION_NEXT_PRESET:
       LogAction("VIS_ACTION_NEXT_PRESET");
-      loadPreset((g_currentPreset + 1)  % g_numberPresets);
+      loadPreset((g_currentPreset + 1)  % g_presets.size());
       return true;
     case VIS_ACTION_PREV_PRESET:
       LogAction("VIS_ACTION_PREV_PRESET");
-      loadPreset((g_currentPreset - 1)  % g_numberPresets);
+      loadPreset((g_currentPreset - 1)  % g_presets.size());
       return true;
     case VIS_ACTION_LOAD_PRESET:
       LogAction("VIS_ACTION_LOAD_PRESET"); // TODO param is int *
@@ -790,7 +709,7 @@ extern "C" bool OnAction(long flags, const void *param)
       break;
     case VIS_ACTION_RANDOM_PRESET:
       LogAction("VIS_ACTION_RANDOM_PRESET");
-      loadPreset((int)((std::rand() / (float)RAND_MAX) * g_numberPresets));
+      loadPreset((int)((std::rand() / (float)RAND_MAX) * g_presets.size()));
       return true;
 
     case VIS_ACTION_LOCK_PRESET:
@@ -821,10 +740,17 @@ extern "C" bool OnAction(long flags, const void *param)
 //-----------------------------------------------------------------------------
 extern "C" unsigned int GetPresets(char ***presets)
 {
-  cout << "GetPresets " << g_numberPresets << std::endl;
+  cout << "GetPresets " << g_presets.size() << std::endl;
 
-  *presets = const_cast<char**>(g_presets);
-  return g_numberPresets;
+  if (!lpresets) {
+    lpresets = new char*[g_presets.size()];
+    size_t i=0;
+    for (auto p : g_presets)
+      lpresets[i++] = const_cast<char*>(p.name.c_str());
+  }
+
+  *presets = lpresets;
+  return g_presets.size();
 }
 
 //-- GetPreset ----------------------------------------------------------------
@@ -900,6 +826,9 @@ extern "C" void ADDON_Destroy()
   cout << "ADDON_Destroy" << std::endl;
 
   unloadPreset();
+
+  if (lpresets)
+    delete[] lpresets, lpresets = nullptr;
 
   if (iChannel0) {
     glDeleteTextures(1, &iChannel0);
