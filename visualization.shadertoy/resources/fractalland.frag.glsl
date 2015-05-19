@@ -143,7 +143,8 @@ vec3 raymarch(in vec3 from, in vec3 dir)
 			d=de(p);
 			det=detail*exp(.13*totdist);
 			totdist+=d; 
-		}
+		} 
+		else { break; }
 	}
 	vec3 col=vec3(0.);
 	p-=(det-d)*dir;
