@@ -1,16 +1,11 @@
 // Taken from https://www.shadertoy.com/view/4d23Ww
 
 const float Pi = 3.14159;
-float beat = 0.;
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-	float ct = iChannelTime[0];
-	if ((ct > 8.0 && ct < 33.5)
-	|| (ct > 38.0 && ct < 88.5)
-	|| (ct > 93.0 && ct < 194.5))
-		beat = pow(sin(ct*3.1416*3.78+1.9)*0.5+0.5,15.0)*0.1;
-
+	float ct = iGlobalTime;
+	float beat = 0.3*texture2D(iChannel0,vec2(0.4,0.0)).x;
 	float scale = iResolution.y / 50.0;
 	float ring = 20.0;
 	float radius = iResolution.x*1.0;
