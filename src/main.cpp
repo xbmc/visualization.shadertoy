@@ -73,7 +73,8 @@ const std::vector<Preset> g_presets =
    {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       -1, -1},
    {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           -1, -1},
    {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        -1, -1},
-   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             -1, -1}};
+   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             -1, -1},
+   {"Circle Wave by TekF",                      "circlewave.frag.glsl",             -1, -1}};
 #else
 const std::vector<Preset> g_presets =
   {{"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          -1, -1},
