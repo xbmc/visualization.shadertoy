@@ -15,17 +15,20 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	float lineIntensity;
     float glowWidth;
     vec3 color = vec3(0.0);
-    
+    float sn0 = sin(iGlobalTime * 0.13);
+    float sn1 = sin(iGlobalTime * 0.23);
+    float cs1 = cos(iGlobalTime * 0.19);
+    float temp = texture2D(iChannel0, vec2(uvTrue.x, 1)).x - 0.5;
+
 	for(float i = 0.0; i < 5.0; i++) {
         
 		uv.y += (0.2 * sin(uv.x + i/7.0 - iGlobalTime * 0.6));
-        float Y = uv.y + getWeight(squared(i) * 20.0) *
-            (texture2D(iChannel0, vec2(uvTrue.x, 1)).x - 0.5);
+        float Y = uv.y + getWeight(squared(i) * 20.0) * temp;
         lineIntensity = 0.4 + squared(1.6 * abs(mod(uvTrue.x + i / 1.3 + iGlobalTime,2.0) - 1.0));
 		glowWidth = abs(lineIntensity / (150.0 * Y));
-		color += vec3(glowWidth * (2.0 + sin(iGlobalTime * 0.13)),
-                      glowWidth * (2.0 - sin(iGlobalTime * 0.23)),
-                      glowWidth * (2.0 - cos(iGlobalTime * 0.19)));
+		color += vec3(glowWidth * (2.0 + sn0),
+                      glowWidth * (2.0 - sn1),
+                      glowWidth * (2.0 - cs1));
 	}	
 	
 	fragColor = vec4(color, 1.0);
