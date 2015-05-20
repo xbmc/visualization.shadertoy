@@ -18,7 +18,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	uv  = -1.0 + 2.0 * uv;
 	uv.y += 0.1;
 	uv.x *= 2.;
-	const float n = 20.;
+	const float n = 10.;
 	float prev = 0.;
 	float curr = .6;
 	float next = texture2D(iChannel0, vec2(0.,0.)).r;
