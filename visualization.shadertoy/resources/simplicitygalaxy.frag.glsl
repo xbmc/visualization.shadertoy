@@ -5,12 +5,11 @@
 //Inspired by JoshP's Simplicity shader: https://www.shadertoy.com/view/lslGWr
 
 // http://www.fractalforums.com/new-theories-and-research/very-simple-formula-for-fractal-patterns/
-float field(in vec3 p,float s) {
-	float strength = 7. + .03 * log(1.e-6 + fract(sin(iGlobalTime) * 4373.11));
+float field(in vec3 p,float s, float strength) {
 	float accum = s/4.;
 	float prev = 0.;
 	float tw = 0.;
-	for (int i = 0; i < 26; ++i) {
+	for (int i = 0; i < 13; ++i) {
 		float mag = dot(p, p);
 		p = abs(p) / mag + vec3(-.5, -.4, -1.5);
 		float w = exp(-float(i) / 7.);
@@ -22,12 +21,11 @@ float field(in vec3 p,float s) {
 }
 
 // Less iterations for second layer
-float field2(in vec3 p, float s) {
-	float strength = 7. + .03 * log(1.e-6 + fract(sin(iGlobalTime) * 4373.11));
+float field2(in vec3 p, float s, float strength) {
 	float accum = s/4.;
 	float prev = 0.;
 	float tw = 0.;
-	for (int i = 0; i < 18; ++i) {
+	for (int i = 0; i < 9; ++i) {
 		float mag = dot(p, p);
 		p = abs(p) / mag + vec3(-.5, -.4, -1.5);
 		float w = exp(-float(i) / 7.);
@@ -51,7 +49,8 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     vec2 uv = 2. * fragCoord.xy / iResolution.xy - 1.;
 	vec2 uvs = uv * iResolution.xy / max(iResolution.x, iResolution.y);
 	vec3 p = vec3(uvs / 4., 0) + vec3(1., -1.3, 0.);
-	p += .2 * vec3(sin(iGlobalTime / 16.), sin(iGlobalTime / 12.),  sin(iGlobalTime / 128.));
+        vec3 temp = vec3(sin(iGlobalTime / 16.), sin(iGlobalTime / 12.),  sin(iGlobalTime / 128.));
+	p += .2 * temp;
 	
 	float freqs[4];
 	//Sound
@@ -60,13 +59,14 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 	freqs[2] = texture2D( iChannel0, vec2( 0.15, 0.25 ) ).x;
 	freqs[3] = texture2D( iChannel0, vec2( 0.30, 0.25 ) ).x;
 
-	float t = field(p,freqs[2]);
+	float strength = 7. + .03 * log(1.e-6 + fract(sin(iGlobalTime) * 4373.11));
+	float t = field(p,freqs[2],strength);
 	float v = (1. - exp((abs(uv.x) - 1.) * 6.)) * (1. - exp((abs(uv.y) - 1.) * 6.));
 	
     //Second Layer
 	vec3 p2 = vec3(uvs / (4.+sin(iGlobalTime*0.11)*0.2+0.2+sin(iGlobalTime*0.15)*0.3+0.4), 1.5) + vec3(2., -1.3, -1.);
-	p2 += 0.25 * vec3(sin(iGlobalTime / 16.), sin(iGlobalTime / 12.),  sin(iGlobalTime / 128.));
-	float t2 = field2(p2,freqs[3]);
+	p2 += 0.25 * temp;
+	float t2 = field2(p2,freqs[3],strength);
 	vec4 c2 = mix(.4, 1., v) * vec4(1.3 * t2 * t2 * t2 ,1.8  * t2 * t2 , t2* freqs[0], t2);
 	
 	
