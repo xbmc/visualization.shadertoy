@@ -1,0 +1,24 @@
+Source: kodi-visualization-shadertoy
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 8.0.0), cmake, libplatform-dev, kodi-addon-dev,
+               kodi-visualization-dev, libgl1-mesa-dev, libglew-dev,
+               automake, autoconf, libtool
+Standards-Version: 3.9.4
+Section: libs
+Homepage: http://kodi.tv
+
+Package: kodi-visualization-shadertoy
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Shadertoy visualization for Kodi
+ Shadertoy visualization for Kodi
+
+Package: kodi-visualization-shadertoy-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for Shadertoy visualization for Kodi
+ debug symbols for Shadertoy visualization for Kodi
+
