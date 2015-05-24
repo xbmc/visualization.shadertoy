@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="visualization.shadertoy"
-  version="0.0.1"
+  version="0.0.2"
   name="Shadertoy"
   provider-name="Team-Kodi">
   <extension
@@ -11,6 +11,6 @@
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Visualisations from Shadertoy</summary>
     <description lang="en">Visualisations from Shadertoy</description>
-    <platform>linux osx</platform>
+    <platform>Linux OSX</platform>
   </extension>
 </addon>
