@@ -23,5 +23,3 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 //2014 - Passion
 //References  - https://www.shadertoy.com/view/Xds3Rr
 //            - tokyodemofest.jp/2014/7lines/index.html
-
-
