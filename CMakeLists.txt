@@ -24,8 +24,7 @@ else()
   endif()
 endif()
 
-include_directories(${OpenGL_INCLUDE_DIR}
-                    ${GLEW_INCLUDE_DIR}
+include_directories(${INCLUDES}
                     ${KODI_INCLUDE_DIR}
                     ${PROJECT_SOURCE_DIR}/lib/kissfft
                     ${CMAKE_INCLUDE_PATH})
@@ -35,7 +34,7 @@ add_subdirectory(lib/kissfft)
 set(SHADERTOY_SOURCES src/lodepng.cpp
                       src/main.cpp)
 
-set(DEPLIBS ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} kissfft)
+set(DEPLIBS ${DEPLIBS} kissfft)
 
 if(APPLE)
   set(DEPLIBS ${DEPLIBS} "-framework CoreVideo")
