@@ -57,8 +57,7 @@ struct Preset {
 
 #if defined(HAS_GLES)
 const std::vector<Preset> g_presets =
-  {
-   {"Input Sound by iq",                        "input.frag.glsl",                  -1, -1},
+  {{"Input Sound by iq",                        "input.frag.glsl",                  -1, -1},
    {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            -1, -1},
    {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          -1, -1},
    {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            -1, -1},
@@ -84,6 +83,7 @@ const std::vector<Preset> g_presets =
    {"Circuits by Kali",                         "circuits.frag.glsl",                7, -1},
    {"Colored Bars by novalis",                  "coloredbars.frag.glsl",            -1, -1},
    {"Cubescape by iq",                          "cubescape.frag.glsl",               5, -1},
+   {"Electric pulse by uNiversal",              "electricpulse.frag.glsl",          -1, -1},
    {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 14},
    {"Fractal Land by Kali",                     "fractalland.frag.glsl",            13, -1},
    {"Gameboy by iq",                            "gameboy.frag.glsl",                -1, -1},
