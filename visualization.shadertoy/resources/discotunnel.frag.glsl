@@ -10,7 +10,7 @@ float tex(vec2 uv, float s)
     col = 1.0 - dot(r, r);
     
     // Add some light to the tunnel
-    vec4 n = texture2D(iChannel2, floor(uv * ntiles) / ntiles);
+    vec4 n = texture2D(iChannel1, floor(uv * ntiles) / ntiles);
     col *= mod(n.r * n.g * n.b * s + iGlobalTime * 0.1 + clamp(s, 0.0, 0.6), 1.0);    
     return clamp(col, 0.0, 1.0);
 }
@@ -32,14 +32,14 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     vec2 uv2= vec2(1.0 / r + iGlobalTime*0.25, a);
 
     // Read the sound texture
-    float sound = texture2D(iChannel0, vec2(0.01, 1.0 - r)).r;
+    float sound = texture2D(iChannel2, vec2(0.01, 1.0 - r)).r;
     sound = pow(sound, 1.5);
     
     // Calculate the colors
     vec3 c1 = vec3(0.02, 0.1, 0.02);
     vec3 c2 = mix( vec3(1.0, 0.6, 0.6), vec3(0.6, 0.6, 1.0), vec3(0.5 + 0.5 * sin(iGlobalTime*0.1)));
     vec3 c  = mix(c1, c2, r);
-    vec3 coltunnel =  sound * c * tex(uv2, sound) + ( 0.15 * texture2D(iChannel1, uv2).rgb);
+    vec3 coltunnel =  sound * c * tex(uv2, sound) + ( 0.15 * texture2D(iChannel0, uv2).rgb);
     vec3 colback   = vec3(0.05,0.05,0.05);
 
     // Mix the colors
