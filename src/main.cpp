@@ -52,28 +52,29 @@ struct Preset {
   std::string name;
   std::string file;
   int channel[4];
+  float fps;
 };
 
 #if defined(HAS_GLES)
 const std::vector<Preset> g_presets =
   {
-   {"Input Sound by iq",                        "input.frag.glsl",                  99, -1, -1, -1},
-   {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            99, -1, -1, -1},
-   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
-   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
-   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
-   {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1},
-   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 13, 99, -1},
-   {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
-   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1},
-   {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       99, -1, -1, -1},
-   {"Sound Flower by iq",                       "soundflower.frag.glsl",            99, -1, -1, -1},
-   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         99, -1, -1, -1},
-   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       99, -1, -1, -1},
-   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           99, -1, -1, -1},
-   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        99, -1, -1, -1},
-   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             99, -1, -1, -1},
-   {"Circle Wave by TekF",                      "circlewave.frag.glsl",             99, -1, -1, -1}};
+   {"Input Sound by iq",                        "input.frag.glsl",                  99, -1, -1, -1, 50},
+   {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            99, -1, -1, -1, 15},
+   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1, 1},
+   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1, 4},
+   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1, 24},
+   {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1, 26},
+   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 13, 99, -1, 13},
+   {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1, 12},
+   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1, 11},
+   {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       99, -1, -1, -1, 3},
+   {"Sound Flower by iq",                       "soundflower.frag.glsl",            99, -1, -1, -1, 20},
+   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         99, -1, -1, -1, 5},
+   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       99, -1, -1, -1, 40},
+   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           99, -1, -1, -1, 6},
+   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        99, -1, -1, -1, 6},
+   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             99, -1, -1, -1, 9},
+   {"Circle Wave by TekF",                      "circlewave.frag.glsl",             99, -1, -1, -1, 6}};
 #else
 const std::vector<Preset> g_presets =
   {{"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
@@ -214,6 +215,7 @@ float linearToDecibels(float linear) {
 
 GLuint createTexture(GLint format, unsigned int w, unsigned int h, const GLvoid * data) {
   GLuint texture = 0;
+  glActiveTexture(GL_TEXTURE0);
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
 
@@ -473,6 +475,14 @@ void unloadPreset() {
     shader = 0;
   }
 #if defined(HAS_GLES)
+  if (state->framebuffer_texture)
+  {
+    glDeleteTextures(1, &state->framebuffer_texture);
+  }
+  if (state->effect_fb)
+  {
+    glDeleteFramebuffers(1, &state->effect_fb);
+  }
   if (state->render_program) {
     glDeleteProgram(state->render_program);
     state->render_program = 0;
@@ -551,6 +561,34 @@ void loadPreset(int number)
       if (g_presets[g_currentPreset].channel[i] >= 0)
         iChannel[i] = loadTexture(g_presets[g_currentPreset].channel[i]);
     }
+#if 0
+    state->fbwidth = width, state->fbwidth = height;
+#else
+    state->fbwidth = state->fbheight = 0;
+    float expected_fps = g_presets[g_currentPreset].fps * 1920 * 1080 / (width * height);
+    if (g_presets[g_currentPreset].fps && expected_fps < 30.0f) {
+      float A = 15e-3; // time taken for render from offscreen to onscreen 
+      float pixels = (1/30.0f - A) * expected_fps * width * height;
+      state->fbwidth = sqrtf(pixels * width / height);
+      state->fbheight = state->fbwidth * height / width;
+printf("expected fps=%f, pixels=%f %dx%d\n", expected_fps, pixels, state->fbwidth, state->fbheight);      
+    }
+#endif
+    if (state->fbwidth && state->fbheight)
+    {
+      // Prepare a texture to render to
+      glActiveTexture(GL_TEXTURE0);
+      glGenTextures(1, &state->framebuffer_texture);
+      glBindTexture(GL_TEXTURE_2D, state->framebuffer_texture);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, state->fbwidth, state->fbheight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+      // Prepare a framebuffer for rendering
+      glGenFramebuffers(1, &state->effect_fb);
+      glBindFramebuffer(GL_FRAMEBUFFER, state->effect_fb);
+      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, state->framebuffer_texture, 0);
+      glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
   }
 }
 
@@ -583,6 +621,7 @@ extern "C" void Render()
     if (needsUpload) {
       for (int i=0; i<4; i++) {
         if (g_presets[g_currentPreset].channel[i] == 99) {
+          glActiveTexture(GL_TEXTURE0 + i);
           glBindTexture(GL_TEXTURE_2D, iChannel[i]);
           glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, NUM_BANDS, 2, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, audio_data);
         }
@@ -675,18 +714,10 @@ extern "C" void Render()
 #if !defined(HAS_GLES)
     glPopMatrix();
 #endif
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glActiveTexture(GL_TEXTURE3);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
+    for (int i=0; i<4; i++) {
+      glActiveTexture(GL_TEXTURE0 + i);
+      glBindTexture(GL_TEXTURE_2D, 0);
+    }
 #if !defined(HAS_GLES)
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
@@ -913,20 +944,6 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     glGenBuffers(1, &state->vertex_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, state->vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
-    if (state->fbwidth && state->fbheight)
-    {
-      // Prepare a texture to render to
-      glGenTextures(1, &state->framebuffer_texture);
-      glBindTexture(GL_TEXTURE_2D, state->framebuffer_texture);
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, state->fbwidth, state->fbheight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
-      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      // Prepare a framebuffer for rendering
-      glGenFramebuffers(1, &state->effect_fb);
-      glBindFramebuffer(GL_FRAMEBUFFER, state->effect_fb);
-      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, state->framebuffer_texture, 0);
-      glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    }
 #endif
 
     loadPreset(g_currentPreset);
@@ -983,14 +1000,6 @@ extern "C" void ADDON_Destroy()
   }
 #if defined(HAS_GLES)
   glDeleteBuffers(1, &state->vertex_buffer);
-  if (state->framebuffer_texture)
-  {
-    glDeleteTextures(1, &state->framebuffer_texture);
-  }
-  if (state->effect_fb)
-  {
-    glDeleteFramebuffers(1, &state->effect_fb);
-  }
 #endif
 
   initialized = false;
