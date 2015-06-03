@@ -20,7 +20,7 @@
 
 #pragma comment(lib, "d3dcompiler.lib")
 
-#include "kodi/xbmc_vis_dll.h"
+#include "xbmc_vis_dll.h"
 #include <d3d11.h>
 #include <DirectXMath.h>
 #include <d3dcompiler.h>

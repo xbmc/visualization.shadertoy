@@ -18,7 +18,7 @@
  *
  */
 
-#include "kodi/xbmc_vis_dll.h"
+#include "xbmc_vis_dll.h"
 #if defined(HAS_GLES)
 #include <GLES2/gl2.h>
 #include <EGL/egl.h>
