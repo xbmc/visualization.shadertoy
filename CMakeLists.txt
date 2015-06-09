@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 2.6)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
 find_package(kodi REQUIRED)
+find_package(platform REQUIRED)
 
 add_subdirectory(lib/kissfft)
 
@@ -32,6 +33,7 @@ if (NOT WIN32)
   include_directories(${OpenGL_INCLUDE_DIR}
                       ${GLEW_INCLUDE_DIR}
                       ${KODI_INCLUDE_DIR}
+                      ${platform_INCLUDE_DIRS}
                       ${PROJECT_SOURCE_DIR}/lib/kissfft
                       ${CMAKE_INCLUDE_PATH})
 
@@ -43,6 +45,7 @@ if (NOT WIN32)
 
 elseif(WIN32)
   include_directories(${KODI_INCLUDE_DIR}
+                      ${platform_INCLUDE_DIRS}
                       ${PROJECT_SOURCE_DIR}/lib/kissfft
                       ${CMAKE_INCLUDE_PATH})
 
