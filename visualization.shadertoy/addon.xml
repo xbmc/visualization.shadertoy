@@ -7,10 +7,11 @@
   <extension
     point="xbmc.player.musicviz"
     library_linux="visualization.shadertoy.so"
+    library_windx="visualization.shadertoy.dll"
     library_osx="visualization.shadertoy.dylib"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Visualisations from Shadertoy</summary>
     <description lang="en">Visualisations from Shadertoy</description>
-    <platform>linux osx</platform>
+    <platform>linux osx windx</platform>
   </extension>
 </addon>
