@@ -56,9 +56,7 @@
 
 using namespace DirectX;
 
-std::string g_pathPresets;
-
-typedef enum GLenum {
+typedef enum ShaderType {
   VERTEX_SHADER,
   PIXEL_SHADER
 };
@@ -66,8 +64,7 @@ typedef enum GLenum {
 struct Preset {
   std::string name;
   std::string file;
-  int channel1;
-  int channel2;
+  int channel[4];
 };
 
 struct MYVERTEX {
@@ -75,25 +72,32 @@ struct MYVERTEX {
   float u, v;
 };
 
-const std::vector<Preset> g_presets =
-{
-   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          -1, -1},
-   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            -1, -1},
-   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         -1, -1},
-   {"BPM by iq",                                "bpm.frag.glsl",                    -1, -1},
-   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             -1, -1},
-   {"Sound Flower by iq",                       "soundflower.frag.glsl",            -1, -1},
-   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         -1, -1},
-   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       -1, -1},
-   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           -1, -1},
-   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        -1, -1},
-   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             -1, -1},
+struct Params {
+  XMFLOAT3 iResolution;
+  float    iGlobalTime;
+  XMFLOAT4 iChannelTime;
+  XMFLOAT4 iMouse;
+  XMFLOAT4 iDate;
+  float    iSampleRate;
+  XMFLOAT3 iChannelResolution[4];
 };
 
-int g_numberPresets = g_presets.size();
-int g_currentPreset = 0;
-char** lpresets = nullptr;
-
+const std::vector<Preset> g_presets =
+{
+   {"2D LED Spectrum by uNiversal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
+   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
+   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
+   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
+   {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1},
+   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 14, 99, -1},
+   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1},
+   {"Sound Flower by iq",                       "soundflower.frag.glsl",            99, -1, -1, -1},
+   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         99, -1, -1, -1},
+   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       99, -1, -1, -1},
+   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           99, -1, -1, -1},
+   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        99, -1, -1, -1},
+   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             99, -1, -1, -1},
+};
 const char *g_fileTextures[] = {
   "tex00.png",
   "tex01.png",
@@ -113,28 +117,40 @@ const char *g_fileTextures[] = {
   "tex16.png"
 };
 
-int g_numberTextures = 17;
-ID3D11Texture2D*     g_textures[17] = { };
-ID3D11Device*        g_pDevice = nullptr;
-ID3D11DeviceContext* g_pContext = nullptr;
-ID3D11InputLayout*   g_pInputLayout = nullptr;
-ID3D11Buffer*        g_pCBParams = nullptr;
-ID3D11Buffer*        g_pVBuffer = nullptr;
-ID3D11VertexShader*  g_pVShader = nullptr;
+std::string g_pathPresets;
+int g_numberPresets = g_presets.size();
+int g_currentPreset = 0;
+char** lpresets = nullptr;
+int g_numberTextures = ARRAYSIZE(g_fileTextures);
+bool initialized = false;
+bool needsUpload = true;
 
-void LogProps(VIS_PROPS *props) {
-  std::cout << "Props = {" << std::endl
-    << "\t x: " << props->x << std::endl
-    << "\t y: " << props->y << std::endl
-    << "\t width: " << props->width << std::endl
-    << "\t height: " << props->height << std::endl
-    << "\t pixelRatio: " << props->pixelRatio << std::endl
-    << "\t name: " << props->name << std::endl
-    << "\t presets: " << props->presets << std::endl
-    << "\t profile: " << props->profile << std::endl
-//       << "\t submodule: " << props->submodule << endl // Causes problems? Is it initialized?
-    << "}" << std::endl;
-}
+// directx related vars
+ID3D11Device*             g_pDevice = nullptr;
+ID3D11DeviceContext*      g_pContext = nullptr;
+ID3D11InputLayout*        g_pInputLayout = nullptr;
+ID3D11Buffer*             g_pCBParams = nullptr;
+ID3D11Buffer*             g_pVBuffer = nullptr;
+ID3D11VertexShader*       g_pVShader = nullptr;
+ID3D11PixelShader*        g_pPShader = nullptr;
+ID3D11ShaderResourceView* iChannelView[4] = { nullptr, nullptr, nullptr, nullptr };
+ID3D11SamplerState*       iChannelSampler[4] = { nullptr, nullptr, nullptr, nullptr };
+ID3D11Texture2D*          pAudioTexture = nullptr;
+ID3D11ShaderResourceView* pAudioView = nullptr;
+ID3D11ShaderResourceView* pNoiseView = nullptr;
+ID3D11ShaderResourceView* pBackBuffer = nullptr;
+ID3D11SamplerState*       pNoiseSampler = nullptr;
+ID3D11SamplerState*       pAudioSampler = nullptr;
+Params                    cbParams;
+
+// kiss related vars
+kiss_fft_cfg cfg;
+float *pcm = NULL;
+float *magnitude_buffer = NULL;
+byte *audio_data = NULL;
+int samplesPerSec = 0;
+int width = 0;
+int height = 0;
 
 void LogTrack(VisTrack *track) {
   std::cout << "Track = {" << std::endl
@@ -154,11 +170,9 @@ void LogTrack(VisTrack *track) {
 }
 
 void LogAction(const char *message) {
-  std::cout << "Action " << message << std::endl;
 }
 
 void LogActionString(const char *message, const char *param) {
-  std::cout << "Action " << message << " " << param << std::endl;
 }
 
 float blackmanWindow(float in, size_t i, size_t length) {
@@ -218,11 +232,9 @@ HRESULT createTexture(const char *file, DXGI_FORMAT internalFormat, D3D11_FILTER
   ss << g_pathPresets << "/resources/" << file;
   std::string fullPath = ss.str();
 
-  std::cout << "creating texture " << fullPath << std::endl;
-
-  const size_t cSize = strlen(file) + 1;
+  const size_t cSize = fullPath.length() + 1;
   std::wstring wfile(cSize, L'#');
-  mbstowcs(&wfile[0], file, cSize);
+  mbstowcs(&wfile[0], fullPath.c_str(), cSize);
 
   HRESULT hr = CreateWICTextureFromFile(g_pDevice, wfile.c_str(), reinterpret_cast<ID3D11Resource**>(ppTexture), ppView);
   if (FAILED(hr))
@@ -248,14 +260,12 @@ HRESULT createTexture(const char *file, DXGI_FORMAT internalFormat, D3D11_FILTER
       SAFE_RELEASE(*ppTexture);
     if (ppView != nullptr)
       SAFE_RELEASE(*ppView);
-
-    return hr;
   }
 
   return hr;
 }
 
-HRESULT compileShader(GLenum shaderType, const char *shader, size_t srcSize, ID3DBlob** ppBlob)
+HRESULT compileShader(ShaderType shaderType, const char *shader, size_t srcSize, ID3DBlob** ppBlob)
 {
   ID3DBlob *pErrors = nullptr;
   HRESULT hr;
@@ -264,13 +274,13 @@ HRESULT compileShader(GLenum shaderType, const char *shader, size_t srcSize, ID3
                   shaderType == PIXEL_SHADER ? "ps_4_0_level_9_3" : "vs_4_0_level_9_1", 
                   0, 0, ppBlob, &pErrors);
 
-  if (FAILED(hr)) {
-    SAFE_RELEASE(pErrors);
-    return hr;
+  if (FAILED(hr))
+  {
+    // TODO log errors
   }
 
   SAFE_RELEASE(pErrors);
-  return S_OK;
+  return hr;
 }
 
 const std::string vsSource = SHADER_SOURCE(
@@ -375,40 +385,46 @@ std::string fsFooter = SHADER_SOURCE(
   fragCoord.x *= (iResolution.x - 0.5);
   fragCoord.y *= (iResolution.y - 0.5);
   mainImage(color, fragCoord);
-  //color.w = 1.0;\n"
+  color.w = 1.0;
 }
 );
 
+float fCubicInterpolate(float y0, float y1, float y2, float y3, float t)
+{
+  float a0, a1, a2, a3, t2;
 
-bool initialized = false;
+  t2 = t*t;
+  a0 = y3 - y2 - y0 + y1;
+  a1 = y0 - y1 - a0;
+  a2 = y2 - y0;
+  a3 = y1;
 
-ID3D11PixelShader* shader = nullptr;
+  return(a0*t*t2 + a1*t2 + a2*t + a3);
+}
 
-struct Params {
-  XMFLOAT3 iResolution;
-  float    iGlobalTime;
-  XMFLOAT4 iChannelTime;
-  XMFLOAT4 iMouse;
-  XMFLOAT4 iDate;
-  float    iSampleRate;
-  XMFLOAT3 iChannelResolution[4];
-};
-
-ID3D11Texture2D*          iChannel[4]        = { nullptr, nullptr, nullptr, nullptr };
-ID3D11ShaderResourceView* iChannelView[4]    = { nullptr, nullptr, nullptr, nullptr };
-ID3D11SamplerState*       iChannelSampler[4] = { nullptr, nullptr, nullptr, nullptr };
-Params                    cbParams;
-
-bool needsUpload = true;
-
-kiss_fft_cfg cfg;
-
-float *pcm = NULL;
-float *magnitude_buffer = NULL;
-byte *audio_data = NULL;
-int samplesPerSec = 0;
-int width = 0;
-int height = 0;
+DWORD dwCubicInterpolate(DWORD y0, DWORD y1, DWORD y2, DWORD y3, float t)
+{
+  // performs cubic interpolation on a D3DCOLOR value.
+  DWORD ret = 0;
+  DWORD shift = 0;
+  for (int i = 0; i<4; i++)
+  {
+    float f = fCubicInterpolate(
+      ((y0 >> shift) & 0xFF) / 255.0f,
+      ((y1 >> shift) & 0xFF) / 255.0f,
+      ((y2 >> shift) & 0xFF) / 255.0f,
+      ((y3 >> shift) & 0xFF) / 255.0f,
+      t
+      );
+    if (f<0)
+      f = 0;
+    if (f>1)
+      f = 1;
+    ret |= ((DWORD)(f * 255)) << shift;
+    shift += 8;
+  }
+  return ret;
+}
 
 HRESULT dxInit(ID3D11DeviceContext* pContex)
 {
@@ -455,16 +471,160 @@ HRESULT dxInit(ID3D11DeviceContext* pContex)
   if (FAILED(hr = g_pDevice->CreateBuffer(&bDesc, &srData, &g_pCBParams)))
     return hr;
 
+  // create audio buffer
+  createTexture(DXGI_FORMAT_R8_UNORM, NUM_BANDS, 2, nullptr, 0, &pAudioTexture, &pAudioView);
+
   D3D11_SAMPLER_DESC sampDesc;
   ZeroMemory(&sampDesc, sizeof(D3D11_SAMPLER_DESC));
-  sampDesc.Filter = D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT;
-  sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
-  sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
-  sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+  sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+  sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_MIRROR;
+  sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_MIRROR;
+  sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_MIRROR;
   sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
   sampDesc.MinLOD = 0;
   sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-  g_pDevice->CreateSamplerState(&sampDesc, &iChannelSampler[0]);
+  g_pDevice->CreateSamplerState(&sampDesc, &pAudioSampler);
+
+  sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+  sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_MIRROR;
+  sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_MIRROR;
+  sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_MIRROR;
+  g_pDevice->CreateSamplerState(&sampDesc, &pNoiseSampler);
+
+  ID3D11DeviceContext* pCtx = nullptr;
+  g_pDevice->GetImmediateContext(&pCtx);
+
+  // create noise buffer
+  ID3D11Texture2D* pNoise = nullptr;
+  int size = 256, zoom_factor = 1;
+  createTexture(DXGI_FORMAT_B8G8R8A8_UNORM, size, size, nullptr, 0, &pNoise, &pNoiseView);
+
+  // generate noise data (from MilkDrop)
+  if (pNoise)
+  {
+    D3D11_MAPPED_SUBRESOURCE r;
+    if (FAILED(hr = pCtx->Map(pNoise, 0, D3D11_MAP_WRITE_DISCARD, 0, &r)))
+    {
+      SAFE_RELEASE(pCtx);
+      return hr;
+    }
+
+    // write to the bits...
+    DWORD* dst = (DWORD*)r.pData;
+    int dwords_per_line = r.RowPitch / sizeof(DWORD);
+    int RANGE = 256;
+    for (int y = 0; y<size; y++) {
+      LARGE_INTEGER q;
+      QueryPerformanceCounter(&q);
+      srand(q.LowPart ^ q.HighPart ^ rand());
+      int x;
+      for (x = 0; x<size; x++) {
+        dst[x] = (((DWORD)(rand() % RANGE) + RANGE / 2) << 24) |
+          (((DWORD)(rand() % RANGE) + RANGE / 2) << 16) |
+          (((DWORD)(rand() % RANGE) + RANGE / 2) << 8) |
+          (((DWORD)(rand() % RANGE) + RANGE / 2));
+      }
+      // swap some pixels randomly, to improve 'randomness'
+      for (x = 0; x<256; x++)
+      {
+        int x1 = (rand() ^ q.LowPart) % size;
+        int x2 = (rand() ^ q.HighPart) % size;
+        DWORD temp = dst[x2];
+        dst[x2] = dst[x1];
+        dst[x1] = temp;
+      }
+      dst += dwords_per_line;
+    }
+
+    // smoothing
+    if (zoom_factor > 1)
+    {
+      // first go ACROSS, blending cubically on X, but only on the main lines.
+      DWORD* dst = (DWORD*)r.pData;
+      for (int y = 0; y<size; y += zoom_factor)
+        for (int x = 0; x<size; x++)
+          if (x % zoom_factor)
+          {
+            int base_x = (x / zoom_factor)*zoom_factor + size;
+            int base_y = y*dwords_per_line;
+            DWORD y0 = dst[base_y + ((base_x - zoom_factor) % size)];
+            DWORD y1 = dst[base_y + ((base_x) % size)];
+            DWORD y2 = dst[base_y + ((base_x + zoom_factor) % size)];
+            DWORD y3 = dst[base_y + ((base_x + zoom_factor * 2) % size)];
+
+            float t = (x % zoom_factor) / (float)zoom_factor;
+
+            DWORD result = dwCubicInterpolate(y0, y1, y2, y3, t);
+
+            dst[y*dwords_per_line + x] = result;
+          }
+
+      // next go down, doing cubic interp along Y, on every line.
+      for (int x = 0; x<size; x++)
+        for (int y = 0; y<size; y++)
+          if (y % zoom_factor)
+          {
+            int base_y = (y / zoom_factor)*zoom_factor + size;
+            DWORD y0 = dst[((base_y - zoom_factor) % size)*dwords_per_line + x];
+            DWORD y1 = dst[((base_y) % size)*dwords_per_line + x];
+            DWORD y2 = dst[((base_y + zoom_factor) % size)*dwords_per_line + x];
+            DWORD y3 = dst[((base_y + zoom_factor * 2) % size)*dwords_per_line + x];
+
+            float t = (y % zoom_factor) / (float)zoom_factor;
+
+            DWORD result = dwCubicInterpolate(y0, y1, y2, y3, t);
+
+            dst[y*dwords_per_line + x] = result;
+          }
+    }
+
+    pCtx->Unmap(pNoise, 0);
+    pNoise->Release();
+  }
+
+  // create back buffer
+  ID3D11RenderTargetView* pRTView = nullptr;
+  g_pContext->OMGetRenderTargets(1, &pRTView, nullptr);
+  if (pRTView != nullptr)
+  {
+    ID3D11Resource* pResource = nullptr;
+    pRTView->GetResource(&pResource);
+    pRTView->Release();
+
+    if (pResource == nullptr)
+      return E_FAIL;
+
+    ID3D11Texture2D* pRTTexture = nullptr;
+    hr = pResource->QueryInterface(__uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&pRTTexture));
+    if (FAILED(hr))
+    {
+      pResource->Release();
+      return hr;
+    }
+
+    D3D11_TEXTURE2D_DESC texDesc;
+    pRTTexture->GetDesc(&texDesc);
+    texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+    pRTTexture->Release();
+
+    ID3D11Texture2D* pCopyTexture = nullptr;
+    hr = g_pDevice->CreateTexture2D(&texDesc, nullptr, &pCopyTexture);
+    if (FAILED(hr))
+    {
+      pResource->Release();
+      return hr;
+    }
+
+    pCtx->CopyResource(pCopyTexture, pResource);
+    pResource->Release();
+
+    CD3D11_SHADER_RESOURCE_VIEW_DESC srvDesc(pCopyTexture, D3D11_SRV_DIMENSION_TEXTURE2D);
+    hr = g_pDevice->CreateShaderResourceView(pCopyTexture, &srvDesc, &pBackBuffer);
+
+    pCopyTexture->Release();
+  }
+
+  SAFE_RELEASE(pCtx);
 
   return hr;
 }
@@ -472,27 +632,11 @@ HRESULT dxInit(ID3D11DeviceContext* pContex)
 
 void unloadPreset() 
 {
-  SAFE_RELEASE(shader);
-
-  if (iChannel[1]) {
-    std::cout << "Unloading iChannel1 " << iChannel[1] << std::endl;
-    SAFE_RELEASE(iChannelSampler[1]);
-    SAFE_RELEASE(iChannelView[1]);
-    SAFE_RELEASE(iChannel[1]);
-  }
-
-  if (iChannel[2]) {
-    std::cout << "Unloading iChannel2 " << iChannel[2] << std::endl;
-    SAFE_RELEASE(iChannelSampler[2]);
-    SAFE_RELEASE(iChannelView[2]);
-    SAFE_RELEASE(iChannel[2]);
-  }
-
-  if (iChannel[3]) {
-    std::cout << "Unloading iChannel3 " << iChannel[3] << std::endl;
-    SAFE_RELEASE(iChannelSampler[3]);
-    SAFE_RELEASE(iChannelView[3]);
-    SAFE_RELEASE(iChannel[3]);
+  SAFE_RELEASE(g_pPShader);
+  for (size_t i = 0; i < 4; i++)
+  {
+    SAFE_RELEASE(iChannelSampler[i]);
+    SAFE_RELEASE(iChannelView[i]);
   }
 }
 
@@ -502,8 +646,6 @@ HRESULT createShader(const std::string &file, ID3D11PixelShader** ppPShader)
   std::ostringstream ss;
   ss << g_pathPresets << "/resources/" << file;
   std::string fullPath = ss.str();
-
-  std::cout << "Creating shader from " << fullPath << std::endl;
 
   FILE* f;
   f = fopen(fullPath.c_str(), "r");
@@ -535,18 +677,56 @@ HRESULT createShader(const std::string &file, ID3D11PixelShader** ppPShader)
 
 HRESULT loadTexture(int number, ID3D11Texture2D** ppTexture, ID3D11ShaderResourceView** ppView = nullptr, ID3D11SamplerState** ppSState = nullptr)
 {
-  if (number >= 0 && number < g_numberTextures) {
+  if (number == 99) // audio
+  {
+    if (ppView != nullptr)
+    {
+      *ppView = pAudioView;
+      pAudioView->AddRef();
+    }
+    if (ppSState != nullptr)
+    {
+      *ppSState = pAudioSampler;
+      pAudioSampler->AddRef();
+    }
+    return S_OK;
+  }
+
+  if (number == 98) // noise
+  {
+    if (ppView != nullptr)
+    {
+      *ppView = pNoiseView;
+      pNoiseView->AddRef();
+    }
+    if (ppSState != nullptr)
+    {
+      *ppSState = pNoiseSampler;
+      pNoiseSampler->AddRef();
+    }
+    return S_OK;
+  }
+
+  if (number == 97) // back buffer
+  {
+    if (ppView != nullptr)
+    {
+      *ppView = pBackBuffer;
+      pBackBuffer->AddRef();
+    }
+    if (ppSState != nullptr)
+    {
+      *ppSState = pNoiseSampler;
+      pNoiseSampler->AddRef();
+    }
+    return S_OK;
+  }
+
+  // texture
+  if (number >= 0 && number < g_numberTextures)
+  {
     D3D11_FILTER scaling = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
     D3D11_TEXTURE_ADDRESS_MODE address = D3D11_TEXTURE_ADDRESS_CLAMP;
-
-    if (number == 15 || number == 16) {
-      scaling = D3D11_FILTER_MIN_MAG_MIP_POINT;
-    }
-
-    if (number == 16) {
-      address = D3D11_TEXTURE_ADDRESS_MIRROR;
-    }
-
     return createTexture(g_fileTextures[number], DXGI_FORMAT_B8G8R8A8_UNORM, scaling, address, ppTexture, ppView, ppSState);
   }
 
@@ -560,17 +740,14 @@ void loadPreset(int number)
     g_currentPreset = number;
 
     unloadPreset();
-    if (FAILED(createShader(g_presets[g_currentPreset].file, &shader)))
+    if (FAILED(createShader(g_presets[g_currentPreset].file, &g_pPShader)))
     {
       // TODO fallback to default
     }
 
-    if (g_presets[g_currentPreset].channel1 >= 0) {
-      loadTexture(g_presets[g_currentPreset].channel1, &iChannel[1], &iChannelView[1], &iChannelSampler[1]);
-    }
-
-    if (g_presets[g_currentPreset].channel2 >= 0) {
-      loadTexture(g_presets[g_currentPreset].channel1, &iChannel[2], &iChannelView[2], &iChannelSampler[2]);
+    for (size_t i = 0; i < 4; i++)
+    {
+      loadTexture(g_presets[g_currentPreset].channel[i], nullptr, &iChannelView[i], &iChannelSampler[i]);
     }
   }
 }
@@ -582,18 +759,19 @@ extern "C" void Render()
 {
   if (initialized) 
   {
-    g_pContext->PSSetShaderResources(0, ARRAYSIZE(iChannelView), iChannelView);
-    if (needsUpload) {
+    if (needsUpload) 
+    {
       D3D11_MAPPED_SUBRESOURCE res = {};
-      if (SUCCEEDED(g_pContext->Map(iChannel[0], 0, D3D11_MAP_WRITE_DISCARD, 0, &res)))
+      if (SUCCEEDED(g_pContext->Map(pAudioTexture, 0, D3D11_MAP_WRITE_DISCARD, 0, &res)))
       {
         memcpy(res.pData, audio_data, AUDIO_BUFFER);
-        g_pContext->Unmap(iChannel[0], 0);
+        g_pContext->Unmap(pAudioTexture, 0);
       }
     }
 
     g_pContext->VSSetShader(g_pVShader, nullptr, 0);
-    g_pContext->PSSetShader(shader, nullptr, 0);
+    g_pContext->PSSetShader(g_pPShader, nullptr, 0);
+    g_pContext->PSSetShaderResources(0, ARRAYSIZE(iChannelView), iChannelView);
 
     float t = (float)PLATFORM::GetTimeMs() / 1000.0f;
     time_t now = time(NULL);
@@ -603,7 +781,7 @@ extern "C" void Render()
     float day = ltm->tm_mday;
     float sec = (ltm->tm_hour * 60 * 60) + (ltm->tm_min * 60) + ltm->tm_sec;
 
-    cbParams.iResolution  = XMFLOAT3( (float)width, (float)height, 0.0f );
+    cbParams.iResolution  = XMFLOAT3((float)width, (float)height, (float)width / (float)height);
     cbParams.iGlobalTime  = t;
     cbParams.iSampleRate  = samplesPerSec;
     cbParams.iChannelTime = XMFLOAT4(t, t, t, t);
@@ -632,7 +810,6 @@ extern "C" void Render()
 
 extern "C" void Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, const char* szSongName)
 {
-  std::cout << "Start " << iChannels << " " << iSamplesPerSec << " " << iBitsPerSample << " " << szSongName << std::endl;
   samplesPerSec = iSamplesPerSec;
 }
 
@@ -703,7 +880,6 @@ extern "C" void AudioData(const float* pAudioData, int iAudioDataLength, float *
 //-----------------------------------------------------------------------------
 extern "C" void GetInfo(VIS_INFO *pInfo)
 {
-  std::cout << "GetInfo" << std::endl;
   pInfo->bWantsFreq = false;
   pInfo->iSyncDelay = 0;
 }
@@ -714,7 +890,6 @@ extern "C" void GetInfo(VIS_INFO *pInfo)
 //-----------------------------------------------------------------------------
 extern "C" unsigned int GetSubModules(char ***names)
 {
-  std::cout << "GetSubModules" << std::endl;
   return 0; // this vis supports 0 sub modules
 }
 
@@ -775,8 +950,6 @@ extern "C" bool OnAction(long flags, const void *param)
 //-----------------------------------------------------------------------------
 extern "C" unsigned int GetPresets(char ***presets)
 {
-  std::cout << "GetPresets " << g_numberPresets << std::endl;
-
   if (!lpresets) 
   {
     lpresets = new char*[g_presets.size()];
@@ -802,7 +975,6 @@ extern "C" unsigned GetPreset()
 //-----------------------------------------------------------------------------
 extern "C" bool IsLocked()
 {
-  std::cout << "IsLocked" << std::endl;
   return false;
 }
 
@@ -811,10 +983,7 @@ extern "C" bool IsLocked()
 //-----------------------------------------------------------------------------
 ADDON_STATUS ADDON_Create(void* hdl, void* props)
 {
-  std::cout << "ADDON_Create" << std::endl;
   VIS_PROPS *p = (VIS_PROPS *)props;
-
-  LogProps(p);
 
   g_pathPresets = p->presets;
   width = p->width;
@@ -828,14 +997,11 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
   if (S_OK != dxInit(reinterpret_cast<ID3D11DeviceContext*>(p->device))) 
   {
-	  std::cout << "Failed to initialize dx";
     return ADDON_STATUS_PERMANENT_FAILURE;
   }
 
   if (!initialized)
   {
-    createTexture(DXGI_FORMAT_R8_UNORM, NUM_BANDS, 2, audio_data, sizeof(byte) * AUDIO_BUFFER,
-                  &iChannel[0], &iChannelView[0]);
     loadPreset(g_currentPreset);
     initialized = true;
   }
@@ -852,7 +1018,6 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 //-----------------------------------------------------------------------------
 extern "C" void ADDON_Stop()
 {
-  std::cout << "ADDON_Stop" << std::endl;
 }
 
 //-- Destroy ------------------------------------------------------------------
@@ -861,18 +1026,17 @@ extern "C" void ADDON_Stop()
 //-----------------------------------------------------------------------------
 extern "C" void ADDON_Destroy()
 {
-  std::cout << "ADDON_Destroy" << std::endl;
-
   unloadPreset();
 
   if (lpresets)
     delete[] lpresets, lpresets = nullptr;
 
-  if (iChannel[0]) {
-    SAFE_RELEASE(iChannel[0]);
-    SAFE_RELEASE(iChannelView[0]);
-    SAFE_RELEASE(iChannelSampler[0]);
-  }
+  SAFE_RELEASE(pAudioView);
+  SAFE_RELEASE(pAudioTexture);
+  SAFE_RELEASE(pNoiseView);
+  SAFE_RELEASE(pBackBuffer);
+  SAFE_RELEASE(pNoiseSampler);
+  SAFE_RELEASE(pAudioSampler);
 
   if (audio_data) {
     delete [] audio_data;
@@ -909,7 +1073,6 @@ extern "C" void ADDON_Destroy()
 //-----------------------------------------------------------------------------
 extern "C" bool ADDON_HasSettings()
 {
-  std::cout << "ADDON_HasSettings" << std::endl;
   return true;
 }
 
@@ -919,7 +1082,6 @@ extern "C" bool ADDON_HasSettings()
 //-----------------------------------------------------------------------------
 extern "C" ADDON_STATUS ADDON_GetStatus()
 {
-  std::cout << "ADDON_GetStatus" << std::endl;
   return ADDON_STATUS_OK;
 }
 
@@ -929,7 +1091,6 @@ extern "C" ADDON_STATUS ADDON_GetStatus()
 //-----------------------------------------------------------------------------
 extern "C" unsigned int ADDON_GetSettings(ADDON_StructSetting ***sSet)
 {
-  std::cout << "ADDON_GetSettings" << std::endl;
   return 0;
 }
 
@@ -940,7 +1101,6 @@ extern "C" unsigned int ADDON_GetSettings(ADDON_StructSetting ***sSet)
 
 extern "C" void ADDON_FreeSettings()
 {
-  std::cout << "ADDON_FreeSettings" << std::endl;
 }
 
 //-- SetSetting ---------------------------------------------------------------
@@ -949,7 +1109,6 @@ extern "C" void ADDON_FreeSettings()
 //-----------------------------------------------------------------------------
 extern "C" ADDON_STATUS ADDON_SetSetting(const char *strSetting, const void* value)
 {
-  std::cout << "ADDON_SetSetting " << strSetting << std::endl;
   if (!strSetting || !value)
     return ADDON_STATUS_UNKNOWN;
 
@@ -960,7 +1119,6 @@ extern "C" ADDON_STATUS ADDON_SetSetting(const char *strSetting, const void* val
   // d) Writes into const setting and value...
   if (strcmp(strSetting, "###GetSavedSettings") == 0)
   {
-    std::cout << "WTF...." << std::endl;
     if (strcmp((char*)value, "0") == 0)
     {
       strcpy((char*)strSetting, "lastpresetidx");
@@ -976,7 +1134,6 @@ extern "C" ADDON_STATUS ADDON_SetSetting(const char *strSetting, const void* val
 
   if (strcmp(strSetting, "lastpresetidx") == 0)
   {
-    std::cout << "lastpresetidx = " << *((int *)value) << std::endl;
     loadPreset(*(int *)value);
     return ADDON_STATUS_OK;
   }
@@ -990,5 +1147,4 @@ extern "C" ADDON_STATUS ADDON_SetSetting(const char *strSetting, const void* val
 //-----------------------------------------------------------------------------
 extern "C" void ADDON_Announce(const char *flag, const char *sender, const char *message, const void *data)
 {
-  std::cout << "ADDON_Announce " << flag << " " << sender << " " << message << std::endl;
 }
