@@ -64,6 +64,7 @@ const std::vector<Preset> g_presets =
    {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
    {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
    {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1},
+   {"Dancing Metalights by Danguafare",         "dancingmetalights.frag.glsl",      99, -1, -1, -1},
    {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 13, 99, -1},
    {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
    {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1},
