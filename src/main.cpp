@@ -59,6 +59,7 @@ const std::vector<Preset> g_presets =
   {
    {"Input Sound by iq",                        "input.frag.glsl",                  99, -1, -1, -1},
    {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            99, -1, -1, -1},
+   {"2D LED Spectrum by uNiversal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
    {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
    {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
    {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
@@ -76,7 +77,9 @@ const std::vector<Preset> g_presets =
    {"Circle Wave by TekF",                      "circlewave.frag.glsl",             99, -1, -1, -1}};
 #else
 const std::vector<Preset> g_presets =
-  {{"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
+  {
+   {"2D LED Spectrum by uNiversal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
+   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
    {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
    {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
    {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1},
