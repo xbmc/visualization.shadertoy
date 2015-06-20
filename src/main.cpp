@@ -71,6 +71,7 @@ const std::vector<Preset> g_presets =
    {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       99, -1, -1, -1},
    {"Sound Flower by iq",                       "soundflower.frag.glsl",            99, -1, -1, -1},
    {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         99, -1, -1, -1},
+   {"Spectrometer by jaba",                     "spectrometer.frag.glsl",           99, -1, -1, -1},
    {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       99, -1, -1, -1},
    {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           99, -1, -1, -1},
    {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        99, -1, -1, -1},
