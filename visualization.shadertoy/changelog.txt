@@ -1,0 +1,18 @@
+[B]1.0.6[/B]
+
+- Add 2D led spectrum visualizer (remix)
+- Add electric pulse visualizer
+- Store presets in a struct
+- Fix addon.xml for windows
+- Add Dancing Metalights
+- Add spectrometer 
+- Add audio eclipse
+- Support GLES2
+- Improve fractalland performance
+- [osx] add missing linkage to CoreVideo.framework
+- Change include paths after split of kodi-platform
+- Added new icon. Thx ronie
+
+[B]0.0.1[/B]
+
+- Initial import
