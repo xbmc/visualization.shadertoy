@@ -4,10 +4,10 @@
 
 
 #define width .005
-float zoom = .18;
+static float zoom = .18;
 
-float shape=0.;
-vec3 color=vec3(0.),randcol;
+static float shape=0.;
+static vec3 color=vec3(0.,0.,0.),randcol;
 
 void formula(vec2 z, float c) {
 	float minit=0.;
@@ -52,7 +52,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 		formula(uv+aauv*pix*dof,c);
 	}
 	shape/=36.; color/=36.;
-	vec3 colo=mix(vec3(.15),color,shape)*(1.-length(pos))*min(1.,abs(.5-mod(time+.5,1.))*10.);	
+	vec3 colo=mix(vec3(.15,.15,.15),color,shape)*(1.-length(pos))*min(1.,abs(.5-mod(time+.5,1.))*10.);	
 	colo*=vec3(1.2,1.1,1.0);
 	fragColor = vec4(colo,1.0);
 }

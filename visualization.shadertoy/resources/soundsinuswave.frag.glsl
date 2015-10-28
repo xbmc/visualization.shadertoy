@@ -7,7 +7,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 
 	float time = iGlobalTime * 1.0;
 	
-	vec3 color = vec3(0.0);
+	vec3 color = vec3(0.0,0.0,0.0);
 
 	for (float i=0.0; i<WAVES + 1.0; i++) {
 		float freq = texture2D(iChannel0, vec2(i / WAVES, 0.0)).x * 7.0;

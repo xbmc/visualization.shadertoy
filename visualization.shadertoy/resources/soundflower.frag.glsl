@@ -17,7 +17,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
 	float f = 0.0;
 	if( r<t ) f = (1.0-r/t);
-	vec3 col = pow( vec3(f), vec3(1.5,1.1,0.8) );
+	vec3 col = pow( vec3(f,f,f), vec3(1.5,1.1,0.8) );
 
 	fragColor = vec4( col, 1.0 );
 }

@@ -106,7 +106,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	#ifdef ALT_MODE
 	//bend-spin-stretch the coord system based on wave shape
 	float theta = (w1 - w2 + w3 - w4) * 3.14;
-	uv = uv*mat2(cos(theta * 0.2),-sin(theta * 0.3),sin(theta * 0.5),cos(theta * 0.7));
+	uv = mul(uv, mat2(cos(theta * 0.2),-sin(theta * 0.3),sin(theta * 0.5),cos(theta * 0.7)));
 	#endif
 	
 	//for polar calculations
@@ -147,7 +147,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	//postproc code from iq :)
 	#ifdef POST_PROC
 	 //gamma. remove this for a solarized look	
-	final_color = pow( clamp( final_color, 0.0, 1.0 ), vec3(1.7) );
+	final_color = pow( clamp( final_color, 0.0, 1.0 ), vec3(1.7,1.7,1.7) );
 
     //contrast
 	final_color = final_color*0.3 + 0.7*final_color*final_color*(3.0-2.0*final_color);
@@ -157,8 +157,8 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	final_color *= 0.5 + 0.5*pow( 16.0*ouv.x*ouv.y*(1.0-ouv.x)*(1.0-ouv.y), 0.2);
 
 	#ifdef ALT_MODE
-//	final_color = mix(final_color, vec3(noise), distort * 10.0);
-	final_color += vec3(noise) * distort * 10.0;
+//	final_color = mix(final_color, vec3(noise,noise,noise), distort * 10.0);
+	final_color += vec3(noise,noise,noise) * distort * 10.0;
 	#endif
 	
 	fragColor = vec4(final_color, 1.0);

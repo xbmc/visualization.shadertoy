@@ -1,6 +1,7 @@
 // Taken from https://www.shadertoy.com/view/4d23Ww
 
-const float Pi = 3.14159;
+static const float Pi = 3.14159;
+static float beat = 0.;
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {

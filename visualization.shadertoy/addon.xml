@@ -1,9 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<addon id="visualization.shadertoy" version="1.0.6" name="Shadertoy" provider-name="popcornmix">
-  <extension point="xbmc.player.musicviz" library_linux="visualization.shadertoy.so"/>
+<addon
+  id="visualization.shadertoy"
+  version="0.0.1"
+  name="Shadertoy"
+  provider-name="Team-Kodi">
+  <extension
+    point="xbmc.player.musicviz"
+    library_linux="visualization.shadertoy.so"
+    library_android="libvisualization.shadertoy.so"
+    library_windx="visualization.shadertoy.dll"
+    library_osx="visualization.shadertoy.dylib"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Visualisations from Shadertoy</summary>
     <description lang="en">Visualisations from Shadertoy</description>
-    <platform>linux</platform>
+    <platform>linux osx windx android rbpi</platform>
   </extension>
 </addon>

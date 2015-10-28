@@ -3,7 +3,7 @@
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     vec2 p = (fragCoord.xy-.5*iResolution.xy)/min(iResolution.x,iResolution.y);			
-    vec3 c = vec3(0.0);
+    vec3 c = vec3(0.0,0.0,0.0);
     vec2 uv = fragCoord.xy / iResolution.xy;  
     float wave = texture2D( iChannel0, vec2(uv.x,0.75) ).x;
 
