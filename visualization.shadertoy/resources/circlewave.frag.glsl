@@ -11,10 +11,10 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	// adjust frequency to look pretty	
 	uv.x *= 1.0/2.0;
 	
-	float seperation = 0.06;
+	float seperation = 0.06*(1.0-iMouse.x/iResolution.x);
 
 	vec3 wave = vec3(0.0);
-	const int n = 60;
+	const int n = 16;
 	for ( int i=0; i < n; i++ )
 	{
 /*		float u = uv.x*255.0;

@@ -51,56 +51,62 @@ string g_pathPresets;
 struct Preset {
   std::string name;
   std::string file;
-  int channel1;
-  int channel2;
+  int channel[4];
 };
 
 #if defined(HAS_GLES)
 const std::vector<Preset> g_presets =
   {
-   {"Input Sound by iq",                        "input.frag.glsl",                  -1, -1},
-   {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            -1, -1},
-   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          -1, -1},
-   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            -1, -1},
-   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         -1, -1},
-   {"BPM by iq",                                "bpm.frag.glsl",                    -1, -1},
-   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 14},
-   {"Gameboy by iq",                            "gameboy.frag.glsl",                -1, -1},
-   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl"              -1, -1},
-   {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       -1, -1},
-   {"Sound Flower by iq",                       "soundflower.frag.glsl",            -1, -1},
-   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         -1, -1},
-   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       -1, -1},
-   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           -1, -1},
-   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        -1, -1},
-   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             -1, -1}};
+   {"Input Sound by iq",                        "input.frag.glsl",                  99, -1, -1, -1},
+   {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            99, -1, -1, -1},
+   {"2D LED Spectrum by uNiversal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
+   {"Audio Eclipse by airtight",                "audioeclipse.frag.glsl",           99, -1, -1, -1},
+   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
+   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
+   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
+   {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1},
+   {"Dancing Metalights by Danguafare",         "dancingmetalights.frag.glsl",      99, -1, -1, -1},
+   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 13, 99, -1},
+   {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
+   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1},
+   {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       99, -1, -1, -1},
+   {"Sound Flower by iq",                       "soundflower.frag.glsl",            99, -1, -1, -1},
+   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         99, -1, -1, -1},
+   {"Spectrometer by jaba",                     "spectrometer.frag.glsl",           99, -1, -1, -1},
+   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       99, -1, -1, -1},
+   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           99, -1, -1, -1},
+   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        99, -1, -1, -1},
+   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             99, -1, -1, -1},
+   {"Circle Wave by TekF",                      "circlewave.frag.glsl",             99, -1, -1, -1}};
 #else
 const std::vector<Preset> g_presets =
-  {{"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          -1, -1},
-   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            -1, -1},
-   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         -1, -1},
-   {"BPM by iq",                                "bpm.frag.glsl",                    -1, -1},
-   {"Circle Wave by TekF",                      "circlewave.frag.glsl",             -1, -1},
-   {"Circuits by Kali",                         "circuits.frag.glsl",                7, -1},
-   {"Colored Bars by novalis",                  "coloredbars.frag.glsl",            -1, -1},
-   {"Cubescape by iq",                          "cubescape.frag.glsl",               5, -1},
-   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 14},
-   {"Fractal Land by Kali",                     "fractalland.frag.glsl",            13, -1},
-   {"Gameboy by iq",                            "gameboy.frag.glsl",                -1, -1},
-   {"I/O by movAX13h",                          "io.frag.glsl",                     -1, -1},
-   {"Kaleidoscope Visualizer by Qqwy",          "kaleidoscopevisualizer.frag.glsl", 15, -1},
-   {"Nyancat by mu6k",                          "nyancat.frag.glsl",                13, -1},
-   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl"              -1, -1},
-   {"Revision 2015 Livecoding Round 1 by mu6k", "revision2015.frag.glsl"            -1, -1},
-   {"Ribbons by XT95",                          "ribbons.frag.glsl",                -1, -1},
-   {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       -1, -1},
-   {"Sound Flower by iq",                       "soundflower.frag.glsl",            -1, -1},
-   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         -1, -1},
-   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       -1, -1},
-   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           -1, -1},
-   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        -1, -1},
-   {"Demo - Volumetric Lines by iq",            "volumetriclines.frag.glsl",        -1, -1},
-   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             -1, -1}};
+  {
+   {"2D LED Spectrum by uNiversal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
+   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
+   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
+   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
+   {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1},
+   {"Circle Wave by TekF",                      "circlewave.frag.glsl",             99, -1, -1, -1},
+   {"Circuits by Kali",                         "circuits.frag.glsl",               99,  7, -1, -1},
+   {"Colored Bars by novalis",                  "coloredbars.frag.glsl",            99, -1, -1, -1},
+   {"Cubescape by iq",                          "cubescape.frag.glsl",              99,  5, -1, -1},
+   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",            99,  2, 14, -1},
+   {"Fractal Land by Kali",                     "fractalland.frag.glsl",             2, 13, 99, -1},
+   {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
+   {"I/O by movAX13h",                          "io.frag.glsl",                     99, -1, -1, -1},
+   {"Kaleidoscope Visualizer by Qqwy",          "kaleidoscopevisualizer.frag.glsl", 99, 15, -1, -1},
+   {"Nyancat by mu6k",                          "nyancat.frag.glsl",                99, 13, -1, -1},
+   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1},
+   {"Revision 2015 Livecoding Round 1 by mu6k", "revision2015.frag.glsl",           99, -1, -1, -1},
+   {"Ribbons by XT95",                          "ribbons.frag.glsl",                99, -1, -1, -1},
+   {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       99, -1, -1, -1},
+   {"Sound Flower by iq",                       "soundflower.frag.glsl",            99, -1, -1, -1},
+   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         99, -1, -1, -1},
+   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       99, -1, -1, -1},
+   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           99, -1, -1, -1},
+   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        99, -1, -1, -1},
+   {"Demo - Volumetric Lines by iq",            "volumetriclines.frag.glsl",        99, -1, -1, -1},
+   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             99, -1, -1, -1}};
 #endif
 
 int g_currentPreset = 0;
@@ -120,9 +126,9 @@ const char *g_fileTextures[] = {
   "tex10.png",
   "tex11.png",
   "tex12.png",
-  "tex14.png",
   "tex15.png",
-  "tex16.png"
+  "tex16.png",
+  "tex14.png",
 };
 
 #if defined(HAS_GLES)
@@ -214,6 +220,7 @@ float linearToDecibels(float linear) {
 
 GLuint createTexture(GLint format, unsigned int w, unsigned int h, const GLvoid * data) {
   GLuint texture = 0;
+  glActiveTexture(GL_TEXTURE0);
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
 
@@ -239,7 +246,7 @@ GLuint createTexture(const GLvoid *data, GLint format, unsigned int w, unsigned 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, repeat);
 
 #if defined(HAS_GLES)
-  glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, w, h, 0, internalFormat, GL_UNSIGNED_BYTE, data);
+  glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format, GL_UNSIGNED_BYTE, data);
 #else
   glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, w, h, 0, format, GL_UNSIGNED_BYTE, data);
 #endif
@@ -312,6 +319,7 @@ GLuint compileShader(GLenum shaderType, const char *shader) {
 }
 
 GLuint compileAndLinkProgram(const char *vertexShader, const char *fragmentShader) {
+  cout << "CompileAndLink " << endl;
   GLuint program = glCreateProgram();
   if (program == 0) {
     cerr << "Failed to create program" << endl;
@@ -334,7 +342,7 @@ GLuint compileAndLinkProgram(const char *vertexShader, const char *fragmentShade
       int infologLength = 0;
       char *infoLog;
 
-      glGetShaderiv(program, GL_INFO_LOG_LENGTH, &infologLength);
+      glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infologLength);
 
       if (infologLength > 0) {
         infoLog = new char[infologLength];
@@ -377,6 +385,8 @@ GLuint compileAndLinkProgram(const char *vertexShader, const char *fragmentShade
 #if defined(HAS_GLES)
 
 std::string vsSource = TO_STRING(
+         precision mediump float;
+         precision mediump int;
          attribute vec4 vertex;
          varying vec2 vTextureCoord;
          uniform vec2 uScale;
@@ -390,6 +400,8 @@ std::string vsSource = TO_STRING(
   );
 
 std::string render_vsSource = TO_STRING(
+         precision mediump float;
+         precision mediump int;
          attribute vec4 vertex;
          varying vec2 vTextureCoord;
          void main(void)
@@ -400,6 +412,8 @@ std::string render_vsSource = TO_STRING(
   );
 
 std::string render_fsSource = TO_STRING(
+         precision mediump float;
+         precision mediump int;
          varying vec2 vTextureCoord;
          uniform sampler2D uTexture;
          void main(void)
@@ -412,10 +426,9 @@ std::string vsSource = "void main() { gl_Position = ftransform(); }";
 #endif
 
 std::string fsHeader =
-"#ifdef GL_ES\n"
-"precision highp float;\n"
-"#endif\n"
 "#extension GL_OES_standard_derivatives : enable\n"
+"precision mediump float;\n"
+"precision mediump int;\n"
 "uniform vec3      iResolution;\n"
 "uniform float     iGlobalTime;\n"
 "uniform float     iChannelTime[4];\n"
@@ -439,7 +452,7 @@ std::string fsFooter =
 
 bool initialized = false;
 
-GLuint shader = 0;
+GLuint shadertoy_shader = 0;
 
 GLint iResolutionLoc        = 0;
 GLint iGlobalTimeLoc        = 0;
@@ -448,15 +461,14 @@ GLint iMouseLoc             = 0;
 GLint iDateLoc              = 0;
 GLint iSampleRateLoc        = 0;
 GLint iChannelResolutionLoc = 0;
-GLint iChannel0Loc          = 0;
-GLint iChannel1Loc          = 0;
-GLint iChannel2Loc          = 0;
-GLint iChannel3Loc          = 0;
+GLint iChannelLoc[4];
+GLuint iChannel[4];
 
-GLuint iChannel0 = 0;
-GLuint iChannel1 = 0;
-GLuint iChannel2 = 0;
-GLuint iChannel3 = 0;
+int width = 0;
+int height = 0;
+
+int64_t initial_time;
+int bits_precision = 0;
 
 bool needsUpload = true;
 
@@ -466,40 +478,41 @@ float *pcm = NULL;
 float *magnitude_buffer = NULL;
 GLubyte *audio_data = NULL;
 int samplesPerSec = 0;
-int width = 0;
-int height = 0;
+
+void unloadTextures() {
+  for (int i=0; i<4; i++) {
+    if (iChannel[i]) {
+      cout << "Unloading iChannel" << i << " " << iChannel[i] << endl;
+      glDeleteTextures(1, &iChannel[i]);
+      iChannel[i] = 0;
+    }
+  }
+}
 
 void unloadPreset() {
-  if (shader) {
-    glDeleteProgram(shader);
-    shader = 0;
+  if (shadertoy_shader) {
+    glDeleteProgram(shadertoy_shader);
+    shadertoy_shader = 0;
   }
 #if defined(HAS_GLES)
+  if (state->framebuffer_texture)
+  {
+    glDeleteTextures(1, &state->framebuffer_texture);
+    state->framebuffer_texture = 0;
+  }
+  if (state->effect_fb)
+  {
+    glDeleteFramebuffers(1, &state->effect_fb);
+    state->effect_fb = 0;
+  }
   if (state->render_program) {
     glDeleteProgram(state->render_program);
     state->render_program = 0;
   }
 #endif
-  if (iChannel1) {
-    cout << "Unloading iChannel1 " << iChannel1 << endl;
-    glDeleteTextures(1, &iChannel1);
-    iChannel1 = 0;
-  }
-
-  if (iChannel2) {
-    cout << "Unloading iChannel2 " << iChannel1 << endl;
-    glDeleteTextures(1, &iChannel2);
-    iChannel2 = 0;
-  }
-
-  if (iChannel3) {
-    cout << "Unloading iChannel3 " << iChannel1 << endl;
-    glDeleteTextures(1, &iChannel3);
-    iChannel3 = 0;
-  }
 }
 
-GLuint createShader(const string &file)
+std::string createShader(const std::string &file)
 {
   std::ostringstream ss;
   ss << g_pathPresets << "/resources/" << file;
@@ -513,133 +526,121 @@ GLuint createShader(const string &file)
   //std::string str = "void mainImage( out vec4 fragColor, in vec2 fragCoord ) { fragColor = texture2D(iChannel1, fragCoord.xy / iResolution.xy); }";
 
   std::string fsSource = fsHeader + "\n" + str + "\n" + fsFooter;
-  return compileAndLinkProgram(vsSource.c_str(), fsSource.c_str());
+  return fsSource;
 }
 
 GLint loadTexture(int number)
 {
   if (number >= 0 && number < g_numberTextures) {
-    GLint format = number > 10 ? GL_RGBA : GL_RGB;
+    GLint format = GL_RGBA;
     GLint scaling = GL_LINEAR;
-    GLint repeat = GL_CLAMP_TO_EDGE;
-
-    if (number == 16) {
-      format = GL_LUMINANCE;
-    }
-
-    if (number == 15 || number == 16) {
-      scaling = GL_NEAREST;
-    }
-
-    if (number == 16) {
-      repeat = GL_REPEAT;
-    }
-
+    GLint repeat = GL_REPEAT;
     return createTexture(g_fileTextures[number], format, scaling, repeat);
   }
-
-  return 0;
-/*
-            var format = gl.RGBA;
-            if( url.mSrc=="/presets/tex15.png" || url.mSrc=="/presets/tex17.png" )
-                format = gl.LUMINANCE;
-
-            if( url.mSrc=="/presets/tex14.png" )
-                createGLTextureNearest( gl, texture.image, texture.globject );
-            else if( url.mSrc=="/presets/tex15.png" )
-                createGLTextureNearestRepeat( gl, texture.image, texture.globject );
-            else
-               createGLTexture( gl, texture.image, format, texture.globject );
-
-            texture.loaded = true;
-            if( me.mTextureCallbackFun!=null )
-                me.mTextureCallbackFun( me.mTextureCallbackObj, slot, texture.image, true, true, 0, -1.0, me.mID );
-        }
-*/
-}
-
-void loadPreset(int number)
-{
-  if (number >= 0 && number < g_presets.size())
-  {
-    g_currentPreset = number;
-
-    unloadPreset();
-    shader = createShader(g_presets[g_currentPreset].file);
-
-    iResolutionLoc        = glGetUniformLocation(shader, "iResolution");
-    iGlobalTimeLoc        = glGetUniformLocation(shader, "iGlobalTime");
-    iChannelTimeLoc       = glGetUniformLocation(shader, "iChannelTime");
-    iMouseLoc             = glGetUniformLocation(shader, "iMouse");
-    iDateLoc              = glGetUniformLocation(shader, "iDate");
-    iSampleRateLoc        = glGetUniformLocation(shader, "iSampleRate");
-    iChannelResolutionLoc = glGetUniformLocation(shader, "iChannelResolution");
-    iChannel0Loc          = glGetUniformLocation(shader, "iChannel0");
-    iChannel1Loc          = glGetUniformLocation(shader, "iChannel1");
-    iChannel2Loc          = glGetUniformLocation(shader, "iChannel2");
-    iChannel3Loc          = glGetUniformLocation(shader, "iChannel3");
-
-#if defined(HAS_GLES)
-    state->uScale         = glGetUniformLocation(shader, "uScale");
-    state->attr_vertex_e  = glGetAttribLocation(shader,  "vertex");
-    state->render_program = compileAndLinkProgram(render_vsSource.c_str(), render_fsSource.c_str());
-    state->uTexture       = glGetUniformLocation(state->render_program, "uTexture");
-    state->attr_vertex_r  = glGetAttribLocation(state->render_program,  "vertex");
-#endif
-
-    if (g_presets[g_currentPreset].channel1 >= 0)
-      iChannel1 = loadTexture(g_presets[g_currentPreset].channel1);
-
-    if (g_presets[g_currentPreset].channel2 >= 0)
-      iChannel2 = loadTexture(g_presets[g_currentPreset].channel2);
+  else if (number == 99) { // framebuffer
+    return createTexture(GL_LUMINANCE, NUM_BANDS, 2, audio_data);
   }
+  return 0;
 }
 
-//-- Render -------------------------------------------------------------------
-// Called once per frame. Do all rendering here.
-//-----------------------------------------------------------------------------
-extern "C" void Render()
+void loadPreset(int preset, std::string vsSource, std::string fsSource)
 {
-  glGetError();
-  //cout << "Render" << std::endl;
-  if (initialized) {
-#if defined(HAS_GLES)
-#else
-    glDisable(GL_BLEND);
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
-    glLoadIdentity();
-    glOrtho(-1, 1, -1, 1, -1, 1);
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glLoadIdentity();
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  unloadPreset();
+  shadertoy_shader = compileAndLinkProgram(vsSource.c_str(), fsSource.c_str());
 
-    glClear(GL_DEPTH_BUFFER_BIT);
-    glPushMatrix();
+  iResolutionLoc        = glGetUniformLocation(shadertoy_shader, "iResolution");
+  iGlobalTimeLoc        = glGetUniformLocation(shadertoy_shader, "iGlobalTime");
+  iChannelTimeLoc       = glGetUniformLocation(shadertoy_shader, "iChannelTime");
+  iMouseLoc             = glGetUniformLocation(shadertoy_shader, "iMouse");
+  iDateLoc              = glGetUniformLocation(shadertoy_shader, "iDate");
+  iSampleRateLoc        = glGetUniformLocation(shadertoy_shader, "iSampleRate");
+  iChannelResolutionLoc = glGetUniformLocation(shadertoy_shader, "iChannelResolution");
+  iChannelLoc[0]        = glGetUniformLocation(shadertoy_shader, "iChannel0");
+  iChannelLoc[1]        = glGetUniformLocation(shadertoy_shader, "iChannel1");
+  iChannelLoc[2]        = glGetUniformLocation(shadertoy_shader, "iChannel2");
+  iChannelLoc[3]        = glGetUniformLocation(shadertoy_shader, "iChannel3");
+
+#if defined(HAS_GLES)
+  state->uScale         = glGetUniformLocation(shadertoy_shader, "uScale");
+  state->attr_vertex_e  = glGetAttribLocation(shadertoy_shader,  "vertex");
 #endif
-    glBindTexture(GL_TEXTURE_2D, iChannel0);
+
+  state->render_program = compileAndLinkProgram(render_vsSource.c_str(), render_fsSource.c_str());
+  state->uTexture       = glGetUniformLocation(state->render_program, "uTexture");
+  state->attr_vertex_r  = glGetAttribLocation(state->render_program,  "vertex");
+  // Prepare a texture to render to
+  glActiveTexture(GL_TEXTURE0);
+  glGenTextures(1, &state->framebuffer_texture);
+  glBindTexture(GL_TEXTURE_2D, state->framebuffer_texture);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, state->fbwidth, state->fbheight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  // Prepare a framebuffer for rendering
+  glGenFramebuffers(1, &state->effect_fb);
+  glBindFramebuffer(GL_FRAMEBUFFER, state->effect_fb);
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, state->framebuffer_texture, 0);
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  initial_time = PLATFORM::GetTimeMs();
+}
+
+static uint64_t GetTimeStamp() {
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
+}
+
+static void RenderTo(GLuint shader, GLuint effect_fb)
+{
+  glUseProgram(shader);
+
+#if !defined(HAS_GLES)
+  glDisable(GL_BLEND);
+  glMatrixMode(GL_PROJECTION);
+  glPushMatrix();
+  glLoadIdentity();
+  glOrtho(-1, 1, -1, 1, -1, 1);
+  glMatrixMode(GL_MODELVIEW);
+  glPushMatrix();
+  glLoadIdentity();
+  glEnable(GL_DEPTH_TEST);
+  glDepthFunc(GL_LESS);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+  glClear(GL_DEPTH_BUFFER_BIT);
+  glPushMatrix();
+#endif
+
+  if (shader == shadertoy_shader) {
+    GLuint w = width, h = height;
+#if defined(HAS_GLES)
+    if (state->fbwidth && state->fbheight)
+      w = state->fbwidth, h = state->fbheight;
+#endif
+    int64_t intt = PLATFORM::GetTimeMs() - initial_time;
+    if (bits_precision)
+      intt &= (1<<bits_precision)-1;
+
     if (needsUpload) {
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, NUM_BANDS, 2, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, audio_data);
+      for (int i=0; i<4; i++) {
+        if (g_presets[g_currentPreset].channel[i] == 99) {
+          glActiveTexture(GL_TEXTURE0 + i);
+          glBindTexture(GL_TEXTURE_2D, iChannel[i]);
+          glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, NUM_BANDS, 2, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, audio_data);
+        }
+      }
       needsUpload = false;
     }
 
-    float t = (float)PLATFORM::GetTimeMs() / 1000.0f;
+    float t = intt / 1000.0f;
     GLfloat tv[] = { t, t, t, t };
 
-    glUseProgram(shader);
-#if defined(HAS_GLES)
-    if (state->fbwidth && state->fbheight)
-      glUniform3f(iResolutionLoc, state->fbwidth, state->fbheight, 0.0f);
-    else
-#endif
-    glUniform3f(iResolutionLoc, width, height, 0.0f);
+    glUniform3f(iResolutionLoc, w, h, 0.0f);
     glUniform1f(iGlobalTimeLoc, t);
     glUniform1f(iSampleRateLoc, samplesPerSec);
     glUniform1fv(iChannelTimeLoc, 4, tv);
-
+#if defined(HAS_GLES)
+    glUniform2f(state->uScale, (GLfloat)width/state->fbwidth, (GLfloat)height/state->fbheight);
+#endif
     time_t now = time(NULL);
     tm *ltm = localtime(&now);
 
@@ -650,105 +651,198 @@ extern "C" void Render()
 
     glUniform4f(iDateLoc, year, month, day, sec);
 
-    glActiveTexture(GL_TEXTURE0);
+    for (int i=0; i<4; i++) {
+      glActiveTexture(GL_TEXTURE0 + i);
 #if !defined(HAS_GLES)
-    glEnable(GL_TEXTURE_2D);
+      glEnable(GL_TEXTURE_2D);
 #endif
-    glUniform1i(iChannel0Loc, 0);
-    glBindTexture(GL_TEXTURE_2D, iChannel0);
-
-    glActiveTexture(GL_TEXTURE1);
-#if !defined(HAS_GLES)
-    glEnable(GL_TEXTURE_2D);
-#endif
-    glUniform1i(iChannel1Loc, 1);
-    glBindTexture(GL_TEXTURE_2D, iChannel1);
-
-    glActiveTexture(GL_TEXTURE2);
-#if !defined(HAS_GLES)
-    glEnable(GL_TEXTURE_2D);
-#endif
-    glUniform1i(iChannel2Loc, 2);
-    glBindTexture(GL_TEXTURE_2D, iChannel2);
-
-    glActiveTexture(GL_TEXTURE3);
-#if !defined(HAS_GLES)
-    glEnable(GL_TEXTURE_2D);
-#endif
-    glUniform1i(iChannel3Loc, 3);
-    glBindTexture(GL_TEXTURE_2D, iChannel3);
-
-#if defined(HAS_GLES)
-    // Draw the effect to a texture
-    if (state->effect_fb)
-      glBindFramebuffer(GL_FRAMEBUFFER, state->effect_fb);
-    else
-      glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    if (state->effect_fb)
-      glUniform2f(state->uScale, (GLfloat)width/state->fbwidth, (GLfloat)height/state->fbheight);
-    else
-      glUniform2f(state->uScale, 1.0, 1.0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, state->vertex_buffer);
-    glVertexAttribPointer(state->attr_vertex_e, 4, GL_FLOAT, 0, 16, 0);
-    glEnableVertexAttribArray(state->attr_vertex_e);
-    glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
-    glDisableVertexAttribArray(state->attr_vertex_e);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    if (state->framebuffer_texture)
-    {
-        // Now render to the main frame buffer
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-        glBindBuffer(GL_ARRAY_BUFFER, state->vertex_buffer);
-        glUseProgram ( state->render_program );
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, state->framebuffer_texture);
-        glUniform1i(state->uTexture, 0); // first currently bound texture "GL_TEXTURE0"
-
-        glVertexAttribPointer(state->attr_vertex_r, 4, GL_FLOAT, 0, 16, 0);
-        glEnableVertexAttribArray(state->attr_vertex_r);
-
-        glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
-
-	glDisableVertexAttribArray(state->attr_vertex_r);
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+      glUniform1i(iChannelLoc[i], i);
+      glBindTexture(GL_TEXTURE_2D, iChannel[i]);
     }
-#else
-    glBegin(GL_QUADS);
-      glVertex3f(-1.0f, 1.0f, 0.0f);
-      glVertex3f( 1.0f, 1.0f, 0.0f);
-      glVertex3f( 1.0f,-1.0f, 0.0f);
-      glVertex3f(-1.0f,-1.0f, 0.0f);
-    glEnd();
-#endif
-    glUseProgram(0);
-
-#if !defined(HAS_GLES)
-    glPopMatrix();
-#endif
+  } else {
+#if defined(HAS_GLES)
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glActiveTexture(GL_TEXTURE3);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-#if !defined(HAS_GLES)
-    glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_BLEND);
+    glBindTexture(GL_TEXTURE_2D, state->framebuffer_texture);
+    glUniform1i(state->uTexture, 0); // first currently bound texture "GL_TEXTURE0"
 #endif
   }
+
+#if defined(HAS_GLES)
+  // Draw the effect to a texture or direct to framebuffer
+  glBindFramebuffer(GL_FRAMEBUFFER, effect_fb);
+
+  GLuint attr_vertex = shader == shadertoy_shader ? state->attr_vertex_e : state->attr_vertex_r;
+  glBindBuffer(GL_ARRAY_BUFFER, state->vertex_buffer);
+  glVertexAttribPointer(attr_vertex, 4, GL_FLOAT, 0, 16, 0);
+  glEnableVertexAttribArray(attr_vertex);
+  glDrawArrays( GL_TRIANGLE_FAN, 0, 4 );
+  glDisableVertexAttribArray(attr_vertex);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+#else
+  glBegin(GL_QUADS);
+    glVertex3f(-1.0f, 1.0f, 0.0f);
+    glVertex3f( 1.0f, 1.0f, 0.0f);
+    glVertex3f( 1.0f,-1.0f, 0.0f);
+    glVertex3f(-1.0f,-1.0f, 0.0f);
+  glEnd();
+#endif
+
+  for (int i=0; i<4; i++) {
+    glActiveTexture(GL_TEXTURE0 + i);
+    glBindTexture(GL_TEXTURE_2D, 0);
+  }
+#if !defined(HAS_GLES)
+  glPopMatrix();
+  glMatrixMode(GL_PROJECTION);
+  glPopMatrix();
+  glDisable(GL_DEPTH_TEST);
+  glEnable(GL_BLEND);
+#endif
+  glUseProgram(0);
+}
+
+
+//-- Render -------------------------------------------------------------------
+// Called once per frame. Do all rendering here.
+//-----------------------------------------------------------------------------
+extern "C" void Render()
+{
+  glGetError();
+  //cout << "Render" << std::endl;
+  if (initialized) {
+#if defined(HAS_GLES)
+    if (state->fbwidth && state->fbheight) {
+      RenderTo(shadertoy_shader, state->effect_fb);
+      RenderTo(state->render_program, 0);
+    } else {
+      RenderTo(shadertoy_shader, 0);
+    }
+#else
+    RenderTo(shadertoy_shader, 0);
+#endif
+    static int frames = 0;
+    static uint64_t ts;
+    if (frames == 0) {
+      ts = GetTimeStamp();
+    }
+    frames++;
+    uint64_t ts2 = GetTimeStamp();
+    if (ts2 - ts > 1e6)
+    {
+     printf("%d fps\n", frames);
+     ts += 1e6;
+     frames = 0;
+    }
+  }
+}
+
+static int determine_bits_precision()
+{
+  std::string vsPrecisionSource = TO_STRING(
+	void mainImage( out vec4 fragColor, in vec2 fragCoord )
+	{
+	    float y = ( fragCoord.y / iResolution.y ) * 26.0;
+	    float x = 1.0 - ( fragCoord.x / iResolution.x );
+	    float b = fract( pow( 2.0, floor(y) ) + x );
+	    if (fract(y) >= 0.9)
+		b = 0.0;
+	    fragColor = vec4(b, b, b, 1.0 );
+	}
+  );
+  std::string fsPrecisionSource = fsHeader + "\n" + vsPrecisionSource + "\n" + fsFooter;
+
+  state->fbwidth = 32, state->fbheight = 26*10;
+  loadPreset(0, vsSource, fsPrecisionSource);
+  RenderTo(shadertoy_shader, state->effect_fb);
+  glFinish();
+
+  unsigned char *buffer = new unsigned char[state->fbwidth * state->fbheight * 4];
+  if (buffer)
+    glReadPixels(0, 0, state->fbwidth, state->fbheight, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+  #if 0
+  for (int j=0; j<state->fbheight; j++) {
+    for (int i=0; i<state->fbwidth; i++) {
+      printf("%02x ", buffer[4*(j*state->fbwidth+i)]);
+    }
+    printf("\n");
+  }
+  #endif
+  int bits = 0;
+  unsigned char b = 0; 
+  for (int j=0; j<state->fbheight; j++) {
+    unsigned char c = buffer[4*(j*state->fbwidth+(state->fbwidth>>1))];
+    if (c && !b)
+      bits++;
+    b = c;
+  }
+  delete buffer;
+  unloadPreset();
+  return bits;
+}
+
+static double measure_performance(int preset, int size)
+{
+  int iterations = -1;
+  std::string fsSource = createShader(g_presets[preset].file);
+
+  state->fbwidth = state->fbheight = size;
+  loadPreset(preset, vsSource, fsSource);
+
+  int64_t end, start;
+  do {
+#if defined(HAS_GLES)
+    RenderTo(shadertoy_shader, state->effect_fb);
+    RenderTo(state->render_program, state->effect_fb);
+#else
+    RenderTo(shadertoy_shader, 0);
+#endif
+    glFinish();
+    if (++iterations == 0)
+      start = PLATFORM::GetTimeMs();
+    end = PLATFORM::GetTimeMs();
+  } while (end - start < 50);
+  double t = (double)(end - start)/iterations;
+  //printf("%s %dx%d %.1fms = %.2f fps\n", __func__, size, size, t, 1000.0/t);
+  unloadPreset();
+  return t;
+}
+
+static void launch(int preset)
+{
+  bits_precision = determine_bits_precision();
+  // mali-400 has only 10 bits which means milliseond timer wraps after ~1 second.
+  // we'll fudge that up a bit as having a larger range is more important than ms accuracy
+  bits_precision = max(bits_precision, 13);
+  printf("bits=%d\n", bits_precision);
+  
+  unloadTextures();
+  for (int i=0; i<4; i++) {
+    if (g_presets[preset].channel[i] >= 0)
+      iChannel[i] = loadTexture(g_presets[preset].channel[i]);
+  }
+
+  const int size1 = 256, size2=512;
+  double t1 = measure_performance(preset, size1);
+  double t2 = measure_performance(preset, size2);
+ 
+  double expected_fps = 40.0;
+  // time per pixel for rendering fragment shader
+  double B = (t2-t1)/(size2*size2-size1*size1);
+  // time to render to screen
+  double A = t2 - size2*size2 * B;
+  // how many pixels get the desired fps
+  double pixels = (1000.0/expected_fps - A) / B;
+  state->fbwidth = sqrtf(pixels * width / height);
+  if (state->fbwidth * 4 >= width * 3)
+    state->fbwidth = 0;
+  else if (state->fbwidth < 320)
+    state->fbwidth = 320;
+  state->fbheight = state->fbwidth * height / width;
+
+  printf("expected fps=%f, pixels=%f %dx%d (A:%f B:%f t1:%.1f t2:%.1f)\n", expected_fps, pixels, state->fbwidth, state->fbheight, A, B, t1, t2);
+
+  std::string fsSource = createShader(g_presets[preset].file);
+  loadPreset(preset, vsSource, fsSource);
 }
 
 extern "C" void Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, const char* szSongName)
@@ -850,24 +944,28 @@ extern "C" bool OnAction(long flags, const void *param)
   {
     case VIS_ACTION_NEXT_PRESET:
       LogAction("VIS_ACTION_NEXT_PRESET");
-      loadPreset((g_currentPreset + 1)  % g_presets.size());
+      g_currentPreset = (g_currentPreset + 1)  % g_presets.size();
+      launch(g_currentPreset);
       return true;
     case VIS_ACTION_PREV_PRESET:
       LogAction("VIS_ACTION_PREV_PRESET");
-      loadPreset((g_currentPreset - 1)  % g_presets.size());
+      g_currentPreset = (g_currentPreset - 1)  % g_presets.size();
+      launch(g_currentPreset);
       return true;
     case VIS_ACTION_LOAD_PRESET:
       LogAction("VIS_ACTION_LOAD_PRESET"); // TODO param is int *
       if (param)
       {
-        loadPreset(*(int *)param);
+        g_currentPreset = *(int *)param % g_presets.size();
+        launch(g_currentPreset);
         return true;
       }
 
       break;
     case VIS_ACTION_RANDOM_PRESET:
       LogAction("VIS_ACTION_RANDOM_PRESET");
-      loadPreset((int)((std::rand() / (float)RAND_MAX) * g_presets.size()));
+      g_currentPreset = (int)((std::rand() / (float)RAND_MAX) * g_presets.size());
+      launch(g_currentPreset);
       return true;
 
     case VIS_ACTION_LOCK_PRESET:
@@ -956,7 +1054,6 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   if (!initialized)
   {
 #if defined(HAS_GLES)
-    state->fbwidth = 640; state->fbheight = 360;
     static const GLfloat vertex_data[] = {
         -1.0,1.0,1.0,1.0,
         1.0,1.0,1.0,1.0,
@@ -968,25 +1065,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     glGenBuffers(1, &state->vertex_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, state->vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
-    if (state->fbwidth && state->fbheight)
-    {
-      // Prepare a texture to render to
-      glGenTextures(1, &state->framebuffer_texture);
-      glBindTexture(GL_TEXTURE_2D, state->framebuffer_texture);
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, state->fbwidth, state->fbheight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
-      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      // Prepare a framebuffer for rendering
-      glGenFramebuffers(1, &state->effect_fb);
-      glBindFramebuffer(GL_FRAMEBUFFER, state->effect_fb);
-      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, state->framebuffer_texture, 0);
-      glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    }
 #endif
-
-    iChannel0 = createTexture(GL_LUMINANCE, NUM_BANDS, 2, audio_data);
-    loadPreset(g_currentPreset);
-
     initialized = true;
   }
 
@@ -1014,14 +1093,10 @@ extern "C" void ADDON_Destroy()
   cout << "ADDON_Destroy" << std::endl;
 
   unloadPreset();
+  unloadTextures();
 
   if (lpresets)
     delete[] lpresets, lpresets = nullptr;
-
-  if (iChannel0) {
-    glDeleteTextures(1, &iChannel0);
-    iChannel0 = 0;
-  }
 
   if (audio_data) {
     delete [] audio_data;
@@ -1044,14 +1119,6 @@ extern "C" void ADDON_Destroy()
   }
 #if defined(HAS_GLES)
   glDeleteBuffers(1, &state->vertex_buffer);
-  if (state->framebuffer_texture)
-  {
-    glDeleteTextures(1, &state->framebuffer_texture);
-  }
-  if (state->effect_fb)
-  {
-    glDeleteFramebuffers(1, &state->effect_fb);
-  }
 #endif
 
   initialized = false;
@@ -1131,7 +1198,8 @@ extern "C" ADDON_STATUS ADDON_SetSetting(const char *strSetting, const void* val
   if (strcmp(strSetting, "lastpresetidx") == 0)
   {
     cout << "lastpresetidx = " << *((int *)value) << endl;
-    loadPreset(*(int *)value);
+    g_currentPreset = *(int *)value % g_presets.size();
+    launch(g_currentPreset);
     return ADDON_STATUS_OK;
   }
 

@@ -40,10 +40,10 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     // Draw the circles
     float o = 0.0;
     float inc = 0.0;
+    float baseradius = 0.3 * ( 0.3 + sin01(rstandard + iGlobalTime * 0.2) );
     
     for( float i = 1.0 ; i < 8.0 ; i += 1.0 )
     {
-        float baseradius = 0.3 * ( 0.3 + sin01(rstandard + iGlobalTime * 0.2) ); 
         float radius = baseradius + inc;
 
         radius += 0.01 * ( sin01(pa * i + iGlobalTime * (i - 1.0) ) );
