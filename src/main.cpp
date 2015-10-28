@@ -57,6 +57,7 @@ struct Preset {
 #if defined(HAS_GLES)
 const std::vector<Preset> g_presets =
   {
+  {{"2D LED Spectrum by uNiversal",             "2Dspectrum.frag.glsl",             -1, -1},
    {"Input Sound by iq",                        "input.frag.glsl",                  99, -1, -1, -1},
    {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            99, -1, -1, -1},
    {"2D LED Spectrum by uNiversal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},

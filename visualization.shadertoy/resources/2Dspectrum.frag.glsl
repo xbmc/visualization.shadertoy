@@ -35,4 +35,3 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     // output final color
     fragColor = vec4(ledColor, 1.0);
 }
-
