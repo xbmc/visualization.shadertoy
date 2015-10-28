@@ -94,6 +94,7 @@ const std::vector<Preset> g_presets =
    {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",            99,  2, 14, -1},
    {"Fractal Land by Kali",                     "fractalland.frag.glsl",             2, 13, 99, -1},
    {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
+   {"Electric pulse by un1versal",              "electricpulse.frag.glsl",          99, -1, -1, -1},
    {"I/O by movAX13h",                          "io.frag.glsl",                     99, -1, -1, -1},
    {"Kaleidoscope Visualizer by Qqwy",          "kaleidoscopevisualizer.frag.glsl", 99, 15, -1, -1},
    {"Nyancat by mu6k",                          "nyancat.frag.glsl",                99, 13, -1, -1},
