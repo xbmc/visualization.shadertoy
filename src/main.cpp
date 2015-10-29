@@ -57,10 +57,9 @@ struct Preset {
 #if defined(HAS_GLES)
 const std::vector<Preset> g_presets =
   {
-  {{"2D LED Spectrum by uNiversal",             "2Dspectrum.frag.glsl",             -1, -1},
+   {"2D LED Spectrum by un1versal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
    {"Input Sound by iq",                        "input.frag.glsl",                  99, -1, -1, -1},
    {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            99, -1, -1, -1},
-   {"2D LED Spectrum by uNiversal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
    {"Audio Eclipse by airtight",                "audioeclipse.frag.glsl",           99, -1, -1, -1},
    {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
    {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
@@ -69,6 +68,7 @@ const std::vector<Preset> g_presets =
    {"Dancing Metalights by Danguafare",         "dancingmetalights.frag.glsl",      99, -1, -1, -1},
    {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 13, 99, -1},
    {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
+   {"Electric pulse by un1versal",              "electricpulse.frag.glsl",          99, -1, -1, -1},
    {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1},
    {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       99, -1, -1, -1},
    {"Sound Flower by iq",                       "soundflower.frag.glsl",            99, -1, -1, -1},
@@ -82,7 +82,7 @@ const std::vector<Preset> g_presets =
 #else
 const std::vector<Preset> g_presets =
   {
-   {"2D LED Spectrum by uNiversal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
+   {"2D LED Spectrum by un1versal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
    {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
    {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
    {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
@@ -94,6 +94,7 @@ const std::vector<Preset> g_presets =
    {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",            99,  2, 14, -1},
    {"Fractal Land by Kali",                     "fractalland.frag.glsl",             2, 13, 99, -1},
    {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
+   {"Electric pulse by un1versal",              "electricpulse.frag.glsl",          99, -1, -1, -1},
    {"I/O by movAX13h",                          "io.frag.glsl",                     99, -1, -1, -1},
    {"Kaleidoscope Visualizer by Qqwy",          "kaleidoscopevisualizer.frag.glsl", 99, 15, -1, -1},
    {"Nyancat by mu6k",                          "nyancat.frag.glsl",                99, 13, -1, -1},
