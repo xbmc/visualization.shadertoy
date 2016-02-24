@@ -34,7 +34,7 @@
 #include <fstream>
 #include <streambuf>
 #include <ctime>
-#include "platform/util/timeutils.h"
+#include <p8-platform/util/timeutils.h>
 #include <math.h>
 #include <complex.h>
 #include <limits.h>
@@ -581,7 +581,7 @@ void loadPreset(int preset, std::string vsSource, std::string fsSource)
   glBindFramebuffer(GL_FRAMEBUFFER, state->effect_fb);
   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, state->framebuffer_texture, 0);
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
-  initial_time = PLATFORM::GetTimeMs();
+  initial_time = P8PLATFORM::GetTimeMs();
 #endif
 }
 
@@ -618,7 +618,7 @@ static void RenderTo(GLuint shader, GLuint effect_fb)
     if (state->fbwidth && state->fbheight)
       w = state->fbwidth, h = state->fbheight;
 #endif
-    int64_t intt = PLATFORM::GetTimeMs() - initial_time;
+    int64_t intt = P8PLATFORM::GetTimeMs() - initial_time;
     if (bits_precision)
       intt &= (1<<bits_precision)-1;
 
@@ -801,8 +801,8 @@ static double measure_performance(int preset, int size)
 #endif
     glFinish();
     if (++iterations == 0)
-      start = PLATFORM::GetTimeMs();
-    end = PLATFORM::GetTimeMs();
+      start = P8PLATFORM::GetTimeMs();
+    end = P8PLATFORM::GetTimeMs();
   } while (end - start < 50);
   double t = (double)(end - start)/iterations;
   //printf("%s %dx%d %.1fms = %.2f fps\n", __func__, size, size, t, 1000.0/t);

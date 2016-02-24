@@ -30,7 +30,7 @@
 #include <fstream>
 #include <streambuf>
 #include <ctime>
-#include "platform/util/timeutils.h"
+#include <p8-platform/util/timeutils.h>
 #include <math.h>
 #include <complex.h>
 #include <limits.h>
@@ -773,7 +773,7 @@ extern "C" void Render()
     g_pContext->PSSetShader(g_pPShader, nullptr, 0);
     g_pContext->PSSetShaderResources(0, ARRAYSIZE(iChannelView), iChannelView);
 
-    float t = (float)PLATFORM::GetTimeMs() / 1000.0f;
+    float t = (float)P8PLATFORM::GetTimeMs() / 1000.0f;
     time_t now = time(NULL);
     tm *ltm = localtime(&now);
     float year = 1900 + ltm->tm_year;
