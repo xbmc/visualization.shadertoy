@@ -38,7 +38,7 @@ if (NOT WIN32)
   include_directories(${OpenGL_INCLUDE_DIR}
                       ${GLEW_INCLUDE_DIR}
                       ${KODI_INCLUDE_DIR}
-                      ${platform_INCLUDE_DIRS}
+                      ${p8-platform_INCLUDE_DIRS}
                       ${PROJECT_SOURCE_DIR}/lib/kissfft
                       ${CMAKE_INCLUDE_PATH})
 
@@ -49,7 +49,7 @@ if (NOT WIN32)
 
 elseif(WIN32)
   include_directories(${KODI_INCLUDE_DIR}
-                      ${platform_INCLUDE_DIRS}
+                      ${p8-platform_INCLUDE_DIRS}
                       ${PROJECT_SOURCE_DIR}/lib/kissfft
                       ${CMAKE_INCLUDE_PATH})
 
