@@ -19,11 +19,9 @@ if (NOT WIN32)
   add_options(CXX ALL_BUILDS -std=c++11)
   find_package(OpenGL)
   if(OPENGL_FOUND)
-    find_package(GLEW REQUIRED)
-    set(INCLUDES ${OpenGL_INCLUDE_DIR}
-                 ${GLEW_INCLUDE_DIR})
+    set(INCLUDES ${OpenGL_INCLUDE_DIR})
     add_definitions(-DHAS_OPENGL)
-    set(DEPLIBS ${DEPLIBS} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+    set(DEPLIBS ${DEPLIBS} ${OPENGL_LIBRARIES})
   else()
     find_package(OpenGLES2)
     if(OPENGLES2_FOUND)
@@ -36,7 +34,6 @@ if (NOT WIN32)
   endif()
 
   include_directories(${OpenGL_INCLUDE_DIR}
-                      ${GLEW_INCLUDE_DIR}
                       ${KODI_INCLUDE_DIR}
                       ${p8-platform_INCLUDE_DIRS}
                       ${PROJECT_SOURCE_DIR}/lib/kissfft
@@ -45,7 +42,7 @@ if (NOT WIN32)
   set(SHADERTOY_SOURCES src/lodepng.cpp
                         src/main.cpp)
 
-  set(DEPLIBS ${DEPLIBS} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+  set(DEPLIBS ${DEPLIBS} ${OPENGL_LIBRARIES})
 
 elseif(WIN32)
   include_directories(${KODI_INCLUDE_DIR}

@@ -26,7 +26,9 @@
 #include <assert.h>
 #define TO_STRING(...) #__VA_ARGS__
 #else
-#include <GL/glew.h>
+#define GL_GLEXT_PROTOTYPES
+#include <GL/gl.h>
+#include <GL/glext.h>
 #endif
 #include <iostream>
 #include <algorithm>
@@ -1056,11 +1058,6 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
   cfg = kiss_fft_alloc(AUDIO_BUFFER, 0, NULL, NULL);
 
-#if !defined(HAS_GLES)
-  if (GLEW_OK != glewInit()) {
-	  std::cout << "Failed to initialize glew";
-  }
-#endif
   if (!initialized)
   {
 #if defined(HAS_GLES)

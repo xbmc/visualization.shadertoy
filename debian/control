@@ -2,7 +2,7 @@ Source: kodi-visualization-shadertoy
 Priority: extra
 Maintainer: wsnipex <wsnipex@a1.net>
 Build-Depends: debhelper (>= 8.0.0), cmake, libp8-platform-dev, kodi-addon-dev,
-               kodi-visualization-dev, libgl1-mesa-dev, libglew-dev,
+               kodi-visualization-dev, libgl1-mesa-dev,
                automake, autoconf, libtool
 Standards-Version: 3.9.8
 Section: libs
