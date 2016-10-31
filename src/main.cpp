@@ -1009,7 +1009,7 @@ extern "C" unsigned int GetPresets(char ***presets)
   if (!lpresets) {
     lpresets = new char*[g_presets.size()];
     size_t i=0;
-    for (auto p : g_presets)
+    for (auto& p : g_presets)
       lpresets[i++] = const_cast<char*>(p.name.c_str());
   }
 
