@@ -430,11 +430,11 @@ std::string vsSource = "void main() { gl_Position = ftransform(); }";
 #endif
 
 std::string fsHeader =
+"#extension GL_OES_standard_derivatives : enable\n"
 #ifdef HAS_GLES
 "precision mediump float;\n"
 "precision mediump int;\n"
 #endif
-"#extension GL_OES_standard_derivatives : enable\n"
 "uniform vec3      iResolution;\n"
 "uniform float     iGlobalTime;\n"
 "uniform float     iChannelTime[4];\n"
