@@ -798,7 +798,7 @@ extern "C" void Render()
 
     g_pContext->IASetInputLayout(g_pInputLayout);
     g_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-    size_t strides = sizeof(MYVERTEX), offsets = 0;
+    UINT strides = sizeof(MYVERTEX), offsets = 0;
     g_pContext->IASetVertexBuffers(0, 1, &g_pVBuffer, &strides, &offsets);
 
     g_pContext->Draw(4, 0);
