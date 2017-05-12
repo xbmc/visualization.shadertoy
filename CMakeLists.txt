@@ -42,6 +42,9 @@ if (NOT WIN32)
   set(SHADERTOY_SOURCES src/lodepng.cpp
                         src/main.cpp)
 
+  set(SHADERTOY_HEADERS src/lodepng.h
+                        src/WICTextureLoader.h)
+
   set(DEPLIBS ${DEPLIBS} ${OPENGL_LIBRARIES})
 
 elseif(WIN32)
@@ -52,6 +55,9 @@ elseif(WIN32)
 
   set(SHADERTOY_SOURCES src/WICTextureLoader.cpp
                         src/maindx.cpp)
+
+  set(SHADERTOY_HEADERS src/lodepng.h
+                        src/WICTextureLoader.h)
 endif()
 
 build_addon(visualization.shadertoy SHADERTOY DEPLIBS)
