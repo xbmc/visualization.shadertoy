@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="visualization.shadertoy"
-  version="1.1.7"
+  version="1.1.8"
   name="Shadertoy"
   provider-name="Team-Kodi">
   <requires>@ADDON_DEPENDS@</requires>

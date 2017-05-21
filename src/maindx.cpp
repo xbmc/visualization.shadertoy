@@ -813,6 +813,10 @@ extern "C" void Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, con
   samplesPerSec = iSamplesPerSec;
 }
 
+extern "C" void Stop()
+{
+}
+
 void Mix(float *destination, const float *source, size_t frames, size_t channels)
 {
   size_t length = frames * channels;
@@ -983,7 +987,7 @@ extern "C" bool IsLocked()
 //-----------------------------------------------------------------------------
 ADDON_STATUS ADDON_Create(void* hdl, void* props)
 {
-  VIS_PROPS *p = (VIS_PROPS *)props;
+  AddonProps_Visualization *p = (AddonProps_Visualization *)props;
 
   g_pathPresets = p->presets;
   width = p->width;
@@ -1010,14 +1014,6 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     return ADDON_STATUS_UNKNOWN;
 
   return ADDON_STATUS_NEED_SAVEDSETTINGS;
-}
-
-//-- Stop ---------------------------------------------------------------------
-// This dll must cease all runtime activities
-// !!! Add-on master function !!!
-//-----------------------------------------------------------------------------
-extern "C" void ADDON_Stop()
-{
 }
 
 //-- Destroy ------------------------------------------------------------------

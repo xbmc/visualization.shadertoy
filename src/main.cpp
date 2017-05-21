@@ -157,7 +157,7 @@ struct
 int g_numberTextures = 17;
 GLint g_textures[17] = { };
 
-void LogProps(VIS_PROPS *props) {
+void LogProps(AddonProps_Visualization *props) {
   cout << "Props = {" << endl
        << "\t x: " << props->x << endl
        << "\t y: " << props->y << endl
@@ -868,6 +868,11 @@ extern "C" void Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, con
   samplesPerSec = iSamplesPerSec;
 }
 
+extern "C" void Stop()
+{
+  cout << "Stop" << std::endl;
+}
+
 void Mix(float *destination, const float *source, size_t frames, size_t channels)
 {
   size_t length = frames * channels;
@@ -1049,7 +1054,7 @@ extern "C" bool IsLocked()
 ADDON_STATUS ADDON_Create(void* hdl, void* props)
 {
   cout << "ADDON_Create" << std::endl;
-  VIS_PROPS *p = (VIS_PROPS *)props;
+  AddonProps_Visualization *p = (AddonProps_Visualization *)props;
 
   LogProps(p);
 
@@ -1085,15 +1090,6 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     return ADDON_STATUS_UNKNOWN;
 
   return ADDON_STATUS_NEED_SAVEDSETTINGS;
-}
-
-//-- Stop ---------------------------------------------------------------------
-// This dll must cease all runtime activities
-// !!! Add-on master function !!!
-//-----------------------------------------------------------------------------
-extern "C" void ADDON_Stop()
-{
-  cout << "ADDON_Stop" << std::endl;
 }
 
 //-- Destroy ------------------------------------------------------------------
