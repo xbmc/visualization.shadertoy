@@ -1,3 +1,33 @@
+[B]1.1.8[/B]
+- Kodi to addon interface changes
+- Update debian control
+
+[B]1.1.7[/B]
+- Change to automatic depends set on addon.xml
+
+[B]1.1.6[/B]
+- Removed never used addon interface functions
+- Fix of Windows 64 bit build
+
+[B]1.1.5[/B]
+- Fix OpenGL for Apple
+
+[B]1.1.4[/B]
+- Fix order matters. gles needs the extension first in shaders
+
+[B]1.1.3[/B]
+- Drop not used OpenGL EW
+
+[B]1.1.2[/B]
+- Fix do not prepend gles precision directives to gl shaders
+
+[B]1.1.1[/B]
+- Fix iterate by reference
+- Fix debian packaging
+
+[B]1.1.0[/B]
+- Rename addon.xml to addon.xml.in and bring it up to par with other add-ons
+
 [B]1.0.6[/B]
 
 - Add 2D led spectrum visualizer (remix)
@@ -5,7 +35,7 @@
 - Store presets in a struct
 - Fix addon.xml for windows
 - Add Dancing Metalights
-- Add spectrometer 
+- Add spectrometer
 - Add audio eclipse
 - Support GLES2
 - Improve fractalland performance
