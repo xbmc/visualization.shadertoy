@@ -48,7 +48,7 @@ if (NOT WIN32)
   set(DEPLIBS ${DEPLIBS} ${OPENGL_LIBRARIES})
 
 elseif(WIN32)
-  include_directories(${KODI_INCLUDE_DIR}
+  include_directories(${KODI_INCLUDE_DIR}/.. # Hack way with "/..", need bigger Kodi cmake rework to match right include ways (becomes done in future)
                       ${p8-platform_INCLUDE_DIRS}
                       ${PROJECT_SOURCE_DIR}/lib/kissfft
                       ${CMAKE_INCLUDE_PATH})

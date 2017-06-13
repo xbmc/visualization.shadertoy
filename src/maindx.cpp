@@ -20,7 +20,7 @@
 
 #pragma comment(lib, "d3dcompiler.lib")
 
-#include "xbmc_vis_dll.h"
+#include <kodi/addon-instance/Visualization.h>
 #include <d3d11.h>
 #include <DirectXMath.h>
 #include <d3dcompiler.h>
@@ -120,7 +120,6 @@ const char *g_fileTextures[] = {
 std::string g_pathPresets;
 int g_numberPresets = g_presets.size();
 int g_currentPreset = 0;
-char** lpresets = nullptr;
 int g_numberTextures = ARRAYSIZE(g_fileTextures);
 bool initialized = false;
 bool needsUpload = true;
@@ -752,10 +751,30 @@ void loadPreset(int number)
   }
 }
 
+class CVisualizationShadertoy
+  : public kodi::addon::CAddonBase
+  , public kodi::addon::CInstanceVisualization
+{
+public:
+  virtual ~CVisualizationShadertoy();
+
+  virtual ADDON_STATUS Create() override;
+
+  virtual bool Start(int channels, int samplesPerSec, int bitsPerSample, std::string songName) override;
+  virtual void AudioData(const float* audioData, int audioDataLength, float* freqData, int freqDataLength) override;
+  virtual void Render() override;
+  virtual bool GetPresets(std::vector<std::string>& presets) override;
+  virtual int GetActivePreset() override;
+  virtual bool PrevPreset() override;
+  virtual bool NextPreset() override;
+  virtual bool LoadPreset(int select) override;
+  virtual bool RandomPreset() override;
+};
+
 //-- Render -------------------------------------------------------------------
 // Called once per frame. Do all rendering here.
 //-----------------------------------------------------------------------------
-extern "C" void Render()
+void CVisualizationShadertoy::Render()
 {
   if (initialized) 
   {
@@ -808,13 +827,10 @@ extern "C" void Render()
   }
 }
 
-extern "C" void Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, const char* szSongName)
+bool CVisualizationShadertoy::Start(int channels, int _samplesPerSec, int bitsPerSample, std::string songName)
 {
-  samplesPerSec = iSamplesPerSec;
-}
-
-extern "C" void Stop()
-{
+  samplesPerSec = _samplesPerSec;
+  return true;
 }
 
 void Mix(float *destination, const float *source, size_t frames, size_t channels)
@@ -846,7 +862,7 @@ void WriteToBuffer(const float *input, size_t length, size_t channels)
   }
 }
 
-extern "C" void AudioData(const float* pAudioData, int iAudioDataLength, float *pFreqData, int iFreqDataLength)
+void CVisualizationShadertoy::AudioData(const float* pAudioData, int iAudioDataLength, float *pFreqData, int iFreqDataLength)
 {
   WriteToBuffer(pAudioData, iAudioDataLength, 2);
 
@@ -879,119 +895,60 @@ extern "C" void AudioData(const float* pAudioData, int iAudioDataLength, float *
   needsUpload = true;
 }
 
-//-- GetInfo ------------------------------------------------------------------
-// Tell XBMC our requirements
-//-----------------------------------------------------------------------------
-extern "C" void GetInfo(VIS_INFO *pInfo)
+bool CVisualizationShadertoy::NextPreset()
 {
-  pInfo->bWantsFreq = false;
-  pInfo->iSyncDelay = 0;
+  LogAction("VIS_ACTION_NEXT_PRESET");
+  loadPreset((g_currentPreset + 1) % g_numberPresets);
+  return true;
 }
 
-
-//-- GetSubModules ------------------------------------------------------------
-// Return any sub modules supported by this vis
-//-----------------------------------------------------------------------------
-extern "C" unsigned int GetSubModules(char ***names)
+bool CVisualizationShadertoy::PrevPreset()
 {
-  return 0; // this vis supports 0 sub modules
+  LogAction("VIS_ACTION_PREV_PRESET");
+  loadPreset((g_currentPreset - 1) % g_numberPresets);
+  return true;
 }
 
-//-- OnAction -----------------------------------------------------------------
-// Handle XBMC actions such as next preset, lock preset, album art changed etc
-//-----------------------------------------------------------------------------
-extern "C" bool OnAction(long flags, const void *param)
+bool CVisualizationShadertoy::LoadPreset(int select)
 {
-  switch (flags)
-  {
-    case VIS_ACTION_NEXT_PRESET:
-      LogAction("VIS_ACTION_NEXT_PRESET");
-      loadPreset((g_currentPreset + 1)  % g_numberPresets);
-      return true;
-    case VIS_ACTION_PREV_PRESET:
-      LogAction("VIS_ACTION_PREV_PRESET");
-      loadPreset((g_currentPreset - 1)  % g_numberPresets);
-      return true;
-    case VIS_ACTION_LOAD_PRESET:
-      LogAction("VIS_ACTION_LOAD_PRESET"); // TODO param is int *
-      if (param)
-      {
-        loadPreset(*(int *)param);
-        return true;
-      }
+  LogAction("VIS_ACTION_LOAD_PRESET");
+  loadPreset(select);
+  return true;
+}
 
-      break;
-    case VIS_ACTION_RANDOM_PRESET:
-      LogAction("VIS_ACTION_RANDOM_PRESET");
-      loadPreset((int)((std::rand() / (float)RAND_MAX) * g_numberPresets));
-      return true;
-
-    case VIS_ACTION_LOCK_PRESET:
-      LogAction("VIS_ACTION_LOCK_PRESET");
-      break;
-    case VIS_ACTION_RATE_PRESET_PLUS:
-      LogAction("VIS_ACTION_RATE_PRESET_PLUS");
-      break;
-    case VIS_ACTION_RATE_PRESET_MINUS:
-      LogAction("VIS_ACTION_RATE_PRESET_MINUS");
-      break;
-    case VIS_ACTION_UPDATE_ALBUMART:
-      LogActionString("VIS_ACTION_UPDATE_ALBUMART", (const char *)param);
-      break;
-    case VIS_ACTION_UPDATE_TRACK:
-      LogTrack((VisTrack *)param);
-      break;
-
-    default:
-      break;
-  }
-
-  return false;
+bool CVisualizationShadertoy::RandomPreset()
+{
+  LogAction("VIS_ACTION_RANDOM_PRESET");
+  loadPreset((int)((std::rand() / (float)RAND_MAX) * g_numberPresets));
+  return true;
 }
 
 //-- GetPresets ---------------------------------------------------------------
 // Return a list of presets to XBMC for display
 //-----------------------------------------------------------------------------
-extern "C" unsigned int GetPresets(char ***presets)
+bool CVisualizationShadertoy::GetPresets(std::vector<std::string>& presets)
 {
-  if (!lpresets) 
-  {
-    lpresets = new char*[g_presets.size()];
-    
-    for (size_t i = 0; i < g_presets.size(); ++i)
-      lpresets[i] = const_cast<char*>(&(g_presets[i].name)[0]);
-  }
-
-  *presets = lpresets;
-  return g_presets.size();
+  for (auto preset : g_presets)
+    presets.push_back(preset.name);
+  return true;
 }
 
 //-- GetPreset ----------------------------------------------------------------
 // Return the index of the current playing preset
 //-----------------------------------------------------------------------------
-extern "C" unsigned GetPreset()
+int CVisualizationShadertoy::GetActivePreset()
 {
   return g_currentPreset;
-}
-
-//-- IsLocked -----------------------------------------------------------------
-// Returns true if this add-on use settings
-//-----------------------------------------------------------------------------
-extern "C" bool IsLocked()
-{
-  return false;
 }
 
 //-- Create -------------------------------------------------------------------
 // Called on load. Addon should fully initalize or return error status
 //-----------------------------------------------------------------------------
-ADDON_STATUS ADDON_Create(void* hdl, void* props)
+ADDON_STATUS CVisualizationShadertoy::Create()
 {
-  AddonProps_Visualization *p = (AddonProps_Visualization *)props;
-
-  g_pathPresets = p->presets;
-  width = p->width;
-  height = p->height;
+  g_pathPresets = Presets();
+  width = Width();
+  height = Height();
 
   audio_data = new byte[AUDIO_BUFFER]();
   magnitude_buffer = new float[NUM_BANDS]();
@@ -999,33 +956,28 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
   cfg = kiss_fft_alloc(AUDIO_BUFFER, 0, NULL, NULL);
 
-  if (S_OK != dxInit(reinterpret_cast<ID3D11DeviceContext*>(p->device))) 
+  if (S_OK != dxInit(reinterpret_cast<ID3D11DeviceContext*>(Device()))) 
   {
     return ADDON_STATUS_PERMANENT_FAILURE;
   }
 
   if (!initialized)
   {
+    g_currentPreset = kodi::GetSettingInt("lastpresetidx");
     loadPreset(g_currentPreset);
     initialized = true;
   }
 
-  if (!props)
-    return ADDON_STATUS_UNKNOWN;
-
-  return ADDON_STATUS_NEED_SAVEDSETTINGS;
+  return ADDON_STATUS_OK;
 }
 
 //-- Destroy ------------------------------------------------------------------
 // Do everything before unload of this add-on
 // !!! Add-on master function !!!
 //-----------------------------------------------------------------------------
-extern "C" void ADDON_Destroy()
+CVisualizationShadertoy::~CVisualizationShadertoy()
 {
   unloadPreset();
-
-  if (lpresets)
-    delete[] lpresets, lpresets = nullptr;
 
   SAFE_RELEASE(pAudioView);
   SAFE_RELEASE(pAudioTexture);
@@ -1063,49 +1015,4 @@ extern "C" void ADDON_Destroy()
   initialized = false;
 }
 
-//-- GetStatus ---------------------------------------------------------------
-// Returns the current Status of this visualisation
-// !!! Add-on master function !!!
-//-----------------------------------------------------------------------------
-extern "C" ADDON_STATUS ADDON_GetStatus()
-{
-  return ADDON_STATUS_OK;
-}
-
-//-- SetSetting ---------------------------------------------------------------
-// Set a specific Setting value (called from XBMC)
-// !!! Add-on master function !!!
-//-----------------------------------------------------------------------------
-extern "C" ADDON_STATUS ADDON_SetSetting(const char *strSetting, const void* value)
-{
-  if (!strSetting || !value)
-    return ADDON_STATUS_UNKNOWN;
-
-  // TODO Someone _needs_ to fix this API in kodi, its terrible.
-  // a) Why not use GetSettings instead of hacking SetSettings like this?
-  // b) Why does it give index and not settings key?
-  // c) Seemingly random ###End which if you never write will while(true) the app
-  // d) Writes into const setting and value...
-  if (strcmp(strSetting, "###GetSavedSettings") == 0)
-  {
-    if (strcmp((char*)value, "0") == 0)
-    {
-      strcpy((char*)strSetting, "lastpresetidx");
-      sprintf ((char*)value, "%i", (int)g_currentPreset);
-    }
-    if (strcmp((char*)value, "1") == 0)
-    {
-      strcpy((char*)strSetting, "###End");
-    }
-
-    return ADDON_STATUS_OK;
-  }
-
-  if (strcmp(strSetting, "lastpresetidx") == 0)
-  {
-    loadPreset(*(int *)value);
-    return ADDON_STATUS_OK;
-  }
-
-  return ADDON_STATUS_UNKNOWN;
-}
+ADDONCREATOR(CVisualizationShadertoy) // Don't touch this!
