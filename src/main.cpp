@@ -18,7 +18,7 @@
  *
  */
 
-#include "xbmc_vis_dll.h"
+#include <kodi/addon-instance/Visualization.h>
 #if defined(HAS_GLES)
 #include <GLES2/gl2.h>
 #include <EGL/egl.h>
@@ -119,7 +119,6 @@ const std::vector<Preset> g_presets =
 #endif
 
 int g_currentPreset = 0;
-char** lpresets = nullptr;
 
 const char *g_fileTextures[] = {
   "tex00.png",
@@ -713,10 +712,31 @@ static void RenderTo(GLuint shader, GLuint effect_fb)
 }
 
 
+class CVisualizationShadertoy
+  : public kodi::addon::CAddonBase
+  , public kodi::addon::CInstanceVisualization
+{
+public:
+  virtual ~CVisualizationShadertoy();
+
+  virtual ADDON_STATUS Create() override;
+
+  virtual bool Start(int channels, int samplesPerSec, int bitsPerSample, std::string songName) override;
+  virtual void Stop() override;
+  virtual void AudioData(const float* audioData, int audioDataLength, float* freqData, int freqDataLength) override;
+  virtual void Render() override;
+  virtual bool GetPresets(std::vector<std::string>& presets) override;
+  virtual int GetActivePreset() override;
+  virtual bool PrevPreset() override;
+  virtual bool NextPreset() override;
+  virtual bool LoadPreset(int select) override;
+  virtual bool RandomPreset() override;
+};
+
 //-- Render -------------------------------------------------------------------
 // Called once per frame. Do all rendering here.
 //-----------------------------------------------------------------------------
-extern "C" void Render()
+void CVisualizationShadertoy::Render()
 {
   glGetError();
   //cout << "Render" << std::endl;
@@ -862,13 +882,14 @@ static void launch(int preset)
   loadPreset(preset, vsSource, fsSource);
 }
 
-extern "C" void Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, const char* szSongName)
+bool CVisualizationShadertoy::Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, std::string szSongName)
 {
   cout << "Start " << iChannels << " " << iSamplesPerSec << " " << iBitsPerSample << " " << szSongName << std::endl;
   samplesPerSec = iSamplesPerSec;
+  return true;
 }
 
-extern "C" void Stop()
+void CVisualizationShadertoy::Stop()
 {
   cout << "Stop" << std::endl;
 }
@@ -902,7 +923,7 @@ void WriteToBuffer(const float *input, size_t length, size_t channels)
   }
 }
 
-extern "C" void AudioData(const float* pAudioData, int iAudioDataLength, float *pFreqData, int iFreqDataLength)
+void CVisualizationShadertoy::AudioData(const float* pAudioData, int iAudioDataLength, float *pFreqData, int iFreqDataLength)
 {
   //cout << "AudioData" << std::endl;
   WriteToBuffer(pAudioData, iAudioDataLength, 2);
@@ -936,131 +957,69 @@ extern "C" void AudioData(const float* pAudioData, int iAudioDataLength, float *
   needsUpload = true;
 }
 
-//-- GetInfo ------------------------------------------------------------------
-// Tell XBMC our requirements
-//-----------------------------------------------------------------------------
-extern "C" void GetInfo(VIS_INFO *pInfo)
-{
-  cout << "GetInfo" << std::endl;
-  pInfo->bWantsFreq = false;
-  pInfo->iSyncDelay = 0;
-}
-
-
-//-- GetSubModules ------------------------------------------------------------
-// Return any sub modules supported by this vis
-//-----------------------------------------------------------------------------
-extern "C" unsigned int GetSubModules(char ***names)
-{
-  cout << "GetSubModules" << std::endl;
-  return 0; // this vis supports 0 sub modules
-}
-
 //-- OnAction -----------------------------------------------------------------
 // Handle XBMC actions such as next preset, lock preset, album art changed etc
 //-----------------------------------------------------------------------------
-extern "C" bool OnAction(long flags, const void *param)
+bool CVisualizationShadertoy::NextPreset()
 {
-  cout << "OnAction" << std::endl;
-  switch (flags)
-  {
-    case VIS_ACTION_NEXT_PRESET:
-      LogAction("VIS_ACTION_NEXT_PRESET");
-      g_currentPreset = (g_currentPreset + 1)  % g_presets.size();
-      launch(g_currentPreset);
-      return true;
-    case VIS_ACTION_PREV_PRESET:
-      LogAction("VIS_ACTION_PREV_PRESET");
-      g_currentPreset = (g_currentPreset - 1)  % g_presets.size();
-      launch(g_currentPreset);
-      return true;
-    case VIS_ACTION_LOAD_PRESET:
-      LogAction("VIS_ACTION_LOAD_PRESET"); // TODO param is int *
-      if (param)
-      {
-        g_currentPreset = *(int *)param % g_presets.size();
-        launch(g_currentPreset);
-        return true;
-      }
+  LogAction("VIS_ACTION_NEXT_PRESET");
+  g_currentPreset = (g_currentPreset + 1) % g_presets.size();
+  launch(g_currentPreset);
+  return true;
+}
 
-      break;
-    case VIS_ACTION_RANDOM_PRESET:
-      LogAction("VIS_ACTION_RANDOM_PRESET");
-      g_currentPreset = (int)((std::rand() / (float)RAND_MAX) * g_presets.size());
-      launch(g_currentPreset);
-      return true;
+bool CVisualizationShadertoy::PrevPreset()
+{
+  LogAction("VIS_ACTION_PREV_PRESET");
+  g_currentPreset = (g_currentPreset - 1) % g_presets.size();
+  launch(g_currentPreset);
+  return true;
+}
 
-    case VIS_ACTION_LOCK_PRESET:
-      LogAction("VIS_ACTION_LOCK_PRESET");
-      break;
-    case VIS_ACTION_RATE_PRESET_PLUS:
-      LogAction("VIS_ACTION_RATE_PRESET_PLUS");
-      break;
-    case VIS_ACTION_RATE_PRESET_MINUS:
-      LogAction("VIS_ACTION_RATE_PRESET_MINUS");
-      break;
-    case VIS_ACTION_UPDATE_ALBUMART:
-      LogActionString("VIS_ACTION_UPDATE_ALBUMART", (const char *)param);
-      break;
-    case VIS_ACTION_UPDATE_TRACK:
-      LogTrack((VisTrack *)param);
-      break;
+bool CVisualizationShadertoy::LoadPreset(int select)
+{
+  LogAction("VIS_ACTION_LOAD_PRESET");
+  g_currentPreset = select % g_presets.size();
+  launch(g_currentPreset);
+  return true;
+}
 
-    default:
-      break;
-  }
-
-  return false;
+bool CVisualizationShadertoy::RandomPreset()
+{
+  LogAction("VIS_ACTION_RANDOM_PRESET");
+  g_currentPreset = (int)((std::rand() / (float)RAND_MAX) * g_presets.size());
+  launch(g_currentPreset);
+  return true;
 }
 
 //-- GetPresets ---------------------------------------------------------------
 // Return a list of presets to XBMC for display
 //-----------------------------------------------------------------------------
-extern "C" unsigned int GetPresets(char ***presets)
+bool CVisualizationShadertoy::GetPresets(std::vector<std::string>& presets)
 {
-  cout << "GetPresets " << g_presets.size() << std::endl;
-
-  if (!lpresets) {
-    lpresets = new char*[g_presets.size()];
-    size_t i=0;
-    for (auto& p : g_presets)
-      lpresets[i++] = const_cast<char*>(p.name.c_str());
-  }
-
-  *presets = lpresets;
-  return g_presets.size();
+  for (auto preset : g_presets)
+    presets.push_back(preset.name);
+  return true;
 }
 
 //-- GetPreset ----------------------------------------------------------------
 // Return the index of the current playing preset
 //-----------------------------------------------------------------------------
-extern "C" unsigned GetPreset()
+int CVisualizationShadertoy::GetActivePreset()
 {
   return g_currentPreset;
-}
-
-//-- IsLocked -----------------------------------------------------------------
-// Returns true if this add-on use settings
-//-----------------------------------------------------------------------------
-extern "C" bool IsLocked()
-{
-  cout << "IsLocked" << std::endl;
-  return false;
 }
 
 //-- Create -------------------------------------------------------------------
 // Called on load. Addon should fully initalize or return error status
 //-----------------------------------------------------------------------------
-ADDON_STATUS ADDON_Create(void* hdl, void* props)
+ADDON_STATUS CVisualizationShadertoy::Create()
 {
   cout << "ADDON_Create" << std::endl;
-  AddonProps_Visualization *p = (AddonProps_Visualization *)props;
 
-  LogProps(p);
-
-  g_pathPresets = p->presets;
-  width = p->width;
-  height = p->height;
+  g_pathPresets = Presets();
+  width = Width();
+  height = Height();
 
   audio_data = new GLubyte[AUDIO_BUFFER]();
   magnitude_buffer = new float[NUM_BANDS]();
@@ -1086,25 +1045,19 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     initialized = true;
   }
 
-  if (!props)
-    return ADDON_STATUS_UNKNOWN;
-
-  return ADDON_STATUS_NEED_SAVEDSETTINGS;
+  return ADDON_STATUS_OK;
 }
 
 //-- Destroy ------------------------------------------------------------------
 // Do everything before unload of this add-on
 // !!! Add-on master function !!!
 //-----------------------------------------------------------------------------
-extern "C" void ADDON_Destroy()
+CVisualizationShadertoy::~CVisualizationShadertoy()
 {
   cout << "ADDON_Destroy" << std::endl;
 
   unloadPreset();
   unloadTextures();
-
-  if (lpresets)
-    delete[] lpresets, lpresets = nullptr;
 
   if (audio_data) {
     delete [] audio_data;
@@ -1132,54 +1085,4 @@ extern "C" void ADDON_Destroy()
   initialized = false;
 }
 
-//-- GetStatus ---------------------------------------------------------------
-// Returns the current Status of this visualisation
-// !!! Add-on master function !!!
-//-----------------------------------------------------------------------------
-extern "C" ADDON_STATUS ADDON_GetStatus()
-{
-  cout << "ADDON_GetStatus" << std::endl;
-  return ADDON_STATUS_OK;
-}
-
-//-- SetSetting ---------------------------------------------------------------
-// Set a specific Setting value (called from XBMC)
-// !!! Add-on master function !!!
-//-----------------------------------------------------------------------------
-extern "C" ADDON_STATUS ADDON_SetSetting(const char *strSetting, const void* value)
-{
-  cout << "ADDON_SetSetting " << strSetting << std::endl;
-  if (!strSetting || !value)
-    return ADDON_STATUS_UNKNOWN;
-
-  // TODO Someone _needs_ to fix this API in kodi, its terrible.
-  // a) Why not use GetSettings instead of hacking SetSettings like this?
-  // b) Why does it give index and not settings key?
-  // c) Seemingly random ###End which if you never write will while(true) the app
-  // d) Writes into const setting and value...
-  if (strcmp(strSetting, "###GetSavedSettings") == 0)
-  {
-    cout << "WTF...." << endl;
-    if (strcmp((char*)value, "0") == 0)
-    {
-      strcpy((char*)strSetting, "lastpresetidx");
-      sprintf ((char*)value, "%i", (int)g_currentPreset);
-    }
-    if (strcmp((char*)value, "1") == 0)
-    {
-      strcpy((char*)strSetting, "###End");
-    }
-
-    return ADDON_STATUS_OK;
-  }
-
-  if (strcmp(strSetting, "lastpresetidx") == 0)
-  {
-    cout << "lastpresetidx = " << *((int *)value) << endl;
-    g_currentPreset = *(int *)value % g_presets.size();
-    launch(g_currentPreset);
-    return ADDON_STATUS_OK;
-  }
-
-  return ADDON_STATUS_UNKNOWN;
-}
+ADDONCREATOR(CVisualizationShadertoy) // Don't touch this!

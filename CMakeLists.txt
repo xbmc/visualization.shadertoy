@@ -34,7 +34,7 @@ if (NOT WIN32)
   endif()
 
   include_directories(${OpenGL_INCLUDE_DIR}
-                      ${KODI_INCLUDE_DIR}
+                      ${KODI_INCLUDE_DIR}/.. # Hack way with "/..", need bigger Kodi cmake rework to match right include ways (becomes done in future)
                       ${p8-platform_INCLUDE_DIRS}
                       ${PROJECT_SOURCE_DIR}/lib/kissfft
                       ${CMAKE_INCLUDE_PATH})
