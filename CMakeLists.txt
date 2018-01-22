@@ -17,20 +17,28 @@ if (NOT WIN32)
   endif()
 
   add_options(CXX ALL_BUILDS -std=c++11)
-  find_package(OpenGL)
-  if(OPENGL_FOUND)
-    set(INCLUDES ${OpenGL_INCLUDE_DIR})
-    add_definitions(-DHAS_OPENGL)
-    set(DEPLIBS ${DEPLIBS} ${OPENGL_LIBRARIES})
-  else()
+
+  if(APP_RENDER_SYSTEM STREQUAL "gl" OR NOT APP_RENDER_SYSTEM)
+    find_package(OpenGL)
+    if(OPENGL_FOUND)
+      set(INCLUDES ${OpenGL_INCLUDE_DIR})
+      add_definitions(-DHAS_OPENGL)
+      set(DEPLIBS ${DEPLIBS} ${OPENGL_LIBRARIES})
+      set(APP_RENDER_SYSTEM gl)
+    endif()
+  endif()
+
+  if(APP_RENDER_SYSTEM STREQUAL "gles" OR NOT APP_RENDER_SYSTEM)
     find_package(OpenGLES2)
     if(OPENGLES2_FOUND)
       set(INCLUDES ${OPENGLES2_INCLUDE_DIR})
       add_definitions(-DHAS_GLES2 -DHAS_GLES ${OpenGLES2_CFLAGS_OTHER})
       set(DEPLIBS ${DEPLIBS} ${OPENGLES2_LIBRARIES})
-    else()
-      message(FATAL_ERROR "No rendering API found. Bailing")
+      set(APP_RENDER_SYSTEM gles)
     endif()
+  endif()
+  if(NOT APP_RENDER_SYSTEM)
+    message(FATAL_ERROR "No rendering API found. Bailing")
   endif()
 
   include_directories(${OpenGL_INCLUDE_DIR}
@@ -48,6 +56,7 @@ if (NOT WIN32)
   set(DEPLIBS ${DEPLIBS} ${OPENGL_LIBRARIES})
 
 elseif(WIN32)
+  set(APP_RENDER_SYSTEM dx11)
   include_directories(${KODI_INCLUDE_DIR}/.. # Hack way with "/..", need bigger Kodi cmake rework to match right include ways (becomes done in future)
                       ${p8-platform_INCLUDE_DIRS}
                       ${PROJECT_SOURCE_DIR}/lib/kissfft
@@ -59,6 +68,8 @@ elseif(WIN32)
   set(SHADERTOY_HEADERS src/lodepng.h
                         src/WICTextureLoader.h)
 endif()
+
+message(STATUS "Configured render system: ${APP_RENDER_SYSTEM}")
 
 build_addon(visualization.shadertoy SHADERTOY DEPLIBS)
 
