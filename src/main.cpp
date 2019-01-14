@@ -965,6 +965,7 @@ bool CVisualizationShadertoy::NextPreset()
   LogAction("VIS_ACTION_NEXT_PRESET");
   g_currentPreset = (g_currentPreset + 1) % g_presets.size();
   launch(g_currentPreset);
+  kodi::SetSettingInt("lastpresetidx", g_currentPreset);
   return true;
 }
 
@@ -973,6 +974,7 @@ bool CVisualizationShadertoy::PrevPreset()
   LogAction("VIS_ACTION_PREV_PRESET");
   g_currentPreset = (g_currentPreset - 1) % g_presets.size();
   launch(g_currentPreset);
+  kodi::SetSettingInt("lastpresetidx", g_currentPreset);
   return true;
 }
 
@@ -981,6 +983,7 @@ bool CVisualizationShadertoy::LoadPreset(int select)
   LogAction("VIS_ACTION_LOAD_PRESET");
   g_currentPreset = select % g_presets.size();
   launch(g_currentPreset);
+  kodi::SetSettingInt("lastpresetidx", g_currentPreset);
   return true;
 }
 
@@ -989,6 +992,7 @@ bool CVisualizationShadertoy::RandomPreset()
   LogAction("VIS_ACTION_RANDOM_PRESET");
   g_currentPreset = (int)((std::rand() / (float)RAND_MAX) * g_presets.size());
   launch(g_currentPreset);
+  kodi::SetSettingInt("lastpresetidx", g_currentPreset);
   return true;
 }
 
@@ -1029,6 +1033,7 @@ ADDON_STATUS CVisualizationShadertoy::Create()
 
   if (!initialized)
   {
+    g_currentPreset = kodi::GetSettingInt("lastpresetidx");
 #if defined(HAS_GLES)
     static const GLfloat vertex_data[] = {
         -1.0,1.0,1.0,1.0,
@@ -1042,6 +1047,7 @@ ADDON_STATUS CVisualizationShadertoy::Create()
     glBindBuffer(GL_ARRAY_BUFFER, state->vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
 #endif
+    launch(g_currentPreset);
     initialized = true;
   }
 
