@@ -899,6 +899,7 @@ bool CVisualizationShadertoy::NextPreset()
 {
   LogAction("VIS_ACTION_NEXT_PRESET");
   loadPreset((g_currentPreset + 1) % g_numberPresets);
+  kodi::SetSettingInt("lastpresetidx", g_currentPreset);
   return true;
 }
 
@@ -906,6 +907,7 @@ bool CVisualizationShadertoy::PrevPreset()
 {
   LogAction("VIS_ACTION_PREV_PRESET");
   loadPreset((g_currentPreset - 1) % g_numberPresets);
+  kodi::SetSettingInt("lastpresetidx", g_currentPreset);
   return true;
 }
 
@@ -913,6 +915,7 @@ bool CVisualizationShadertoy::LoadPreset(int select)
 {
   LogAction("VIS_ACTION_LOAD_PRESET");
   loadPreset(select);
+  kodi::SetSettingInt("lastpresetidx", g_currentPreset);
   return true;
 }
 
@@ -920,6 +923,7 @@ bool CVisualizationShadertoy::RandomPreset()
 {
   LogAction("VIS_ACTION_RANDOM_PRESET");
   loadPreset((int)((std::rand() / (float)RAND_MAX) * g_numberPresets));
+  kodi::SetSettingInt("lastpresetidx", g_currentPreset);
   return true;
 }
 
