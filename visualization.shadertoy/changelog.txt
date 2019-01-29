@@ -1,3 +1,6 @@
+[B]1.1.9[/B]
+- Save last used preset
+
 [B]1.1.8[/B]
 - Kodi to addon interface changes
 - Update debian control
