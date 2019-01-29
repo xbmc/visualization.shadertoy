@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <settings>
-    <setting id="lastpresetidx" type="integer" default="0" visible="false" />
+    <setting id="lastpresetidx" type="number" default="0" visible="false" />
 </settings>
