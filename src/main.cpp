@@ -51,6 +51,11 @@
 #include "kiss_fft.h"
 #include "lodepng.h"
 
+#include "jsmn/jsmn.h"
+#include <stdlib.h>       // strtol
+
+static void launch(int preset);
+
 using namespace std;
 
 string g_pathPresets;
@@ -61,61 +66,15 @@ struct Preset {
   int channel[4];
 };
 
+int testingPresets = 0; // just to not select TEST vizs when randomly selecting presets
+
+std::vector<Preset> g_presets; // filled in ADDON_Create() from json file
+
+// json file under "./resources/" that contains the list of presets (g_presets)
 #if defined(HAS_GLES)
-const std::vector<Preset> g_presets =
-  {
-   {"2D LED Spectrum by un1versal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
-   {"Input Sound by iq",                        "input.frag.glsl",                  99, -1, -1, -1},
-   {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            99, -1, -1, -1},
-   {"Audio Eclipse by airtight",                "audioeclipse.frag.glsl",           99, -1, -1, -1},
-   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
-   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
-   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
-   {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1},
-   {"Dancing Metalights by Danguafare",         "dancingmetalights.frag.glsl",      99, -1, -1, -1},
-   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 13, 99, -1},
-   {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
-   {"Electric pulse by un1versal",              "electricpulse.frag.glsl",          99, -1, -1, -1},
-   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1},
-   {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       99, -1, -1, -1},
-   {"Sound Flower by iq",                       "soundflower.frag.glsl",            99, -1, -1, -1},
-   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         99, -1, -1, -1},
-   {"Spectrometer by jaba",                     "spectrometer.frag.glsl",           99, -1, -1, -1},
-   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       99, -1, -1, -1},
-   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           99, -1, -1, -1},
-   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        99, -1, -1, -1},
-   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             99, -1, -1, -1},
-   {"Circle Wave by TekF",                      "circlewave.frag.glsl",             99, -1, -1, -1}};
+  char const *presetsFile = "presets_GLES.json";
 #else
-const std::vector<Preset> g_presets =
-  {
-   {"2D LED Spectrum by un1versal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
-   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
-   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
-   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
-   {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1},
-   {"Circle Wave by TekF",                      "circlewave.frag.glsl",             99, -1, -1, -1},
-   {"Circuits by Kali",                         "circuits.frag.glsl",               99,  7, -1, -1},
-   {"Colored Bars by novalis",                  "coloredbars.frag.glsl",            99, -1, -1, -1},
-   {"Cubescape by iq",                          "cubescape.frag.glsl",              99,  5, -1, -1},
-   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",            99,  2, 14, -1},
-   {"Fractal Land by Kali",                     "fractalland.frag.glsl",             2, 13, 99, -1},
-   {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
-   {"Electric pulse by un1versal",              "electricpulse.frag.glsl",          99, -1, -1, -1},
-   {"I/O by movAX13h",                          "io.frag.glsl",                     99, -1, -1, -1},
-   {"Kaleidoscope Visualizer by Qqwy",          "kaleidoscopevisualizer.frag.glsl", 99, 15, -1, -1},
-   {"Nyancat by mu6k",                          "nyancat.frag.glsl",                99, 13, -1, -1},
-   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1},
-   {"Revision 2015 Livecoding Round 1 by mu6k", "revision2015.frag.glsl",           99, -1, -1, -1},
-   {"Ribbons by XT95",                          "ribbons.frag.glsl",                99, -1, -1, -1},
-   {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       99, -1, -1, -1},
-   {"Sound Flower by iq",                       "soundflower.frag.glsl",            99, -1, -1, -1},
-   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         99, -1, -1, -1},
-   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       99, -1, -1, -1},
-   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           99, -1, -1, -1},
-   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        99, -1, -1, -1},
-   {"Demo - Volumetric Lines by iq",            "volumetriclines.frag.glsl",        99, -1, -1, -1},
-   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             99, -1, -1, -1}};
+  char const *presetsFile = "presets.json";
 #endif
 
 int g_currentPreset = 0;
@@ -1014,6 +973,25 @@ int CVisualizationShadertoy::GetActivePreset()
   return g_currentPreset;
 }
 
+// chunk_to_int() returns the integer from the C string from the token tok in json string str
+// Used in ADDON_Create when parsing json file
+int chunk_to_int(const char *str, jsmntok_t *tok)
+{
+  char *ss = (char *)malloc( sizeof(char) * ( tok->end - tok->start + 1 ) );
+  int i, result;
+  for( i = tok->start; i < tok->end; i++ ) {
+    ss[ i - tok->start ] = str[i];
+  }
+  ss[ i - tok->start ] = '\0';
+
+  // if ss is not a valid integer string, result = 0
+  result = (int)strtol( ss, NULL, 0 );
+  free( ss );
+
+  return result;
+}
+
+
 //-- Create -------------------------------------------------------------------
 // Called on load. Addon should fully initalize or return error status
 //-----------------------------------------------------------------------------
@@ -1033,7 +1011,87 @@ ADDON_STATUS CVisualizationShadertoy::Create()
 
   if (!initialized)
   {
+
     g_currentPreset = kodi::GetSettingInt("lastpresetidx");
+
+    int i, j, nPreset;
+    jsmn_parser parser;
+    int nTokens;
+    int bError = true;
+
+    // .........................................
+    // load presets list from external json file
+    // .........................................
+    std::ostringstream ss;
+    ss << g_pathPresets << "/resources/" << presetsFile;
+    std::string fullPath = ss.str();
+
+    cout << "Loading shader list from " << fullPath << endl;
+
+    std::ifstream t(fullPath);
+    std::string JSON_STRING((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+
+    jsmn_init(&parser);
+    nTokens = jsmn_parse(&parser, JSON_STRING.c_str(), JSON_STRING.length(), NULL, 1);
+
+    if ( nTokens > 9 ) { // at least one record (6+1A+1A+1S+1O) must be present
+      jsmntok_t tokens[ nTokens ];
+      jsmn_init(&parser);
+      nTokens = jsmn_parse(&parser, JSON_STRING.c_str(), JSON_STRING.length(), tokens, nTokens);
+      if ( nTokens > 0 && tokens[0].type == JSMN_OBJECT ) { // '{'
+        if ( tokens[2].type == JSMN_ARRAY ) { // ':[ [],[],... ]'
+          g_presets.resize( tokens[2].size ); // number of presets
+          nPreset = 0;
+          for ( i = 3; i < nTokens; i++ ) {
+            if ( tokens[i].type == JSMN_ARRAY && // [description, file, iChannel0..4]
+                 tokens[i].size >= 6 ) { // elements over 6 will be ignored, but don't stop the loading
+              try {
+
+                // check that data is as expected
+                for ( j=i+1; j<=i+6; j++) {
+                  // length of each field between 1 and 41 chars (Unicode will be shorter...)
+                  if ( ( tokens[j].end - tokens[j].start < 1  ) ||
+                       ( tokens[j].end - tokens[j].start > 41 ) )
+                    throw 1;
+                  // fields 3 to 6 are ~ integer numbers (if they're not, their value will be 0)
+                  char testNum = JSON_STRING.c_str()[ tokens[j].start ];
+                  if ( j>i+2 && ( ( testNum<48 && testNum!= 45 ) || testNum>57 ) )
+                    throw 2;
+                }
+
+                g_presets[nPreset].name = std::string( JSON_STRING, (size_t)tokens[i+1].start, (size_t)(tokens[i+1].end-tokens[i+1].start) );
+                // presets with description starting with "TEST:" are Testing Presets:
+                if ( strcmp( g_presets[nPreset].name.substr(0,5).c_str(), "TEST:" ) == 0 )
+                  testingPresets++;
+                g_presets[nPreset].file = std::string( JSON_STRING, (size_t)tokens[i+2].start, (size_t)(tokens[i+2].end-tokens[i+2].start) );
+                g_presets[nPreset].channel[0] = chunk_to_int( JSON_STRING.c_str(), &tokens[i+3] );
+                g_presets[nPreset].channel[1] = chunk_to_int( JSON_STRING.c_str(), &tokens[i+4] );
+                g_presets[nPreset].channel[2] = chunk_to_int( JSON_STRING.c_str(), &tokens[i+5] );
+                g_presets[nPreset].channel[3] = chunk_to_int( JSON_STRING.c_str(), &tokens[i+6] );
+
+              } catch (...) {
+                cerr << "Incorrect data in json file while reading shader #" << (nPreset+1) << endl;
+                break;
+              }
+
+              nPreset++;
+              i += tokens[i].size;
+            } else {
+              cerr << "JSON: incorrect shader #" << (nPreset+1) << endl;
+              break;
+            }
+          }
+          bError = false;
+        }
+      }
+    }
+
+    if ( bError ) {
+      cerr << "Failed to load shader list from " << fullPath << endl;
+      return ADDON_STATUS_UNKNOWN;
+    }
+    // .........................................
+
 #if defined(HAS_GLES)
     static const GLfloat vertex_data[] = {
         -1.0,1.0,1.0,1.0,
@@ -1048,7 +1106,9 @@ ADDON_STATUS CVisualizationShadertoy::Create()
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
 #endif
     launch(g_currentPreset);
+
     initialized = true;
+
   }
 
   return ADDON_STATUS_OK;
