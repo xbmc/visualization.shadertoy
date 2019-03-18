@@ -12,5 +12,6 @@
     <summary lang="en">Visualisations from Shadertoy</summary>
     <description lang="en">Visualisations from Shadertoy</description>
     <platform>@PLATFORM@</platform>
+    <source>https://github.com/circulosmeos/visualization.shadertoy</source>
   </extension>
 </addon>
