@@ -21,8 +21,9 @@ if(NOT WIN32)
     add_definitions(${OPENGLES_DEFINITIONS})
   endif()
 
-  include_directories(${KODI_INCLUDE_DIR}/.. # Hack way with "/..", need bigger Kodi cmake rework to match right include ways
-                      ${PROJECT_SOURCE_DIR}/lib/kissfft)
+  include_directories(${GLM_INCLUDE_DIR}
+                      ${KODI_INCLUDE_DIR}/.. # Hack way with "/..", need bigger Kodi cmake rework to match right include ways
+                      ${PROJECT_SOURCE_DIR}/lib)
 
   if(${CORE_SYSTEM_NAME} STREQUAL "osx" OR
      ${CORE_SYSTEM_NAME} STREQUAL "ios" OR
@@ -33,8 +34,8 @@ if(NOT WIN32)
   set(SHADERTOY_SOURCES src/lodepng.cpp
                         src/main.cpp)
 
-  set(SHADERTOY_HEADERS src/lodepng.h)
-
+  set(SHADERTOY_HEADERS src/lodepng.h
+                        src/main.h)
 elseif(WIN32)
   include_directories(${KODI_INCLUDE_DIR}/.. # Hack way with "/..", need bigger Kodi cmake rework to match right include ways (becomes done in future)
                       ${p8-platform_INCLUDE_DIRS}
@@ -49,6 +50,7 @@ elseif(WIN32)
 endif()
 
 list(APPEND DEPLIBS kissfft)
+list(APPEND DEPENDS glm)
 
 build_addon(visualization.shadertoy SHADERTOY DEPLIBS)
 
