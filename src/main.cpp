@@ -33,6 +33,11 @@
 #define AUDIO_BUFFER (1024)
 #define NUM_BANDS (AUDIO_BUFFER / 2)
 
+// Override GL_RED if not present with GL_LUMINANCE, e.g. on Android GLES
+#ifndef GL_RED
+#define GL_RED GL_LUMINANCE
+#endif
+
 struct Preset
 {
   std::string name;
