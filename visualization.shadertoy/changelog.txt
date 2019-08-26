@@ -1,3 +1,8 @@
+[B]2.0.0[/B]
+- Allow complete support via Angle to Windows
+- Add screenshots and fanart images to see what it brings
+- Update description text
+
 [B]1.2.0[/B]
 - Update build system version and cleanup
 - Bring in GL 4.0 support
