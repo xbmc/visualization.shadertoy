@@ -1,9 +1,9 @@
 # visualization.shadertoy addon for Kodi
 
-This is a [Kodi](http://kodi.tv) visualization addon.
+This is a [Kodi](https://kodi.tv) visualization addon.
 
-[![Build Status](https://travis-ci.org/xbmc/visualization.shadertoy.svg?branch=master)](https://travis-ci.org/xbmc/visualization.shadertoy)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/xbmc/visualization.shadertoy?svg=true)](https://ci.appveyor.com/project/xbmc/visualization-shadertoy)
+[![Build Status](https://travis-ci.org/xbmc/visualization.shadertoy.svg?branch=Matrix)](https://travis-ci.org/xbmc/visualization.shadertoy/branches)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/xbmc/visualization.shadertoy?branch=Matrix&svg=true)](https://ci.appveyor.com/project/xbmc/visualization-shadertoy?branch=Matrix)
 
 ## Build instructions
 
