@@ -9,8 +9,8 @@
     point="xbmc.player.musicviz"
     library_@PLATFORM@="@LIBRARY_FILENAME@"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Visualisations from Shadertoy</summary>
-    <description lang="en">Visualisations from Shadertoy</description>
+    <summary lang="en">Visualizations from Shadertoy</summary>
+    <description lang="en">This music visualization is based on Shadertoy based GPU programs.</description>
     <platform>@PLATFORM@</platform>
     <assets>
       <icon>resources/icon.png</icon>
