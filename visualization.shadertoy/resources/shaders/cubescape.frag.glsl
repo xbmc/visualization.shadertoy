@@ -5,7 +5,7 @@
 
 //---------------------------------
 
-//#define ANTIALIAS
+#define ANTIALIAS 2
 
 float hash( float n ) { return fract(sin(n)*13.5453123); }
 
@@ -18,11 +18,11 @@ float dbox( vec3 p, vec3 b, float r )
 
 vec4 texcube( sampler2D sam, in vec3 p, in vec3 n )
 {
-	vec4 x = texture2D( sam, p.yz );
-	vec4 y = texture2D( sam, p.zx );
-	vec4 z = texture2D( sam, p.yx );
+    vec4 x = texture( sam, p.yz );
+    vec4 y = texture( sam, p.zx );
+    vec4 z = texture( sam, p.yx );
     vec3 a = abs(n);
-	return (x*a.x + y*a.y + z*a.z) / (a.x + a.y + a.z);
+    return (x*a.x + y*a.y + z*a.z) / (a.x + a.y + a.z);
 }
 
 //---------------------------------
@@ -31,15 +31,15 @@ float freqs[4];
 
 vec3 mapH( in vec2 pos )
 {
-	vec2 fpos = fract( pos ); 
-	vec2 ipos = floor( pos );
-	
+    vec2 fpos = fract( pos ); 
+    vec2 ipos = floor( pos );
+    
     float f = 0.0;	
-	float id = hash( ipos.x + ipos.y*57.0 );
-	f += freqs[0] * clamp(1.0 - abs(id-0.20)/0.30, 0.0, 1.0 );
-	f += freqs[1] * clamp(1.0 - abs(id-0.40)/0.30, 0.0, 1.0 );
-	f += freqs[2] * clamp(1.0 - abs(id-0.60)/0.30, 0.0, 1.0 );
-	f += freqs[3] * clamp(1.0 - abs(id-0.80)/0.30, 0.0, 1.0 );
+    float id = hash( ipos.x + ipos.y*57.0 );
+    f += freqs[0] * clamp(1.0 - abs(id-0.20)/0.30, 0.0, 1.0 );
+    f += freqs[1] * clamp(1.0 - abs(id-0.40)/0.30, 0.0, 1.0 );
+    f += freqs[2] * clamp(1.0 - abs(id-0.60)/0.30, 0.0, 1.0 );
+    f += freqs[3] * clamp(1.0 - abs(id-0.80)/0.30, 0.0, 1.0 );
 
     f = pow( clamp( f, 0.0, 1.0 ), 2.0 );
     float h = 2.5*f;
@@ -49,68 +49,45 @@ vec3 mapH( in vec2 pos )
 
 vec3 map( in vec3 pos )
 {
-	vec2  p = fract( pos.xz ); 
+    vec2  p = fract( pos.xz ); 
     vec3  m = mapH( pos.xz );
-	float d = dbox( vec3(p.x-0.5,pos.y-0.5*m.x,p.y-0.5), vec3(0.3,m.x*0.5,0.3), 0.1 );
+    float d = dbox( vec3(p.x-0.5,pos.y-0.5*m.x,p.y-0.5), vec3(0.3,m.x*0.5,0.3), 0.1 );
     return vec3( d, m.yz );
 }
 
 const float surface = 0.001;
 
-#if 0
-vec3 trace( in vec3 ro, in vec3 rd, in float startf, in float maxd )
-{ 
-    float s = surface*2.0;
-    float t = startf;
-
-    float sid = -1.0;
-	float alt = 0.0;
-    for( int i=0; i<128; i++ )
-    {
-        if( s<surface || t>maxd ) break;
-        t += 0.15*s;
-	    vec3 res = map( ro + rd*t );
-        s   = res.x;
-	    sid = res.y;
-		alt = res.z;
-    }
-    if( t>maxd ) sid = -1.0;
-    return vec3( t, sid, alt );
-}
-
-#else
-
 vec3 trace( vec3 ro, in vec3 rd, in float tmin, in float tmax )
 {
     ro += tmin*rd;
     
-	vec2 pos = floor(ro.xz);
+    vec2 pos = floor(ro.xz);
     vec3 rdi = 1.0/rd;
     vec3 rda = abs(rdi);
-	vec2 rds = sign(rd.xz);
-	vec2 dis = (pos-ro.xz+ 0.5 + rds*0.5) * rdi.xz;
-	
-	vec3 res = vec3( -1.0 );
+    vec2 rds = sign(rd.xz);
+    vec2 dis = (pos-ro.xz+ 0.5 + rds*0.5) * rdi.xz;
+    
+    vec3 res = vec3( -1.0 );
 
     // traverse regular grid (in 2D)
-	vec2 mm = vec2(0.0);
-	for( int i=0; i<28; i++ ) 
-	{
+    vec2 mm = vec2(0.0);
+    for( int i=0; i<28; i++ ) 
+    {
         vec3 cub = mapH( pos );
 
         #if 1
             vec2 pr = pos+0.5-ro.xz;
-			vec2 mini = (pr-0.5*rds)*rdi.xz;
-	        float s = max( mini.x, mini.y );
+	    vec2 mini = (pr-0.5*rds)*rdi.xz;
+            float s = max( mini.x, mini.y );
             if( (tmin+s)>tmax ) break;
         #endif
         
         
         // intersect box
-		vec3  ce = vec3( pos.x+0.5, 0.5*cub.x, pos.y+0.5 );
+	vec3  ce = vec3( pos.x+0.5, 0.5*cub.x, pos.y+0.5 );
         vec3  rb = vec3(0.3,cub.x*0.5,0.3);
         vec3  ra = rb + 0.12;
-		vec3  rc = ro - ce;
+	vec3  rc = ro - ce;
         float tN = maxcomp( -rdi*rc - rda*ra );
         float tF = maxcomp( -rdi*rc + rda*ra );
         if( tN < tF )//&& tF > 0.0 )
@@ -131,20 +108,18 @@ vec3 trace( vec3 ro, in vec3 rd, in float tmin, in float tmax )
                 break; 
             }
             
-		}
-
-        
-        // step to next cell		
-		mm = step( dis.xy, dis.yx ); 
-		dis += mm*rda.xz;
-        pos += mm*rds;
 	}
+
+        // step to next cell		
+	mm = step( dis.xy, dis.yx ); 
+	dis += mm*rda.xz;
+        pos += mm*rds;
+    }
 
     res.x += tmin;
     
-	return res;
+    return res;
 }
-#endif
 
 
 float softshadow( in vec3 ro, in vec3 rd, in float mint, in float maxt, in float k )
@@ -165,9 +140,9 @@ vec3 calcNormal( in vec3 pos, in float t )
 {
     vec2 e = vec2(1.0,-1.0)*surface*t;
     return normalize( e.xyy*map( pos + e.xyy ).x + 
-					  e.yyx*map( pos + e.yyx ).x + 
-					  e.yxy*map( pos + e.yxy ).x + 
-					  e.xxx*map( pos + e.xxx ).x );
+		      e.yyx*map( pos + e.yyx ).x + 
+		      e.yxy*map( pos + e.yxy ).x + 
+		      e.xxx*map( pos + e.xxx ).x );
 }
 
 const vec3 light1 = vec3(  0.70, 0.52, -0.45 );
@@ -192,35 +167,34 @@ vec2 boundingVlume( vec2 tminmax, in vec3 ro, in vec3 rd )
     return tminmax;
 }
 
-
 vec3 doLighting( in vec3 col, in float ks,
                  in vec3 pos, in vec3 nor, in vec3 rd )
 {
-    vec3  ldif = pos - lpos;
+    vec3  ldif = lpos - pos;
     float llen = length( ldif );
     ldif /= llen;
-	float con = dot(-light1,ldif);
-	float occ = mix( clamp( pos.y/4.0, 0.0, 1.0 ), 1.0, max(0.0,nor.y) );
+    float con = dot( light1,ldif);
+    float occ = mix( clamp( pos.y/4.0, 0.0, 1.0 ), 1.0, max(0.0,nor.y) );
     vec2 sminmax = vec2(0.01, 5.0);
-    //sminmax = boundingVlume( sminmax, pos, -ldif );
-    float sha = softshadow( pos, -ldif, sminmax.x, sminmax.y, 32.0 );;
-		
+
+    float sha = softshadow( pos, ldif, sminmax.x, sminmax.y, 32.0 );;
+	
     float bb = smoothstep( 0.5, 0.8, con );
-    float lkey = clamp( dot(nor,-ldif), 0.0, 1.0 );
-	vec3  lkat = vec3(1.0);
+    float lkey = clamp( dot(nor,ldif), 0.0, 1.0 );
+    vec3  lkat = vec3(1.0);
           lkat *= vec3(bb*bb*0.6+0.4*bb,bb*0.5+0.5*bb*bb,bb).zyx;
           lkat /= 1.0+0.25*llen*llen;		
-		  lkat *= 25.0;
+	  lkat *= 30.0;
           lkat *= sha;
     float lbac = clamp( 0.1 + 0.9*dot( light2, nor ), 0.0, 1.0 );
           lbac *= smoothstep( 0.0, 0.8, con );
-		  lbac /= 1.0+0.2*llen*llen;		
-		  lbac *= 4.0;
-	float lamb = 1.0 - 0.5*nor.y;
+	  lbac /= 1.0+0.2*llen*llen;		
+	  lbac *= 4.0;
+    float lamb = 1.0 - 0.5*nor.y;
           lamb *= 1.0-smoothstep( 10.0, 25.0, length(pos.xz) );
-		  lamb *= 0.25 + 0.75*smoothstep( 0.0, 0.8, con );
-		  lamb *= 0.25;
-		
+	  lamb *= 0.25 + 0.75*smoothstep( 0.0, 0.8, con );
+	  lamb *= 0.25;
+	
     vec3 lin  = 1.0*vec3(0.20,0.05,0.02)*lamb*occ;
          lin += 1.0*vec3(1.60,0.70,0.30)*lkey*lkat*(0.5+0.5*occ);
          lin += 1.0*vec3(0.70,0.20,0.08)*lbac*occ;
@@ -228,18 +202,21 @@ vec3 doLighting( in vec3 col, in float ks,
 
     col = col*lin;
 
-    vec3 spe = vec3(1.0)*occ*lkat*pow( clamp(dot( reflect(rd,nor), -ldif  ),0.0,1.0), 4.0 );
-	col += (0.5+0.5*ks)*0.5*spe*vec3(1.0,0.9,0.7);
+    vec3 spe = ks*lkey*lkat*(0.5+0.5*occ)*5.0*
+               pow( clamp(dot(normalize(ldif-rd), nor),0.0,1.0), 4.0 ) * 
+               (0.04+0.96*pow(clamp(dot(nor,-rd),0.0,1.0),5.0));
+
+    col += (0.5+0.5*ks)*0.5*spe*vec3(1.0,0.9,0.7);
 
     return col;
 }
 
 mat3 setLookAt( in vec3 ro, in vec3 ta, float cr )
 {
-	vec3  cw = normalize(ta-ro);
-	vec3  cp = vec3(sin(cr), cos(cr),0.0);
-	vec3  cu = normalize( cross(cw,cp) );
-	vec3  cv = normalize( cross(cu,cw) );
+    vec3  cw = normalize(ta-ro);
+    vec3  cp = vec3(sin(cr), cos(cr),0.0);
+    vec3  cu = normalize( cross(cw,cp) );
+    vec3  cv = normalize( cross(cu,cw) );
     return mat3( cu, cv, cw );
 }
 
@@ -272,25 +249,26 @@ vec3 render( in vec3 ro, in vec3 rd )
 }
 
 
+
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-	freqs[0] = texture2D( iChannel0, vec2( 0.01, 0.25 ) ).x;
-	freqs[1] = texture2D( iChannel0, vec2( 0.07, 0.25 ) ).x;
-	freqs[2] = texture2D( iChannel0, vec2( 0.15, 0.25 ) ).x;
-	freqs[3] = texture2D( iChannel0, vec2( 0.30, 0.25 ) ).x;
-
+    freqs[0] = texture( iChannel0, vec2( 0.01, 0.25 ) ).x;
+    freqs[1] = texture( iChannel0, vec2( 0.07, 0.25 ) ).x;
+    freqs[2] = texture( iChannel0, vec2( 0.15, 0.25 ) ).x;
+    freqs[3] = texture( iChannel0, vec2( 0.30, 0.25 ) ).x;
     //-----------
-    float time = 5.0 + 0.2*iGlobalTime + 20.0*iMouse.x/iResolution.x;
-
+    float time = 5.0 + 0.2*iTime + 20.0*iMouse.x/iResolution.x;
+    
     vec3 tot = vec3(0.0);
     #ifdef ANTIALIAS
-    for( int i=0; i<4; i++ )
+    for( int j=0; j<ANTIALIAS; j++ )
+    for( int i=0; i<ANTIALIAS; i++ )
     {
-        vec2 off = vec2( mod(float(i),2.0), mod(float(i/2),2.0) )/2.0;
+        vec2 off = vec2(float(i),float(j))/float(ANTIALIAS);
     #else
         vec2 off = vec2(0.0);
     #endif        
-        vec2 xy = (-iResolution.xy+2.0*(fragCoord.xy+off)) / iResolution.y;
+        vec2 xy = (-iResolution.xy+2.0*(fragCoord+off)) / iResolution.y;
 
         // camera	
         vec3 ro = vec3( 8.5*cos(0.2+.33*time), 5.0+2.0*cos(0.1*time), 8.5*sin(0.1+0.37*time) );
@@ -302,34 +280,35 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
         vec3 rd = normalize( ca * vec3(xy.xy,1.75) );
         
         vec3 col = render( ro, rd );
+        col = pow( col, vec3(0.4545) );
+        col = pow( col, vec3(0.8,0.95,1.0) );
+        //col = clamp(col,0.0,1.0);
+        tot += col;
         
-        tot += pow( col, vec3(0.4545) );
     #ifdef ANTIALIAS
     }
-	tot /= 4.0;
+    tot /= float(ANTIALIAS*ANTIALIAS);
     #endif    
     
     // vigneting
-	vec2 q = fragCoord.xy/iResolution.xy;
+    vec2 q = fragCoord.xy/iResolution.xy;
     tot *= 0.2 + 0.8*pow( 16.0*q.x*q.y*(1.0-q.x)*(1.0-q.y), 0.1 );
 
-    fragColor=vec4( tot, 1.0 );
-
-
-
-
+    fragColor = vec4( tot, 1.0 );
 }
-
-
 
 
 void mainVR( out vec4 fragColor, in vec2 fragCoord, in vec3 fragRayOri, in vec3 fragRayDir )
 {
-	freqs[0] = texture2D( iChannel0, vec2( 0.01, 0.25 ) ).x;
-	freqs[1] = texture2D( iChannel0, vec2( 0.07, 0.25 ) ).x;
-	freqs[2] = texture2D( iChannel0, vec2( 0.15, 0.25 ) ).x;
-	freqs[3] = texture2D( iChannel0, vec2( 0.30, 0.25 ) ).x;
+    freqs[0] = texture( iChannel0, vec2( 0.01, 0.25 ) ).x;
+    freqs[1] = texture( iChannel0, vec2( 0.07, 0.25 ) ).x;
+    freqs[2] = texture( iChannel0, vec2( 0.15, 0.25 ) ).x;
+    freqs[3] = texture( iChannel0, vec2( 0.30, 0.25 ) ).x;
 
-    vec3 col = render( fragRayOri + vec3(0.0,2.0,0.0), fragRayDir );
+    vec3 col = render( fragRayOri + vec3(0.0,4.0,0.0), fragRayDir );
+
+    col = pow( col, vec3(0.4545) );
+    col = pow( col, vec3(0.8,0.95,1.0) );
+
     fragColor = vec4( col, 1.0 );
 }
