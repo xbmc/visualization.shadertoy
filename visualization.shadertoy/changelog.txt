@@ -1,3 +1,17 @@
+[B]2.0.0[/B]
+- Allow complete support via Angle to Windows
+- Add screenshots and fanart images to see what it brings
+- Update description text
+
+[B]1.2.0[/B]
+- Update build system version and cleanup
+- Bring in GL 4.0 support
+- Update shader files with a revised copy to a new OpenGL-related folder
+- Remove old for Windows not supported shader files
+
+[B]1.1.10[/B]
+- Fix correct buffer size after file read
+
 [B]1.1.9[/B]
 - Save last used preset
 
