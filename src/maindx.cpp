@@ -758,19 +758,19 @@ class CVisualizationShadertoy
   , public kodi::addon::CInstanceVisualization
 {
 public:
-  virtual ~CVisualizationShadertoy();
+  ~CVisualizationShadertoy() override;
 
-  virtual ADDON_STATUS Create() override;
+  ADDON_STATUS Create() override;
 
-  virtual bool Start(int channels, int samplesPerSec, int bitsPerSample, std::string songName) override;
-  virtual void AudioData(const float* audioData, int audioDataLength, float* freqData, int freqDataLength) override;
-  virtual void Render() override;
-  virtual bool GetPresets(std::vector<std::string>& presets) override;
-  virtual int GetActivePreset() override;
-  virtual bool PrevPreset() override;
-  virtual bool NextPreset() override;
-  virtual bool LoadPreset(int select) override;
-  virtual bool RandomPreset() override;
+  bool Start(int channels, int samplesPerSec, int bitsPerSample, std::string songName) override;
+  void AudioData(const float* audioData, int audioDataLength, float* freqData, int freqDataLength) override;
+  void Render() override;
+  bool GetPresets(std::vector<std::string>& presets) override;
+  int GetActivePreset() override;
+  bool PrevPreset() override;
+  bool NextPreset() override;
+  bool LoadPreset(int select) override;
+  bool RandomPreset() override;
 };
 
 //-- Render -------------------------------------------------------------------
