@@ -494,7 +494,7 @@ void CVisualizationShadertoy::Launch(int preset)
   // how many pixels get the desired fps
   double pixels = (1000.0/expected_fps - A) / B;
   m_state.fbwidth = sqrtf(pixels * Width() / Height());
-  if (m_state.fbwidth * 4 >= Width() * 3)
+  if (m_state.fbwidth >= Width())
     m_state.fbwidth = 0;
   else if (m_state.fbwidth < 320)
     m_state.fbwidth = 320;
