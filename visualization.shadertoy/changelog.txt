@@ -1,3 +1,17 @@
+[B]2.0.2[/B]
+- Allow on new addon settings to set own Shadertoy file
+- Update Debian package creation
+- Update glm on depends to version 0.9.9.4
+- Use reduced size always if calculation is lower as screen size
+- Prevent some shaders on GLES (can freeze on weak systems)
+- Add textureLod fallback on GLES (needed on some shadertoys)
+- Cleanup CMakeLists.txt
+- Update addon Readme
+- Kodi visualization API change
+
+[B]2.0.1[/B]
+- Fix debian packaging
+
 [B]2.0.0[/B]
 - Allow complete support via Angle to Windows
 - Add screenshots and fanart images to see what it brings
