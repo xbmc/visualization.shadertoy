@@ -5,6 +5,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
 find_package(Kodi REQUIRED)
 find_package(p8-platform REQUIRED)
+find_package(glm REQUIRED)
 
 add_subdirectory(lib/kissfft)
 
@@ -50,7 +51,6 @@ elseif(WIN32)
 endif()
 
 list(APPEND DEPLIBS kissfft)
-list(APPEND DEPENDS glm)
 
 build_addon(visualization.shadertoy SHADERTOY DEPLIBS)
 
