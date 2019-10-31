@@ -1,3 +1,25 @@
+[B]1.2.3[/B]
+- Update Debian package creation
+- Remove not needed "virtual" on windows related code
+- Update glm on depends to version 0.9.9.5
+- Add screenshots and fanart images to see what it brings
+- Update description text
+- Use reduced size always if calculation is lower as screen size
+- Prevent some shaders on GLES (can freeze on weak systems)
+
+[B]1.2.2[/B]
+- Fix debian packaging
+
+[B]1.2.1[/B]
+- On code override GL_RED (if not present) with GL_LUMINANCE (needed on older GLES versions)
+- AppVeyor: Use Visual Studio 2017 & add WindowsStore
+
+[B]1.2.0[/B]
+- Update build system version and cleanup
+- Bring in GL 4.0 support
+- Update shader files with a revised copy to a new OpenGL-related folder
+- Remove old for Windows not supported shader files
+
 [B]1.1.9[/B]
 - Save last used preset
 
