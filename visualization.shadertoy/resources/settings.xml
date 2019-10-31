@@ -1,4 +1,131 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<settings>
-    <setting id="lastpresetidx" type="number" default="0" visible="false" />
+<settings version="1">
+  <section id="addon" label="0" help="0">
+    <category id="main" label="30000" help="0">
+      <group id="1" label="0">
+        <setting id="lastpresetidx" type="integer">
+          <visible>false</visible>
+          <default>0</default>
+          <control type="spinner" format="string"/>
+        </setting>
+        <setting id="ownshader" type="boolean" label="30010" help="30011">
+          <default>false</default>
+          <control type="toggle" />
+        </setting>
+        <setting id="shader" type="path" label="30012" help="30013">
+          <default></default>
+          <dependencies>
+            <dependency type="enable" setting="ownshader" operator="is">true</dependency>
+          </dependencies>
+          <constraints>
+            <allowempty>true</allowempty>
+            <masking>*.glsl</masking>
+          </constraints>
+          <control type="button" format="file">
+            <heading>30012</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+    <category id="texture0" label="30001" help="0">
+      <group id="1" label="0">
+        <setting id="texture0-sound" type="boolean" label="30014" help="30015">
+          <default>true</default>
+          <control type="toggle" />
+          <dependencies>
+            <dependency type="enable" setting="ownshader" operator="is">true</dependency>
+          </dependencies>
+        </setting>
+        <setting id="texture0" type="path" label="30016" help="30017">
+          <default></default>
+          <dependencies>
+            <dependency type="enable" setting="ownshader" operator="is">true</dependency>
+            <dependency type="enable" setting="texture0-sound" operator="is">false</dependency>
+          </dependencies>
+          <constraints>
+            <allowempty>true</allowempty>
+            <masking>*.png</masking>
+          </constraints>
+          <control type="button" format="image">
+            <heading>30016</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+    <category id="texture1" label="30002" help="0">
+      <group id="1" label="0">
+        <setting id="texture1-sound" type="boolean" label="30018" help="30019">
+          <default>false</default>
+          <control type="toggle" />
+          <dependencies>
+            <dependency type="enable" setting="ownshader" operator="is">true</dependency>
+          </dependencies>
+        </setting>
+        <setting id="texture1" type="path" label="30020" help="30021">
+          <default></default>
+          <dependencies>
+            <dependency type="enable" setting="ownshader" operator="is">true</dependency>
+            <dependency type="enable" setting="texture1-sound" operator="is">false</dependency>
+          </dependencies>
+          <constraints>
+            <allowempty>true</allowempty>
+            <masking>*.png</masking>
+          </constraints>
+          <control type="button" format="image">
+            <heading>30020</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+    <category id="texture2" label="30003" help="0">
+      <group id="1" label="0">
+        <setting id="texture2-sound" type="boolean" label="30022" help="30023">
+          <default>false</default>
+          <control type="toggle" />
+          <dependencies>
+            <dependency type="enable" setting="ownshader" operator="is">true</dependency>
+          </dependencies>
+        </setting>
+        <setting id="texture2" type="path" label="30024" help="30025">
+          <default></default>
+          <dependencies>
+            <dependency type="enable" setting="ownshader" operator="is">true</dependency>
+            <dependency type="enable" setting="texture2-sound" operator="is">false</dependency>
+          </dependencies>
+          <constraints>
+            <allowempty>true</allowempty>
+            <masking>*.png</masking>
+          </constraints>
+          <control type="button" format="image">
+            <heading>30024</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+    <category id="texture3" label="30004" help="0">
+      <group id="1" label="0">
+        <setting id="texture3-sound" type="boolean" label="30026" help="30027">
+          <default>false</default>
+          <control type="toggle" />
+          <dependencies>
+            <dependency type="enable" setting="ownshader" operator="is">true</dependency>
+          </dependencies>
+        </setting>
+        <setting id="texture3" type="path" label="30028" help="30029">
+          <default></default>
+          <dependencies>
+            <dependency type="enable" setting="ownshader" operator="is">true</dependency>
+            <dependency type="enable" setting="texture3-sound" operator="is">false</dependency>
+          </dependencies>
+          <constraints>
+            <allowempty>true</allowempty>
+            <masking>*.png</masking>
+          </constraints>
+          <control type="button" format="image">
+            <heading>30028</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+  </section>
 </settings>

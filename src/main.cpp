@@ -201,7 +201,11 @@ CVisualizationShadertoy::CVisualizationShadertoy()
     m_magnitudeBuffer(new float[NUM_BANDS]()),
     m_pcm(new float[AUDIO_BUFFER]())
 {
-  m_currentPreset = kodi::GetSettingInt("lastpresetidx");
+  m_settingsUseOwnshader = kodi::GetSettingBoolean("ownshader");
+  if (m_settingsUseOwnshader)
+    m_currentPreset = -1;
+  else
+    m_currentPreset = kodi::GetSettingInt("lastpresetidx");
 }
 
 CVisualizationShadertoy::~CVisualizationShadertoy()
@@ -312,33 +316,45 @@ void CVisualizationShadertoy::AudioData(const float* pAudioData, int iAudioDataL
 //-----------------------------------------------------------------------------
 bool CVisualizationShadertoy::NextPreset()
 {
-  m_currentPreset = (m_currentPreset + 1) % g_presets.size();
-  Launch(m_currentPreset);
-  kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+  if (!m_settingsUseOwnshader)
+  {
+    m_currentPreset = (m_currentPreset + 1) % g_presets.size();
+    Launch(m_currentPreset);
+    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+  }
   return true;
 }
 
 bool CVisualizationShadertoy::PrevPreset()
 {
-  m_currentPreset = (m_currentPreset - 1) % g_presets.size();
-  Launch(m_currentPreset);
-  kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+  if (!m_settingsUseOwnshader)
+  {
+    m_currentPreset = (m_currentPreset - 1) % g_presets.size();
+    Launch(m_currentPreset);
+    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+  }
   return true;
 }
 
 bool CVisualizationShadertoy::LoadPreset(int select)
 {
-  m_currentPreset = select % g_presets.size();
-  Launch(m_currentPreset);
-  kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+  if (!m_settingsUseOwnshader)
+  {
+    m_currentPreset = select % g_presets.size();
+    Launch(m_currentPreset);
+    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+  }
   return true;
 }
 
 bool CVisualizationShadertoy::RandomPreset()
 {
-  m_currentPreset = (int)((std::rand() / (float)RAND_MAX) * g_presets.size());
-  Launch(m_currentPreset);
-  kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+  if (!m_settingsUseOwnshader)
+  {
+    m_currentPreset = (int)((std::rand() / (float)RAND_MAX) * g_presets.size());
+    Launch(m_currentPreset);
+    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+  }
   return true;
 }
 
@@ -347,8 +363,11 @@ bool CVisualizationShadertoy::RandomPreset()
 //-----------------------------------------------------------------------------
 bool CVisualizationShadertoy::GetPresets(std::vector<std::string>& presets)
 {
-  for (auto preset : g_presets)
-    presets.push_back(preset.name);
+  if (!m_settingsUseOwnshader)
+  {
+    for (auto preset : g_presets)
+      presets.push_back(preset.name);
+  }
   return true;
 }
 
@@ -378,7 +397,7 @@ void CVisualizationShadertoy::RenderTo(GLuint shader, GLuint effect_fb)
     {
       for (int i = 0; i < 4; i++)
       {
-        if (g_presets[m_currentPreset].channel[i] == 99)
+        if (m_shaderTextures[i].audio)
         {
           glActiveTexture(GL_TEXTURE0 + i);
           glBindTexture(GL_TEXTURE_2D, m_channelTextures[i]);
@@ -486,15 +505,58 @@ void CVisualizationShadertoy::Launch(int preset)
 #endif
 
   UnloadTextures();
+
+  if (preset < 0)
+  {
+    m_usedShaderFile = kodi::GetSettingString("shader");
+    m_shaderTextures[0].audio = kodi::GetSettingBoolean("texture0-sound");
+    m_shaderTextures[0].texture = kodi::GetSettingString("texture0");
+    m_shaderTextures[1].audio = kodi::GetSettingBoolean("texture1-sound");
+    m_shaderTextures[1].texture = kodi::GetSettingString("texture1");
+    m_shaderTextures[2].audio = kodi::GetSettingBoolean("texture2-sound");
+    m_shaderTextures[2].texture = kodi::GetSettingString("texture2");
+    m_shaderTextures[3].audio = kodi::GetSettingBoolean("texture3-sound");
+    m_shaderTextures[3].texture = kodi::GetSettingString("texture3");
+  }
+  else
+  {
+    m_usedShaderFile = kodi::GetAddonPath("resources/shaders/" + g_presets[preset].file);
+    for (int i = 0; i < 4; i++)
+    {
+      if (g_presets[preset].channel[i] >= 0 && g_presets[preset].channel[i] < g_fileTextures.size())
+      {
+        m_shaderTextures[i].texture = kodi::GetAddonPath("resources/" + g_fileTextures[g_presets[preset].channel[i]]);
+      }
+      else if (g_presets[preset].channel[i] == 99) // framebuffer
+      {
+        m_shaderTextures[i].audio = true;
+      }
+      else
+      {
+        m_shaderTextures[i].texture = "";
+        m_shaderTextures[i].audio = false;
+      }
+    }
+  }
+
   for (int i = 0; i < 4; i++)
   {
-    if (g_presets[preset].channel[i] >= 0)
-      m_channelTextures[i] = LoadTexture(g_presets[preset].channel[i]);
+    if (m_shaderTextures[i].audio)
+    {
+      m_channelTextures[i] = CreateTexture(GL_RED, NUM_BANDS, 2, m_audioData);
+    }
+    else if (!m_shaderTextures[i].texture.empty())
+    {
+      GLint format = GL_RGBA;
+      GLint scaling = GL_LINEAR;
+      GLint repeat = GL_REPEAT;
+      m_channelTextures[i] = CreateTexture(m_shaderTextures[i].texture, format, scaling, repeat);
+    }
   }
 
   const int size1 = 256, size2=512;
-  double t1 = MeasurePerformance(preset, size1);
-  double t2 = MeasurePerformance(preset, size2);
+  double t1 = MeasurePerformance(m_usedShaderFile, size1);
+  double t2 = MeasurePerformance(m_usedShaderFile, size2);
 
   double expected_fps = 40.0;
   // time per pixel for rendering fragment shader
@@ -514,23 +576,7 @@ void CVisualizationShadertoy::Launch(int preset)
   printf("expected fps=%f, pixels=%f %dx%d (A:%f B:%f t1:%.1f t2:%.1f)\n", expected_fps, pixels, m_state.fbwidth, m_state.fbheight, A, B, t1, t2);
 #endif
 
-  LoadPreset(preset, kodi::GetAddonPath("resources/shaders/" + g_presets[preset].file));
-}
-
-GLint CVisualizationShadertoy::LoadTexture(int number)
-{
-  if (number >= 0 && number < g_fileTextures.size())
-  {
-    GLint format = GL_RGBA;
-    GLint scaling = GL_LINEAR;
-    GLint repeat = GL_REPEAT;
-    return CreateTexture(kodi::GetAddonPath("resources/" + g_fileTextures[number]), format, scaling, repeat);
-  }
-  else if (number == 99) // framebuffer
-  {
-    return CreateTexture(GL_RED, NUM_BANDS, 2, m_audioData);
-  }
-  return 0;
+  LoadPreset(m_usedShaderFile);
 }
 
 void CVisualizationShadertoy::UnloadTextures()
@@ -545,7 +591,7 @@ void CVisualizationShadertoy::UnloadTextures()
   }
 }
 
-void CVisualizationShadertoy::LoadPreset(int preset, const std::string& shaderPath)
+void CVisualizationShadertoy::LoadPreset(const std::string& shaderPath)
 {
   UnloadPreset();
   std::string vertShadertoyShader = kodi::GetAddonPath("resources/shaders/main_shadertoy_" GL_TYPE_STRING ".vert.glsl");
@@ -704,7 +750,7 @@ float CVisualizationShadertoy::LinearToDecibels(float linear)
 int CVisualizationShadertoy::DetermineBitsPrecision()
 {
   m_state.fbwidth = 32, m_state.fbheight = 26*10;
-  LoadPreset(0, kodi::GetAddonPath("resources/shaders/main_test.frag.glsl"));
+  LoadPreset(kodi::GetAddonPath("resources/shaders/main_test.frag.glsl"));
   RenderTo(m_shadertoyShader.ProgramHandle(), m_state.effect_fb);
   glFinish();
 
@@ -726,11 +772,11 @@ int CVisualizationShadertoy::DetermineBitsPrecision()
   return bits;
 }
 
-double CVisualizationShadertoy::MeasurePerformance(int preset, int size)
+double CVisualizationShadertoy::MeasurePerformance(const std::string& shaderPath, int size)
 {
   int iterations = -1;
   m_state.fbwidth = m_state.fbheight = size;
-  LoadPreset(preset, kodi::GetAddonPath("resources/shaders/" + g_presets[preset].file));
+  LoadPreset(shaderPath);
 
   int64_t end, start;
   do
