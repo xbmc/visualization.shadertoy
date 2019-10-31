@@ -45,6 +45,8 @@ struct Preset
   int channel[4];
 };
 
+// NOTE: With "#if defined(HAS_GL)" the use of some shaders is avoided
+//       as they can cause problems on weaker systems.
 const std::vector<Preset> g_presets =
 {
    {"2D LED Spectrum by un1versal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
@@ -54,16 +56,22 @@ const std::vector<Preset> g_presets =
    {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
    {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1},
    {"Circle Wave by TekF",                      "circlewave.frag.glsl",             99, -1, -1, -1},
+#if defined(HAS_GL)
    {"Circuits by Kali",                         "circuits.frag.glsl",               99,  7, -1, -1},
    {"Colored Bars by novalis",                  "coloredbars.frag.glsl",            99, -1, -1, -1},
    {"Cubescape by iq",                          "cubescape.frag.glsl",              99,  5, -1, -1},
+#endif
    {"Dancing Metalights by Danguafare",         "dancingmetalights.frag.glsl",      99, -1, -1, -1},
    {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 13, 99, -1},
    {"Electric pulse by un1versal",              "electricpulse.frag.glsl",          99, -1, -1, -1},
+#if defined(HAS_GL)
    {"Fractal Land by Kali",                     "fractalland.frag.glsl",             2, 13, 99, -1},
+#endif
    {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
    {"Input Sound by iq",                        "input.frag.glsl",                  99, -1, -1, -1},
+#if defined(HAS_GL)
    {"I/O by movAX13h",                          "io.frag.glsl",                     99, -1, -1, -1},
+#endif
    {"Kaleidoscope Visualizer by Qqwy",          "kaleidoscopevisualizer.frag.glsl", 99, 15, -1, -1},
    {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            99, -1, -1, -1},
    {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1},
@@ -74,7 +82,9 @@ const std::vector<Preset> g_presets =
    {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       99, -1, -1, -1},
    {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           99, -1, -1, -1},
    {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        99, -1, -1, -1},
+#if defined(HAS_GL)
    {"Demo - Volumetric Lines by iq",            "volumetriclines.frag.glsl",        99, -1, -1, -1},
+#endif
    {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             99, -1, -1, -1}
 };
 
