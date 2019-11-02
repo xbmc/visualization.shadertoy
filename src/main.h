@@ -52,9 +52,8 @@ private:
   void Mix(float* destination, const float* source, size_t frames, size_t channels);
   void WriteToBuffer(const float* input, size_t length, size_t channels);
   void Launch(int preset);
-  void LoadPreset(int preset, const std::string& shaderPath);
+  void LoadPreset(const std::string& shaderPath);
   void UnloadPreset();
-  GLint LoadTexture(int number);
   void UnloadTextures();
   GLuint CreateTexture(GLint format, unsigned int w, unsigned int h, const GLvoid* data);
   GLuint CreateTexture(const GLvoid* data, GLint format, unsigned int w, unsigned int h, GLint internalFormat, GLint scaling, GLint repeat);
@@ -63,7 +62,7 @@ private:
   void SmoothingOverTime(float* outputBuffer, float* lastOutputBuffer, kiss_fft_cpx* inputBuffer, size_t length, float smoothingTimeConstant, unsigned int fftSize);
   float LinearToDecibels(float linear);
   int DetermineBitsPrecision();
-  double MeasurePerformance(int preset, int size);
+  double MeasurePerformance(const std::string& shaderPath, int size);
 
   kiss_fft_cfg m_kissCfg;
   GLubyte* m_audioData;
@@ -101,4 +100,12 @@ private:
     GLuint uScale;
     int fbwidth, fbheight;
   } m_state;
+
+  bool m_settingsUseOwnshader = false;
+  std::string m_usedShaderFile;
+  struct ShaderPath
+  {
+    bool audio = false;
+    std::string texture;
+  } m_shaderTextures[4];
 };
