@@ -3,7 +3,8 @@
 This is a [Kodi](https://kodi.tv) visualization addon.
 
 [![Build Status](https://travis-ci.org/xbmc/visualization.shadertoy.svg?branch=master)](https://travis-ci.org/xbmc/visualization.shadertoy)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/xbmc/visualization.shadertoy?svg=true)](https://ci.appveyor.com/project/xbmc/visualization-shadertoy)
+[![Build Status](https://dev.azure.com/teamkodi/binary-addons/_apis/build/status/xbmc.visualization.shadertoy?branchName=Leia)](https://dev.azure.com/teamkodi/binary-addons/_build/latest?definitionId=34&branchName=Leia)
+<!--- [![Build Status](https://ci.appveyor.com/api/projects/status/github/xbmc/visualization.shadertoy?svg=true)](https://ci.appveyor.com/project/xbmc/visualization-shadertoy) -->
 
 ![screenshot](https://raw.githubusercontent.com/xbmc/visualization.shadertoy/Leia/visualization.shadertoy/resources/screenshot-01.jpg)
 
