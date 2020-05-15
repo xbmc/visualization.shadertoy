@@ -5,6 +5,7 @@ This is a [Kodi](https://kodi.tv) visualization addon.
 [![License: GPL-2.0-or-later](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/xbmc/visualization.shadertoy.svg?branch=Matrix)](https://travis-ci.org/xbmc/visualization.shadertoy/branches)
 [![Build Status](https://dev.azure.com/teamkodi/binary-addons/_apis/build/status/xbmc.visualization.shadertoy?branchName=Matrix)](https://dev.azure.com/teamkodi/binary-addons/_build/latest?definitionId=34&branchName=Matrix)
+[![Build Status](https://jenkins.kodi.tv/view/Addons/job/xbmc/job/visualization.shadertoy/job/Matrix/badge/icon)](https://jenkins.kodi.tv/blue/organizations/jenkins/xbmc%2Fvisualization.shadertoy/branches/)
 <!--- [![Build Status](https://ci.appveyor.com/api/projects/status/github/xbmc/visualization.shadertoy?branch=Matrix&svg=true)](https://ci.appveyor.com/project/xbmc/visualization-shadertoy?branch=Matrix) -->
 
 ![screenshot](https://raw.githubusercontent.com/xbmc/visualization.shadertoy/Matrix/visualization.shadertoy/resources/screenshot-01.jpg)
