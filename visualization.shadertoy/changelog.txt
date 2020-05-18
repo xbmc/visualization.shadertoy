@@ -1,3 +1,7 @@
+[B]2.1.1[/B]
+- Clamp framebuffer texture to avoid edge pixels bleeding
+- Add source URL to addon.xml
+
 [B]2.1.0[/B]
 - Matrix API change inputstream API 2.3.1
 - Matrix APi change Global API 1.2.0
