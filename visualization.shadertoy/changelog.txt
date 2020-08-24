@@ -1,3 +1,9 @@
+[B]2.2.0[/B]
+- Matrix API change visualizations
+- Improve debian build code
+- Add german translations
+- Add debian build tests to Travis CI
+
 [B]2.1.1[/B]
 - Clamp framebuffer texture to avoid edge pixels bleeding
 - Add source URL to addon.xml
