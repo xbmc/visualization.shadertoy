@@ -1,3 +1,6 @@
+[B]1.2.4[/B]
+- Fix standalone build with newer glm versions (>= 0.9.9.6)
+
 [B]1.2.3[/B]
 - Update Debian package creation
 - Remove not needed "virtual" on windows related code
