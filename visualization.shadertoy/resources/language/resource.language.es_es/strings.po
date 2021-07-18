@@ -17,6 +17,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.7.1\n"
 
+msgctxt "Addon Summary"
+msgid "Visualizations from Shadertoy"
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "This music visualization is based on Shadertoy based GPU programs."
+msgstr ""
+
 msgctxt "#30000"
 msgid "General"
 msgstr "General"

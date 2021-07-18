@@ -18,6 +18,14 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=(n==0) ? 0 : (n==1) ? 1 : (n==2) ? 2 : "
 "(n==3) ? 3 :(n==6) ? 4 : 5;\n"
 
+msgctxt "Addon Summary"
+msgid "Visualizations from Shadertoy"
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "This music visualization is based on Shadertoy based GPU programs."
+msgstr ""
+
 msgctxt "#30000"
 msgid "General"
 msgstr ""
