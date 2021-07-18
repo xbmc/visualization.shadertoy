@@ -17,6 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+msgctxt "Addon Summary"
+msgid "Visualizations from Shadertoy"
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "This music visualization is based on Shadertoy based GPU programs."
+msgstr ""
+
 msgctxt "#30000"
 msgid "General"
 msgstr ""

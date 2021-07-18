@@ -9,10 +9,6 @@
     point="xbmc.player.musicviz"
     library_@PLATFORM@="@LIBRARY_FILENAME@"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="de_DE">Visualisierungen von Shadertoy</summary>
-    <summary lang="en_GB">Visualizations from Shadertoy</summary>
-    <description lang="de_DE">Diese Musikvisualisierung basiert auf Shadertoy-basierten GPU-Programmen.</description>
-    <description lang="en_GB">This music visualization is based on Shadertoy based GPU programs.</description>
     <platform>@PLATFORM@</platform>
     <license>GPL-2.0-or-later</license>
     <source>https://github.com/xbmc/visualization.shadertoy</source>
@@ -27,5 +23,9 @@
       <screenshot>resources/screenshot-05.jpg</screenshot>
       <screenshot>resources/screenshot-06.jpg</screenshot>
     </assets>
+    <summary lang="de_DE">Visualisierungen von Shadertoy</summary>
+    <summary lang="en_GB">Visualizations from Shadertoy</summary>
+    <description lang="de_DE">Diese Musikvisualisierung basiert auf Shadertoy-basierten GPU-Programmen.</description>
+    <description lang="en_GB">This music visualization is based on Shadertoy based GPU programs.</description>
   </extension>
 </addon>
