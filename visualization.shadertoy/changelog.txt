@@ -1,3 +1,6 @@
+[B]19.0.1[/B]
+- Translation updates
+
 [B]19.0.0[/B]
 - Change test builds to released 'Kodi 19 Matrix'
 - Increase version to 19.0.0
