@@ -125,6 +125,7 @@ msgid "Channel 3 as *.png"
 msgstr ""
 
 #. Header text shown on notification dialog and on file selection dialog
+#: visualization.shadertoy/resources/settings.xml
 #: visualization.shadertoy/src/PresetsLoader.cpp
 msgctxt "#30030"
 msgid "Shadertoy Visualization"
@@ -134,4 +135,22 @@ msgstr ""
 #: visualization.shadertoy/src/PresetsLoader.cpp
 msgctxt "#30031"
 msgid "Cannot read the JSON file. Please check the formatting is correct and the file is available."
+msgstr ""
+
+#. Settings value to open dialog for file selection
+#: visualization.shadertoy/resources/settings.xml
+msgctxt "#30032"
+msgid "Path to custom preset list"
+msgstr ""
+
+#. Help text related to setting string with id 30032
+#: visualization.shadertoy/resources/settings.xml
+msgctxt "#30033"
+msgid "Set the path to your custom JSON-formatted preset file. If no path is configured, the add-on will use the default preset file."
+msgstr ""
+
+#. Settings group name
+#: visualization.shadertoy/resources/settings.xml
+msgctxt "#30034"
+msgid "Configure a single shader"
 msgstr ""
