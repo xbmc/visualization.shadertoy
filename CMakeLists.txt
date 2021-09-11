@@ -34,10 +34,12 @@ if(CORE_SYSTEM_NAME STREQUAL osx OR
   list(APPEND DEPLIBS "-framework CoreVideo")
 endif()
 
-set(SHADERTOY_SOURCES src/lodepng.cpp
+set(SHADERTOY_SOURCES src/PresetsLoader.cpp
+                      src/lodepng.cpp
                       src/main.cpp)
 
-set(SHADERTOY_HEADERS src/lodepng.h
+set(SHADERTOY_HEADERS src/PresetsLoader.h
+                      src/lodepng.h
                       src/main.h)
 
 list(APPEND DEPLIBS kissfft)
