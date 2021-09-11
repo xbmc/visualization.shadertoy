@@ -124,7 +124,17 @@ CVisualizationShadertoy::CVisualizationShadertoy()
   else
     m_currentPreset = kodi::GetSettingInt("lastpresetidx");
 
-  m_presetsJSONFile = kodi::GetAddonPath("resources/presets.json");
+  m_presetsJSONFile = kodi::GetSettingString("presetfile");
+  if (m_presetsJSONFile.empty() || !kodi::vfs::FileExists(m_presetsJSONFile))
+    m_presetsJSONFile = kodi::GetAddonPath("resources/presets.json");
+
+  /* In case of preset file change, set current selected preset to 0 */
+  if (kodi::GetSettingString("lastpresetfile") != m_presetsJSONFile)
+  {
+    m_currentPreset = 0;
+    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+    kodi::SetSettingString("lastpresetfile", m_presetsJSONFile);
+  }
 
   m_presets.Load(m_presetsJSONFile);
 }
