@@ -26,6 +26,16 @@
             <heading>30030</heading>
           </control>
         </setting>
+        <setting id="showhelp" type="string" label="30035" help="30036">
+          <level>0</level>
+          <default/>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="button" format="action">
+            <data>RunScript(visualization.shadertoy)</data>
+          </control>
+        </setting>
       </group>
       <group id="2" label="30034">
         <setting id="ownshader" type="boolean" label="30010" help="30011">
