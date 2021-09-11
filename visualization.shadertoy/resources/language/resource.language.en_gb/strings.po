@@ -123,3 +123,15 @@ msgstr ""
 msgctxt "#30029"
 msgid "Channel 3 as *.png"
 msgstr ""
+
+#. Header text shown on notification dialog and on file selection dialog
+#: visualization.shadertoy/src/PresetsLoader.cpp
+msgctxt "#30030"
+msgid "Shadertoy Visualization"
+msgstr ""
+
+#. Notification message shown on the screen when an incorrect preset list is given
+#: visualization.shadertoy/src/PresetsLoader.cpp
+msgctxt "#30031"
+msgid "Cannot read the JSON file. Please check the formatting is correct and the file is available."
+msgstr ""

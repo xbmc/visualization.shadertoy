@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "PresetsLoader.h"
+
 #include <kodi/addon-instance/Visualization.h>
 #include <kodi/gui/gl/Shader.h>
 #include <glm/glm.hpp>
@@ -95,4 +97,7 @@ private:
     bool audio = false;
     std::string texture;
   } m_shaderTextures[4];
+
+  std::string m_presetsJSONFile;
+  CPresetLoader m_presets;
 };
