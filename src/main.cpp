@@ -25,76 +25,6 @@
 #define GL_RED GL_LUMINANCE
 #endif
 
-struct Preset
-{
-  std::string name;
-  std::string file;
-  int channel[4];
-};
-
-// NOTE: With "#if defined(HAS_GL)" the use of some shaders is avoided
-//       as they can cause problems on weaker systems.
-const std::vector<Preset> g_presets =
-{
-   {"2D LED Spectrum by un1versal",             "2Dspectrum.frag.glsl",             99, -1, -1, -1},
-   {"Audio Eclipse by airtight",                "audioeclipse.frag.glsl",           99, -1, -1, -1},
-   {"Audio Reaktive by choard1895",             "audioreaktive.frag.glsl",          99, -1, -1, -1},
-   {"AudioVisual by Passion",                   "audiovisual.frag.glsl",            99, -1, -1, -1},
-   {"Beating Circles by Phoenix72",             "beatingcircles.frag.glsl",         99, -1, -1, -1},
-   {"BPM by iq",                                "bpm.frag.glsl",                    99, -1, -1, -1},
-   {"Circle Wave by TekF",                      "circlewave.frag.glsl",             99, -1, -1, -1},
-#if defined(HAS_GL)
-   {"Circuits by Kali",                         "circuits.frag.glsl",               99,  7, -1, -1},
-   {"Colored Bars by novalis",                  "coloredbars.frag.glsl",            99, -1, -1, -1},
-   {"Cubescape by iq",                          "cubescape.frag.glsl",              99,  5, -1, -1},
-#endif
-   {"Dancing Metalights by Danguafare",         "dancingmetalights.frag.glsl",      99, -1, -1, -1},
-   {"The Disco Tunnel by poljere",              "discotunnel.frag.glsl",             2, 13, 99, -1},
-   {"Electric pulse by un1versal",              "electricpulse.frag.glsl",          99, -1, -1, -1},
-#if defined(HAS_GL)
-   {"Fractal Land by Kali",                     "fractalland.frag.glsl",             2, 13, 99, -1},
-#endif
-   {"Gameboy by iq",                            "gameboy.frag.glsl",                99, -1, -1, -1},
-   {"Input Sound by iq",                        "input.frag.glsl",                  99, -1, -1, -1},
-#if defined(HAS_GL)
-   {"I/O by movAX13h",                          "io.frag.glsl",                     99, -1, -1, -1},
-#endif
-   {"Kaleidoscope Visualizer by Qqwy",          "kaleidoscopevisualizer.frag.glsl", 99, 15, -1, -1},
-   {"LED spectrum by simesgreen",               "ledspectrum.frag.glsl",            99, -1, -1, -1},
-   {"Polar Beats by sauj123",                   "polarbeats.frag.glsl",             99, -1, -1, -1},
-   {"Simplicity Galaxy by CBS",                 "simplicitygalaxy.frag.glsl",       99, -1, -1, -1},
-   {"Sound Flower by iq",                       "soundflower.frag.glsl",            99, -1, -1, -1},
-   {"Sound sinus wave by Eitraz",               "soundsinuswave.frag.glsl",         99, -1, -1, -1},
-   {"Spectrometer by jaba",                     "spectrometer.frag.glsl",           99, -1, -1, -1},
-   {"symmetrical sound visualiser by thelinked","symmetricalsound.frag.glsl",       99, -1, -1, -1},
-   {"Twisted Rings by poljere",                 "twistedrings.frag.glsl",           99, -1, -1, -1},
-   {"Undulant Spectre by mafik",                "undulantspectre.frag.glsl",        99, -1, -1, -1},
-#if defined(HAS_GL)
-   {"Demo - Volumetric Lines by iq",            "volumetriclines.frag.glsl",        99, -1, -1, -1},
-#endif
-   {"Waves Remix by ADOB",                      "wavesremix.frag.glsl",             99, -1, -1, -1}
-};
-
-const std::vector<std::string> g_fileTextures =
-{
-  "tex00.png",
-  "tex01.png",
-  "tex02.png",
-  "tex03.png",
-  "tex04.png",
-  "tex05.png",
-  "tex06.png",
-  "tex07.png",
-  "tex08.png",
-  "tex09.png",
-  "tex10.png",
-  "tex11.png",
-  "tex12.png",
-  "tex15.png",
-  "tex16.png",
-  "tex14.png",
-};
-
 #if defined(HAS_GL)
 
 std::string fsHeader =
@@ -193,6 +123,20 @@ CVisualizationShadertoy::CVisualizationShadertoy()
     m_currentPreset = -1;
   else
     m_currentPreset = kodi::GetSettingInt("lastpresetidx");
+
+  m_presetsJSONFile = kodi::GetSettingString("presetfile");
+  if (m_presetsJSONFile.empty() || !kodi::vfs::FileExists(m_presetsJSONFile))
+    m_presetsJSONFile = kodi::GetAddonPath("resources/presets.json");
+
+  /* In case of preset file change, set current selected preset to 0 */
+  if (kodi::GetSettingString("lastpresetfile") != m_presetsJSONFile)
+  {
+    m_currentPreset = 0;
+    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+    kodi::SetSettingString("lastpresetfile", m_presetsJSONFile);
+  }
+
+  m_presets.Load(m_presetsJSONFile);
 }
 
 CVisualizationShadertoy::~CVisualizationShadertoy()
@@ -305,7 +249,7 @@ bool CVisualizationShadertoy::NextPreset()
 {
   if (!m_settingsUseOwnshader)
   {
-    m_currentPreset = (m_currentPreset + 1) % g_presets.size();
+    m_currentPreset = (m_currentPreset + 1) % m_presets.GetPresetsAmount();
     Launch(m_currentPreset);
     kodi::SetSettingInt("lastpresetidx", m_currentPreset);
   }
@@ -316,7 +260,7 @@ bool CVisualizationShadertoy::PrevPreset()
 {
   if (!m_settingsUseOwnshader)
   {
-    m_currentPreset = (m_currentPreset - 1) % g_presets.size();
+    m_currentPreset = (m_currentPreset - 1) % m_presets.GetPresetsAmount();
     Launch(m_currentPreset);
     kodi::SetSettingInt("lastpresetidx", m_currentPreset);
   }
@@ -327,7 +271,7 @@ bool CVisualizationShadertoy::LoadPreset(int select)
 {
   if (!m_settingsUseOwnshader)
   {
-    m_currentPreset = select % g_presets.size();
+    m_currentPreset = select % m_presets.GetPresetsAmount();
     Launch(m_currentPreset);
     kodi::SetSettingInt("lastpresetidx", m_currentPreset);
   }
@@ -338,7 +282,7 @@ bool CVisualizationShadertoy::RandomPreset()
 {
   if (!m_settingsUseOwnshader)
   {
-    m_currentPreset = (int)((std::rand() / (float)RAND_MAX) * g_presets.size());
+    m_currentPreset = (int)((std::rand() / (float)RAND_MAX) * m_presets.GetPresetsAmount());
     Launch(m_currentPreset);
     kodi::SetSettingInt("lastpresetidx", m_currentPreset);
   }
@@ -352,8 +296,7 @@ bool CVisualizationShadertoy::GetPresets(std::vector<std::string>& presets)
 {
   if (!m_settingsUseOwnshader)
   {
-    for (auto preset : g_presets)
-      presets.push_back(preset.name);
+    return m_presets.GetAvailablePresets(presets);
   }
   return true;
 }
@@ -507,16 +450,17 @@ void CVisualizationShadertoy::Launch(int preset)
   }
   else
   {
-    m_usedShaderFile = kodi::GetAddonPath("resources/shaders/" + g_presets[preset].file);
+    Preset presetData = m_presets.GetPreset(preset);
+    m_usedShaderFile = presetData.file;
     for (int i = 0; i < 4; i++)
     {
-      if (g_presets[preset].channel[i] >= 0 && g_presets[preset].channel[i] < g_fileTextures.size())
-      {
-        m_shaderTextures[i].texture = kodi::GetAddonPath("resources/" + g_fileTextures[g_presets[preset].channel[i]]);
-      }
-      else if (g_presets[preset].channel[i] == 99) // framebuffer
+      if (presetData.channel[i] == "audio") // framebuffer
       {
         m_shaderTextures[i].audio = true;
+      }
+      else if (!presetData.channel[i].empty())
+      {
+        m_shaderTextures[i].texture = presetData.channel[i];
       }
       else
       {

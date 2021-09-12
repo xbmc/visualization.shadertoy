@@ -5,6 +5,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
 find_package(Kodi REQUIRED)
 find_package(glm REQUIRED)
+find_package(JsonCpp REQUIRED)
 
 add_subdirectory(lib/kissfft)
 
@@ -24,16 +25,21 @@ include_directories(${GLM_INCLUDE_DIR}
                     ${KODI_INCLUDE_DIR}/.. # Hack way with "/..", need bigger Kodi cmake rework to match right include ways
                     ${PROJECT_SOURCE_DIR}/lib)
 
+list(APPEND DEPLIBS ${JSONCPP_LIBRARIES})
+list(APPEND INCLUDES ${JSONCPP_INCLUDE_DIRS})
+
 if(CORE_SYSTEM_NAME STREQUAL osx OR
    CORE_SYSTEM_NAME STREQUAL ios OR
    CORE_SYSTEM_NAME STREQUAL darwin_embedded)
   list(APPEND DEPLIBS "-framework CoreVideo")
 endif()
 
-set(SHADERTOY_SOURCES src/lodepng.cpp
+set(SHADERTOY_SOURCES src/PresetsLoader.cpp
+                      src/lodepng.cpp
                       src/main.cpp)
 
-set(SHADERTOY_HEADERS src/lodepng.h
+set(SHADERTOY_HEADERS src/PresetsLoader.h
+                      src/lodepng.h
                       src/main.h)
 
 list(APPEND DEPLIBS kissfft)

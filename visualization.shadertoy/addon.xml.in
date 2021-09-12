@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="visualization.shadertoy"
-  version="19.0.1"
+  version="19.1.0"
   name="Shadertoy"
   provider-name="Team Kodi">
   <requires>@ADDON_DEPENDS@</requires>
   <extension
     point="xbmc.player.musicviz"
     library_@PLATFORM@="@LIBRARY_FILENAME@"/>
+  <extension
+    point="xbmc.python.script"
+    library="help-view.py"/>
   <extension point="xbmc.addon.metadata">
     <platform>@PLATFORM@</platform>
     <license>GPL-2.0-or-later</license>
