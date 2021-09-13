@@ -1,3 +1,6 @@
+[B]19.1.1[/B]
+- Fix possible compile error about missing jsoncpp include
+
 [B]19.1.0[/B]
 - Add new custom shader list feature:
   - Move existing shader list from add-on code to the default 'presets.json' file

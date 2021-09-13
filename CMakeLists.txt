@@ -22,11 +22,11 @@ else()
 endif()
 
 include_directories(${GLM_INCLUDE_DIR}
+                    ${JSONCPP_INCLUDE_DIRS}
                     ${KODI_INCLUDE_DIR}/.. # Hack way with "/..", need bigger Kodi cmake rework to match right include ways
                     ${PROJECT_SOURCE_DIR}/lib)
 
 list(APPEND DEPLIBS ${JSONCPP_LIBRARIES})
-list(APPEND INCLUDES ${JSONCPP_INCLUDE_DIRS})
 
 if(CORE_SYSTEM_NAME STREQUAL osx OR
    CORE_SYSTEM_NAME STREQUAL ios OR
