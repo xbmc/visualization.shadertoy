@@ -16,14 +16,10 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. Addon summary used on Kodi's addon list and on websites
-#: visualization.shadertoy/addon.xml.in
 msgctxt "Addon Summary"
 msgid "Visualizations from Shadertoy"
 msgstr ""
 
-#. Addon description used on Kodi's addon list and on websites
-#: visualization.shadertoy/addon.xml.in
 msgctxt "Addon Description"
 msgid "This music visualization is based on Shadertoy based GPU programs."
 msgstr ""
