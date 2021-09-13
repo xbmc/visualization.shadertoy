@@ -15,6 +15,8 @@ When building the addon you have to use the correct branch depending on which ve
 If you want to build the addon to be compatible with the latest kodi `master` commit, you need to checkout the branch with the current kodi codename.
 Also make sure you follow this README from the branch in question.
 
+If you want to use your own shaders, see [instructions for creating your own preset list](visualization.shadertoy/resources/presets.json.md).
+
 ### Linux
 
 The following instructions assume you will have built Kodi already in the `kodi-build` directory 

@@ -1,3 +1,9 @@
+[B]20.1.0[/B]
+- Add new custom shader list feature:
+  - Move existing shader list from add-on code to the default 'presets.json' file
+  - Allow users to configure a path to their own custom preset file
+  - Add help button with instructions on preset file JSON formatting
+
 [B]20.0.0[/B]
 - Change test builds to 'Kodi 20 Nexus'
 - Increase version to 20.0.0
