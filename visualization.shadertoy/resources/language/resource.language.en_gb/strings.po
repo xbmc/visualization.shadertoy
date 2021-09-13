@@ -9,7 +9,7 @@ msgstr ""
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
-"Language-Team: English (United Kingdom) (https://www.transifex.com/teamxbmc/kodi-addons/language/en_GB/)\n"
+"Language-Team: English (United Kingdom) (https://kodi.weblate.cloud/languages/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,102 +24,152 @@ msgctxt "Addon Description"
 msgid "This music visualization is based on Shadertoy based GPU programs."
 msgstr ""
 
+#. Settings category
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30000"
 msgid "General"
 msgstr ""
 
+#. Settings category
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30001"
 msgid "iChannel 0"
 msgstr ""
 
+#. Settings category
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30002"
 msgid "iChannel 1"
 msgstr ""
 
+#. Settings category
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30003"
 msgid "iChannel 2"
 msgstr ""
 
+#. Settings category
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30004"
 msgid "iChannel 3"
 msgstr ""
 
+#. Boolean settings value to enable and allow selection of a ".glsl" file and related textures
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30010"
 msgid "Choose one yourself"
 msgstr ""
 
+#. Help text related to setting string with id 30010
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30011"
 msgid "Use your own shadertoy. Attention: Some shaders are not supported by some GPU's in performance!"
 msgstr ""
 
+#. To open the file selection dialog about *.glsl files, if the setting "Choose one yourself"(30010) above is enabled.
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30012"
 msgid "Shadertoy file"
 msgstr ""
 
+#. Help text related to setting string with id 30012
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30013"
 msgid "Shader as *.glsl"
 msgstr ""
 
+#. Boolean value to use channel 0 as audio, if the setting "Choose one yourself"(30010) above is enabled.
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30014"
 msgid "Channel 0 as audio"
 msgstr ""
 
+#. Help text related to setting string with id 30014
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30015"
 msgid "Use audio stream data on channel 0"
 msgstr ""
 
+#. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30016"
 msgid "Channel 0 texture image"
 msgstr ""
 
+#. Help text related to setting string with id 30016
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30017"
 msgid "Channel 0 as *.png"
 msgstr ""
 
+#. Boolean value to use channel 1 as audio, if the setting "Choose one yourself"(30010) above is enabled.
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30018"
 msgid "Channel 1 as audio"
 msgstr ""
 
+#. Help text related to setting string with id 30018
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30019"
 msgid "Use audio stream data on channel 1"
 msgstr ""
 
+#. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30020"
 msgid "Channel 1 texture image"
 msgstr ""
 
+#. Help text related to setting string with id 30020
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30021"
 msgid "Channel 1 as *.png"
 msgstr ""
 
+#. Boolean value to use channel 2 as audio, if the setting "Choose one yourself"(30010) above is enabled.
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30022"
 msgid "Channel 2 as audio"
 msgstr ""
 
+#. Help text related to setting string with id 30022
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30023"
 msgid "Use audio stream data on channel 2"
 msgstr ""
 
+#. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30024"
 msgid "Channel 2 texture image"
 msgstr ""
 
+#. Help text related to setting string with id 30024
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30025"
 msgid "Channel 2 as *.png"
 msgstr ""
 
+#. Boolean value to use channel 3 as audio, if the setting "Choose one yourself"(30010) above is enabled.
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30026"
 msgid "Channel 3 as audio"
 msgstr ""
 
+#. Help text related to setting string with id 30026
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30027"
 msgid "Use audio stream data on channel 3"
 msgstr ""
 
+#. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30028"
 msgid "Channel 3 texture image"
 msgstr ""
 
+#. Help text related to setting string with id 30028
+#: visualization.shadertoy/resources/settings.xml
 msgctxt "#30029"
 msgid "Channel 3 as *.png"
 msgstr ""
