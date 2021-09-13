@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Addons\n"
-"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/visualization.shadertoy/issues\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2021-08-04 13:29+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
@@ -25,102 +25,203 @@ msgctxt "Addon Description"
 msgid "This music visualization is based on Shadertoy based GPU programs."
 msgstr ""
 
+#. Settings category
 msgctxt "#30000"
 msgid "General"
 msgstr "Generel"
 
+#. Settings category
 msgctxt "#30001"
 msgid "iChannel 0"
 msgstr "iChannel 0"
 
+#. Settings category
 msgctxt "#30002"
 msgid "iChannel 1"
 msgstr "iChannel 1"
 
+#. Settings category
 msgctxt "#30003"
 msgid "iChannel 2"
 msgstr "iChannel 2"
 
+#. Settings category
 msgctxt "#30004"
 msgid "iChannel 3"
 msgstr "iChannel 3"
 
+#. Boolean settings value to enable and allow selection of a ".glsl" file and related textures
 msgctxt "#30010"
 msgid "Choose one yourself"
 msgstr "Vælg selv én"
 
+#. Help text related to setting string with id 30010
 msgctxt "#30011"
 msgid "Use your own shadertoy. Attention: Some shaders are not supported by some GPU's in performance!"
 msgstr "Brug dit egen shadertoy. OBS: Nogle shaders understøttes ikke i ydeevne af nogle GPU'er!"
 
+#. To open the file selection dialog about *.glsl files, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30012"
 msgid "Shadertoy file"
 msgstr "Shadertoy-fil"
 
+#. Help text related to setting string with id 30012
 msgctxt "#30013"
 msgid "Shader as *.glsl"
 msgstr "Shader som *.glsl"
 
+#. Boolean value to use channel 0 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30014"
 msgid "Channel 0 as audio"
 msgstr "Kanal 0 som lyd"
 
+#. Help text related to setting string with id 30014
 msgctxt "#30015"
 msgid "Use audio stream data on channel 0"
 msgstr "Brug data til lydstream på kanal 0"
 
+#. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30016"
 msgid "Channel 0 texture image"
 msgstr "Kanal 0 overfladebillede"
 
+#. Help text related to setting string with id 30016
 msgctxt "#30017"
 msgid "Channel 0 as *.png"
 msgstr "Kanal 0 som *.png"
 
+#. Boolean value to use channel 1 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30018"
 msgid "Channel 1 as audio"
 msgstr "Kanal 1 som lyd"
 
+#. Help text related to setting string with id 30018
 msgctxt "#30019"
 msgid "Use audio stream data on channel 1"
 msgstr "Brug data til lydstream på kanal 1"
 
+#. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30020"
 msgid "Channel 1 texture image"
 msgstr "Kanal 1 overfladebillede"
 
+#. Help text related to setting string with id 30020
 msgctxt "#30021"
 msgid "Channel 1 as *.png"
 msgstr "Kanal 1 som *.png"
 
+#. Boolean value to use channel 2 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30022"
 msgid "Channel 2 as audio"
 msgstr "Kanal 2 som lyd"
 
+#. Help text related to setting string with id 30022
 msgctxt "#30023"
 msgid "Use audio stream data on channel 2"
 msgstr "Brug data til audiostream på kanal 2"
 
+#. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30024"
 msgid "Channel 2 texture image"
 msgstr "Kanal 2 overfladebillede"
 
+#. Help text related to setting string with id 30024
 msgctxt "#30025"
 msgid "Channel 2 as *.png"
 msgstr "Kanal 2 som *.png"
 
+#. Boolean value to use channel 3 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30026"
 msgid "Channel 3 as audio"
 msgstr "Kanal 3 som lyd"
 
+#. Help text related to setting string with id 30026
 msgctxt "#30027"
 msgid "Use audio stream data on channel 3"
 msgstr "Brug data til lydstream på kanal 3"
 
+#. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30028"
 msgid "Channel 3 texture image"
 msgstr "Kanal 3 overfladebillede"
 
+#. Help text related to setting string with id 30028
 msgctxt "#30029"
 msgid "Channel 3 as *.png"
 msgstr "Kanal 3 som *.png"
+
+#. Header text shown on notification dialog and on file selection dialog
+msgctxt "#30030"
+msgid "Shadertoy Visualization"
+msgstr ""
+
+#. Notification message shown on the screen when an incorrect preset list is given
+msgctxt "#30031"
+msgid "Cannot read the JSON file. Please check the formatting is correct and the file is available."
+msgstr ""
+
+#. Settings value to open dialog for file selection
+msgctxt "#30032"
+msgid "Path to custom preset list"
+msgstr ""
+
+#. Help text related to setting string with id 30032
+msgctxt "#30033"
+msgid "Set the path to your custom JSON-formatted preset file. If no path is configured, the add-on will use the default preset file."
+msgstr ""
+
+#. Settings group name
+msgctxt "#30034"
+msgid "Configure a single shader"
+msgstr ""
+
+#. Settings value to open a dialog for showing help about the preset file
+msgctxt "#30035"
+msgid "Show help about preset file"
+msgstr ""
+
+#. Help text related to setting string with id 30035
+msgctxt "#30036"
+msgid "Open to read about creating the JSON-formatted preset file."
+msgstr ""
+
+#. Header text on the help dialog within settings, related to the help text of string ID 30038
+msgctxt "#30037"
+msgid "Help about defining your own shaders in the JSON file"
+msgstr ""
+
+#. Help text about showing the JSON-formatted preset file in a text window.
+#. Same text also on visualization.shadertoy/resources/presets.json.md, for here
+#. only in Kodi's format style and colored code example!
+msgctxt "#30038"
+msgid ""
+"[B][I]JSON file for user defined shader lists[/I][/B]\n"
+"\n"
+"The file [B]presets.json[/B] is used to define custom shaders.\n"
+"A custom path to the shader files (GLSL) can be declared in the add-on settings.\n"
+"\n"
+"Contents of [B]presets.json[/B] should be:\n"
+"[I]  1.[/I] Name of preset. Either hardcoded string or defined in [I]resources/language/.../strings.po[/I]\n"
+"[I]  2.[/I] GLSL shader to use. If no custom path was declared, the default [B]resources/[/B] will be used. Set custom path to './' to use shaders from the same path as your [B]presets.json[/B] file.\n"
+"[I]  3.[/I] Channel value 0. Defines the texture to use (e.g. PNG file). Can also be set to \"audio\" to pass related stream data within texture. The PNG and GLSL files should be located in the same directory.\n"
+"[I]  4.[/I] Channel value 1 definition.\n"
+"[I]  5.[/I] Channel value 2 definition.\n"
+"[I]  6.[/I] Channel value 3 definition.\n"
+"[I]  7.[/I] [I][Optional][/I] append string [B]\"gl_only\"[/B] to make this preset only available to OpenGL.\n"
+"\n"
+"[B]Example:[/B]\n"
+"[COLOR white][COLOR green]{[/COLOR] [COLOR blue]\"presets\"[/COLOR]:[\n"
+"[COLOR gray]/* Default way used by the addon itself */[/COLOR]\n"
+"[ [COLOR red]\"The Disco Tunnel by poljere\"[/COLOR],  [COLOR red]\"discotunnel.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Description defined in strings.po */[/COLOR]\n"
+"[ 30100, [COLOR red]\"audioeclipse.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Define custom file paths */[/COLOR]\n"
+"[ [COLOR red]\"My own one\"[/COLOR], [COLOR red]\"/path/to/glsl/my.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"/path/to/pngs/my_image.png\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Preset only available to OpenGL (see 7)  */[/COLOR]\n"
+"[ [COLOR red]\"Polar Beats by sauj123\"[/COLOR], [COLOR red]\"polarbeats.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"gl_only\"[/COLOR] ],\n"
+"[COLOR gray]/* GLSL and PNG files are in the same folder as presets.json */[/COLOR]\n"
+"[ [COLOR red]\"Another one\"[/COLOR], [COLOR red]\"./another.frag.glsl\"[/COLOR], [COLOR red]\"./my_01.png\"[/COLOR], [COLOR red]\"./my_02.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Select texture image by file name, use default \"resources/\" dir */[/COLOR]\n"
+"[ [COLOR red]\"Fractal Land by Kali\"[/COLOR], [COLOR red]\"fractalland.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ]\n"
+"][COLOR green]}[/COLOR][/COLOR]"
+msgstr ""
