@@ -26,8 +26,10 @@
       <screenshot>resources/screenshot-05.jpg</screenshot>
       <screenshot>resources/screenshot-06.jpg</screenshot>
     </assets>
+    <summary lang="da_DK">Visualiseringer fra Shadertoy</summary>
     <summary lang="de_DE">Visualisierungen von Shadertoy</summary>
     <summary lang="en_GB">Visualizations from Shadertoy</summary>
+    <description lang="da_DK">Denne musikvisualisering er baseret på Shadertoy-baserede GPU-programmer.</description>
     <description lang="de_DE">Diese Musikvisualisierung basiert auf Shadertoy-basierten GPU-Programmen.</description>
     <description lang="en_GB">This music visualization is based on Shadertoy based GPU programs.</description>
   </extension>
