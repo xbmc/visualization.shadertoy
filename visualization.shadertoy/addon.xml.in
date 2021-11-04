@@ -29,8 +29,10 @@
     <summary lang="da_DK">Visualiseringer fra Shadertoy</summary>
     <summary lang="de_DE">Visualisierungen von Shadertoy</summary>
     <summary lang="en_GB">Visualizations from Shadertoy</summary>
+    <summary lang="zh_CN">来自ShaderToy的可视化效果</summary>
     <description lang="da_DK">Denne musikvisualisering er baseret på Shadertoy-baserede GPU-programmer.</description>
     <description lang="de_DE">Diese Musikvisualisierung basiert auf Shadertoy-basierten GPU-Programmen.</description>
     <description lang="en_GB">This music visualization is based on Shadertoy based GPU programs.</description>
+    <description lang="zh_CN">次音乐可视化是基于基于Shadertoy的GPU程序。</description>
   </extension>
 </addon>
