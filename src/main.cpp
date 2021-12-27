@@ -118,22 +118,22 @@ CVisualizationShadertoy::CVisualizationShadertoy()
     m_magnitudeBuffer(new float[NUM_BANDS]()),
     m_pcm(new float[AUDIO_BUFFER]())
 {
-  m_settingsUseOwnshader = kodi::GetSettingBoolean("ownshader");
+  m_settingsUseOwnshader = kodi::addon::GetSettingBoolean("ownshader");
   if (m_settingsUseOwnshader)
     m_currentPreset = -1;
   else
-    m_currentPreset = kodi::GetSettingInt("lastpresetidx");
+    m_currentPreset = kodi::addon::GetSettingInt("lastpresetidx");
 
-  m_presetsJSONFile = kodi::GetSettingString("presetfile");
+  m_presetsJSONFile = kodi::addon::GetSettingString("presetfile");
   if (m_presetsJSONFile.empty() || !kodi::vfs::FileExists(m_presetsJSONFile))
-    m_presetsJSONFile = kodi::GetAddonPath("resources/presets.json");
+    m_presetsJSONFile = kodi::addon::GetAddonPath("resources/presets.json");
 
   /* In case of preset file change, set current selected preset to 0 */
-  if (kodi::GetSettingString("lastpresetfile") != m_presetsJSONFile)
+  if (kodi::addon::GetSettingString("lastpresetfile") != m_presetsJSONFile)
   {
     m_currentPreset = 0;
-    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
-    kodi::SetSettingString("lastpresetfile", m_presetsJSONFile);
+    kodi::addon::SetSettingInt("lastpresetidx", m_currentPreset);
+    kodi::addon::SetSettingString("lastpresetfile", m_presetsJSONFile);
   }
 
   m_presets.Load(m_presetsJSONFile);
@@ -251,7 +251,7 @@ bool CVisualizationShadertoy::NextPreset()
   {
     m_currentPreset = (m_currentPreset + 1) % m_presets.GetPresetsAmount();
     Launch(m_currentPreset);
-    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+    kodi::addon::SetSettingInt("lastpresetidx", m_currentPreset);
   }
   return true;
 }
@@ -262,7 +262,7 @@ bool CVisualizationShadertoy::PrevPreset()
   {
     m_currentPreset = (m_currentPreset - 1) % m_presets.GetPresetsAmount();
     Launch(m_currentPreset);
-    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+    kodi::addon::SetSettingInt("lastpresetidx", m_currentPreset);
   }
   return true;
 }
@@ -273,7 +273,7 @@ bool CVisualizationShadertoy::LoadPreset(int select)
   {
     m_currentPreset = select % m_presets.GetPresetsAmount();
     Launch(m_currentPreset);
-    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+    kodi::addon::SetSettingInt("lastpresetidx", m_currentPreset);
   }
   return true;
 }
@@ -284,7 +284,7 @@ bool CVisualizationShadertoy::RandomPreset()
   {
     m_currentPreset = (int)((std::rand() / (float)RAND_MAX) * m_presets.GetPresetsAmount());
     Launch(m_currentPreset);
-    kodi::SetSettingInt("lastpresetidx", m_currentPreset);
+    kodi::addon::SetSettingInt("lastpresetidx", m_currentPreset);
   }
   return true;
 }
@@ -438,15 +438,15 @@ void CVisualizationShadertoy::Launch(int preset)
 
   if (preset < 0)
   {
-    m_usedShaderFile = kodi::GetSettingString("shader");
-    m_shaderTextures[0].audio = kodi::GetSettingBoolean("texture0-sound");
-    m_shaderTextures[0].texture = kodi::GetSettingString("texture0");
-    m_shaderTextures[1].audio = kodi::GetSettingBoolean("texture1-sound");
-    m_shaderTextures[1].texture = kodi::GetSettingString("texture1");
-    m_shaderTextures[2].audio = kodi::GetSettingBoolean("texture2-sound");
-    m_shaderTextures[2].texture = kodi::GetSettingString("texture2");
-    m_shaderTextures[3].audio = kodi::GetSettingBoolean("texture3-sound");
-    m_shaderTextures[3].texture = kodi::GetSettingString("texture3");
+    m_usedShaderFile = kodi::addon::GetSettingString("shader");
+    m_shaderTextures[0].audio = kodi::addon::GetSettingBoolean("texture0-sound");
+    m_shaderTextures[0].texture = kodi::addon::GetSettingString("texture0");
+    m_shaderTextures[1].audio = kodi::addon::GetSettingBoolean("texture1-sound");
+    m_shaderTextures[1].texture = kodi::addon::GetSettingString("texture1");
+    m_shaderTextures[2].audio = kodi::addon::GetSettingBoolean("texture2-sound");
+    m_shaderTextures[2].texture = kodi::addon::GetSettingString("texture2");
+    m_shaderTextures[3].audio = kodi::addon::GetSettingBoolean("texture3-sound");
+    m_shaderTextures[3].texture = kodi::addon::GetSettingString("texture3");
   }
   else
   {
@@ -525,7 +525,7 @@ void CVisualizationShadertoy::UnloadTextures()
 void CVisualizationShadertoy::LoadPreset(const std::string& shaderPath)
 {
   UnloadPreset();
-  std::string vertShadertoyShader = kodi::GetAddonPath("resources/shaders/main_shadertoy_" GL_TYPE_STRING ".vert.glsl");
+  std::string vertShadertoyShader = kodi::addon::GetAddonPath("resources/shaders/main_shadertoy_" GL_TYPE_STRING ".vert.glsl");
   if (!m_shadertoyShader.LoadShaderFiles(vertShadertoyShader, shaderPath) ||
       !m_shadertoyShader.CompileAndLink("", "", fsHeader, fsFooter))
   {
@@ -550,8 +550,8 @@ void CVisualizationShadertoy::LoadPreset(const std::string& shaderPath)
   m_state.uScale = glGetUniformLocation(shadertoyShader, "uScale");
   m_state.attr_vertex_e = glGetAttribLocation(shadertoyShader,  "vertex");
 
-  std::string vertShader = kodi::GetAddonPath("resources/shaders/main_display_" GL_TYPE_STRING ".vert.glsl");
-  std::string fraqShader = kodi::GetAddonPath("resources/shaders/main_display_" GL_TYPE_STRING ".frag.glsl");
+  std::string vertShader = kodi::addon::GetAddonPath("resources/shaders/main_display_" GL_TYPE_STRING ".vert.glsl");
+  std::string fraqShader = kodi::addon::GetAddonPath("resources/shaders/main_display_" GL_TYPE_STRING ".frag.glsl");
   if (!m_displayShader.LoadShaderFiles(vertShader, fraqShader) ||
       !m_displayShader.CompileAndLink())
   {
@@ -683,7 +683,7 @@ float CVisualizationShadertoy::LinearToDecibels(float linear)
 int CVisualizationShadertoy::DetermineBitsPrecision()
 {
   m_state.fbwidth = 32, m_state.fbheight = 26*10;
-  LoadPreset(kodi::GetAddonPath("resources/shaders/main_test.frag.glsl"));
+  LoadPreset(kodi::addon::GetAddonPath("resources/shaders/main_test.frag.glsl"));
   RenderTo(m_shadertoyShader.ProgramHandle(), m_state.effect_fb);
   glFinish();
 

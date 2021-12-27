@@ -75,8 +75,8 @@ bool CPresetLoader::Load(const std::string& path)
         if (entry[0].isString())
           preset.name = entry[0].asString();
         else
-          preset.name = kodi::GetLocalizedString(entry[0].asInt(), "Unknown preset name " +
-                                                                       std::to_string(index + 1));
+          preset.name = kodi::addon::GetLocalizedString(entry[0].asInt(), "Unknown preset name " +
+                                                                            std::to_string(index + 1));
 
         // Check shader file included within addon or outside and set by user
         const std::string usedDirName = kodi::vfs::GetDirectoryName(entry[1].asString());
@@ -88,7 +88,7 @@ bool CPresetLoader::Load(const std::string& path)
         else if (!usedDirName.empty())
           preset.file = entry[1].asString();
         else
-          preset.file = kodi::GetAddonPath("resources/shaders/" + entry[1].asString());
+          preset.file = kodi::addon::GetAddonPath("resources/shaders/" + entry[1].asString());
 
         if (!kodi::vfs::FileExists(preset.file))
           throw kodi::tools::StringUtils::Format("On %s defined GLSL shader file '%s' not found",
@@ -108,7 +108,7 @@ bool CPresetLoader::Load(const std::string& path)
           else if (!usedDirName.empty())
             preset.channel[i] = entry[i + 2].asString();
           else if (!entry[i + 2].asString().empty())
-            preset.channel[i] = kodi::GetAddonPath("resources/" + entry[i + 2].asString());
+            preset.channel[i] = kodi::addon::GetAddonPath("resources/" + entry[i + 2].asString());
 
           if (!preset.channel[i].empty() && preset.channel[i] != "audio")
           {
@@ -151,8 +151,8 @@ bool CPresetLoader::Load(const std::string& path)
 
   // Inform user that maybe their own preset list is wrong
   if (!ret)
-    kodi::QueueNotification(QUEUE_OWN_STYLE, kodi::GetLocalizedString(30030),
-                            kodi::GetLocalizedString(30031), "", 5000, true, 20000);
+    kodi::QueueNotification(QUEUE_OWN_STYLE, kodi::addon::GetLocalizedString(30030),
+                            kodi::addon::GetLocalizedString(30031), "", 5000, true, 20000);
 
   return ret;
 }
