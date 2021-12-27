@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Addons\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/visualization.shadertoy/issues\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-08-04 13:29+0000\n"
+"PO-Revision-Date: 2021-12-08 12:13+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Danish <https://kodi.weblate.cloud/projects/kodi-add-ons-look-and-feel/visualization-shadertoy/da_dk/>\n"
 "Language: da_dk\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7.2\n"
+"X-Generator: Weblate 4.9.1\n"
 
 msgctxt "Addon Summary"
 msgid "Visualizations from Shadertoy"
-msgstr ""
+msgstr "Visualiseringer fra Shadertoy"
 
 msgctxt "Addon Description"
 msgid "This music visualization is based on Shadertoy based GPU programs."
-msgstr ""
+msgstr "Denne musikvisualisering er baseret på Shadertoy-baserede GPU-programmer."
 
 #. Settings category
 msgctxt "#30000"
@@ -153,42 +153,42 @@ msgstr "Kanal 3 som *.png"
 #. Header text shown on notification dialog and on file selection dialog
 msgctxt "#30030"
 msgid "Shadertoy Visualization"
-msgstr ""
+msgstr "Shadertoy Visualisering"
 
 #. Notification message shown on the screen when an incorrect preset list is given
 msgctxt "#30031"
 msgid "Cannot read the JSON file. Please check the formatting is correct and the file is available."
-msgstr ""
+msgstr "Kan ikke læse JSON-filen. Kontroller at formateringen er korrekt, og at filen er tilgængelig."
 
 #. Settings value to open dialog for file selection
 msgctxt "#30032"
 msgid "Path to custom preset list"
-msgstr ""
+msgstr "Sti til brugerdefineret liste med forudindstillinger"
 
 #. Help text related to setting string with id 30032
 msgctxt "#30033"
 msgid "Set the path to your custom JSON-formatted preset file. If no path is configured, the add-on will use the default preset file."
-msgstr ""
+msgstr "Indstil stien til din brugerdefinerede JSON-formaterede fil med forudindstillinger. Hvis der ikke er konfigureret nogen sti, bruger add-on'et standardfilen med forudindstillinger."
 
 #. Settings group name
 msgctxt "#30034"
 msgid "Configure a single shader"
-msgstr ""
+msgstr "Konfigurer en enkelt shader"
 
 #. Settings value to open a dialog for showing help about the preset file
 msgctxt "#30035"
 msgid "Show help about preset file"
-msgstr ""
+msgstr "Vis hjælp til den forudindstillede fil"
 
 #. Help text related to setting string with id 30035
 msgctxt "#30036"
 msgid "Open to read about creating the JSON-formatted preset file."
-msgstr ""
+msgstr "Åben for at læse om oprettelse af den JSON-formaterede forudindstillede fil."
 
 #. Header text on the help dialog within settings, related to the help text of string ID 30038
 msgctxt "#30037"
 msgid "Help about defining your own shaders in the JSON file"
-msgstr ""
+msgstr "Hjælp til at definere dine egne shaders i JSON-filen"
 
 #. Help text about showing the JSON-formatted preset file in a text window.
 #. Same text also on visualization.shadertoy/resources/presets.json.md, for here
@@ -225,3 +225,32 @@ msgid ""
 "[ [COLOR red]\"Fractal Land by Kali\"[/COLOR], [COLOR red]\"fractalland.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ]\n"
 "][COLOR green]}[/COLOR][/COLOR]"
 msgstr ""
+"[B][I]JSON-fil til brugerdefinerede shaderlister[/I][/B]\n"
+"\n"
+"Filen [B]presets.json[/B] bruges til at præcisere brugerdefinerede shadere.\n"
+"En brugerdefineret sti til shaderfilerne (GLSL) kan indtastes i indstillinger for dette add-on.\n"
+"\n"
+"Indholdet i [B]presets.json[/B] skal være:\n"
+"[I]  1.[/I] Navn på forudindstilling. Enten direkte indtastet navn eller defineret i [I]resources/language/.../strings.po[/I]\n"
+"[I]  2.[/I] GLSL shader der bruges. Hvis ingen brugerdefineret sti er indtastet, bruges standarden [B]resources/[/B]. Indstil brugerdefineret sti til './' for at bruge shaders fra samme stil som din [B]presets.json[/B]-fil.\n"
+"[I]  3.[/I] Kanalværdi value 0. Definerer den brugte tekstur (f.eks.. PNG-fil). Det kan også indstilles til \"audio\" for at sende relateret streamdata til teksturen. PNG- og GLSL-filerne skal placeres i samme mappe.\n"
+"[I]  4.[/I] Defination af kanalværdi 1.\n"
+"[I]  5.[/I] Defination af kanalværdi 2.\n"
+"[I]  6.[/I] Defination af kanalværdi 3.\n"
+"[I]  7.[/I] [I][Valgfri][/I] tilføj teksten [B]\"gl_only\"[/B] for kun at gøre denne forudindstilling tilgængelig for OpenGL.\n"
+"\n"
+"[B]Eksempel:[/B]\n"
+"[COLOR white][COLOR green]{[/COLOR] [COLOR blue]\"forudindstillinger\"[/COLOR]:[\n"
+"[COLOR gray]/* Standard metode brugt af selve add-on'et */[/COLOR]\n"
+"[ [COLOR red]\"The Disco Tunnel af poljere\"[/COLOR], [COLOR red]\"discotunnel.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Beskrivelse defineret i strings.po */[/COLOR]\n"
+"[ 30100, [COLOR red]\"audioeclipse.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Præciser brugerdefinerede filstier */[/COLOR]\n"
+"[ [COLOR red]\"Min egen\"[/COLOR], [COLOR red]\"/sti/til/glsl/min.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"/sti/til/png-filer/mit_billede.png\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* >Forudindstilling kun tilgængelig for OpenGL (se 7) */[/COLOR]\n"
+"[ [COLOR red]\"Polar Beats af sauj123\"[/COLOR], [COLOR red]\"polarbeats.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"gl_only\"[/COLOR] ],\n"
+"[COLOR gray]/* GLSL- og PNG-filer er i samme mappe som presets.json */[/COLOR]\n"
+"[ [COLOR red]\"En mere\"[/COLOR], [COLOR red]\"./another.frag.glsl\"[/COLOR], [COLOR red]\"./min_01.png\"[/COLOR], [COLOR red]\"./min_02.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Vælg teksturbillede efter filnavn, brug standard \"resources/\"-mappe */[/COLOR]\n"
+"[ [COLOR red]\"Fractal Land af Kali\"[/COLOR], [COLOR red]\"fractalland.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ]\n"
+"][COLOR green]}[/COLOR][/COLOR]"
