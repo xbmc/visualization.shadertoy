@@ -1,3 +1,7 @@
+[B]20.2.0[/B]
+- Translation updates by Weblate
+- Kodi main API update to version 2.0.0
+
 [B]20.1.1[/B]
 - Fix possible compile error about missing jsoncpp include
 

@@ -17,7 +17,7 @@
 
 #include "kissfft/kiss_fft.h"
 
-class ATTRIBUTE_HIDDEN CVisualizationShadertoy
+class ATTR_DLL_LOCAL CVisualizationShadertoy
   : public kodi::addon::CAddonBase
   , public kodi::addon::CInstanceVisualization
 {
