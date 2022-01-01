@@ -1,3 +1,6 @@
+[B]19.1.2[/B]
+- Translation updates
+
 [B]19.1.1[/B]
 - Fix possible compile error about missing jsoncpp include
 
