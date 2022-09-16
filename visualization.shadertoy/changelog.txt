@@ -1,3 +1,6 @@
+[B]20.3.0[/B]
+- Kodi visualization API update to version 4.0.0
+
 [B]20.2.0[/B]
 - Translation updates by Weblate
 - Kodi main API update to version 2.0.0

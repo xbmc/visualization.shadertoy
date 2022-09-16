@@ -166,7 +166,7 @@ void CVisualizationShadertoy::Render()
   }
 }
 
-bool CVisualizationShadertoy::Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, std::string szSongName)
+bool CVisualizationShadertoy::Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, const std::string& szSongName)
 {
 #ifdef DEBUG_PRINT
   printf("Start %i %i %i %s\n", iChannels, iSamplesPerSec, iBitsPerSample, szSongName.c_str());
@@ -206,7 +206,7 @@ void CVisualizationShadertoy::Stop()
 }
 
 
-void CVisualizationShadertoy::AudioData(const float* pAudioData, int iAudioDataLength, float* pFreqData, int iFreqDataLength)
+void CVisualizationShadertoy::AudioData(const float* pAudioData, size_t iAudioDataLength)
 {
   WriteToBuffer(pAudioData, iAudioDataLength, 2);
 
