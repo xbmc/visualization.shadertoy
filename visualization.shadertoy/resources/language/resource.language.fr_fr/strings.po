@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-12-27 18:15+0000\n"
+"PO-Revision-Date: 2023-01-11 17:15+0000\n"
 "Last-Translator: skypichat <skypichat@hotmail.fr>\n"
 "Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-add-ons-look-and-feel/visualization-shadertoy/fr_fr/>\n"
 "Language: fr_fr\n"
@@ -58,7 +58,7 @@ msgstr "Choisissez-en un vous-même"
 #. Help text related to setting string with id 30010
 msgctxt "#30011"
 msgid "Use your own shadertoy. Attention: Some shaders are not supported by some GPU's in performance!"
-msgstr "Utilisez votre propre shadertoy. Attention : Certains shaders ne sont pas supportés par certains GPU en performance!"
+msgstr "Utilisez votre propre shadertoy. Attention : Certains shaders ne sont pas supportés par certains GPU en performance !"
 
 #. To open the file selection dialog about *.glsl files, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30012"
