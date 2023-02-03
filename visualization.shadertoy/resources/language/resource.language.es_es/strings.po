@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-01-22 16:15+0000\n"
+"PO-Revision-Date: 2023-02-02 22:15+0000\n"
 "Last-Translator: José Antonio Alvarado <jalvarado0.eses@gmail.com>\n"
 "Language-Team: Spanish (Spain) <https://kodi.weblate.cloud/projects/kodi-add-ons-look-and-feel/visualization-shadertoy/es_es/>\n"
 "Language: es_es\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1\n"
+"X-Generator: Weblate 4.15.2\n"
 
 msgctxt "Addon Summary"
 msgid "Visualizations from Shadertoy"
-msgstr ""
+msgstr "Visualizaciones de Shadertoy"
 
 msgctxt "Addon Description"
 msgid "This music visualization is based on Shadertoy based GPU programs."
-msgstr ""
+msgstr "Esta visualización musical está basada en programas de GPU basados en Shadertoy."
 
 #. Settings category
 msgctxt "#30000"
@@ -33,7 +33,7 @@ msgstr "General"
 #. Settings category
 msgctxt "#30001"
 msgid "iChannel 0"
-msgstr ""
+msgstr "iChannel 0"
 
 #. Settings category
 msgctxt "#30002"
@@ -58,12 +58,12 @@ msgstr "Elige uno tú mismo"
 #. Help text related to setting string with id 30010
 msgctxt "#30011"
 msgid "Use your own shadertoy. Attention: Some shaders are not supported by some GPU's in performance!"
-msgstr ""
+msgstr "Utiliza tu propio shadertoy. ¡Atención: Algunos sombreadores no son compatibles con el rendimiento de algunas GPU!"
 
 #. To open the file selection dialog about *.glsl files, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30012"
 msgid "Shadertoy file"
-msgstr ""
+msgstr "Archivo Shadertoy"
 
 #. Help text related to setting string with id 30012
 msgctxt "#30013"
@@ -73,92 +73,92 @@ msgstr "Sombreador como *.glsl"
 #. Boolean value to use channel 0 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30014"
 msgid "Channel 0 as audio"
-msgstr ""
+msgstr "Canal 0 como audio"
 
 #. Help text related to setting string with id 30014
 msgctxt "#30015"
 msgid "Use audio stream data on channel 0"
-msgstr ""
+msgstr "Utilizar flujo de datos de audio en el canal 0"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30016"
 msgid "Channel 0 texture image"
-msgstr ""
+msgstr "Imagen de textura del canal 0"
 
 #. Help text related to setting string with id 30016
 msgctxt "#30017"
 msgid "Channel 0 as *.png"
-msgstr ""
+msgstr "Canal 0 como *.png"
 
 #. Boolean value to use channel 1 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30018"
 msgid "Channel 1 as audio"
-msgstr ""
+msgstr "Canal 1 como audio"
 
 #. Help text related to setting string with id 30018
 msgctxt "#30019"
 msgid "Use audio stream data on channel 1"
-msgstr ""
+msgstr "Utilizar flujo de datos de audio en el canal 1"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30020"
 msgid "Channel 1 texture image"
-msgstr ""
+msgstr "Imagen de textura del canal 1"
 
 #. Help text related to setting string with id 30020
 msgctxt "#30021"
 msgid "Channel 1 as *.png"
-msgstr ""
+msgstr "Canal 1 como *.png"
 
 #. Boolean value to use channel 2 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30022"
 msgid "Channel 2 as audio"
-msgstr ""
+msgstr "Canal 2 como audio"
 
 #. Help text related to setting string with id 30022
 msgctxt "#30023"
 msgid "Use audio stream data on channel 2"
-msgstr ""
+msgstr "Utilizar flujo de datos de audio en el canal 2"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30024"
 msgid "Channel 2 texture image"
-msgstr ""
+msgstr "Imagen de textura del canal 2"
 
 #. Help text related to setting string with id 30024
 msgctxt "#30025"
 msgid "Channel 2 as *.png"
-msgstr ""
+msgstr "Canal 2 como *.png"
 
 #. Boolean value to use channel 3 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30026"
 msgid "Channel 3 as audio"
-msgstr ""
+msgstr "Canal 3 como audio"
 
 #. Help text related to setting string with id 30026
 msgctxt "#30027"
 msgid "Use audio stream data on channel 3"
-msgstr ""
+msgstr "Utilizar flujo de datos de audio en el canal 3"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30028"
 msgid "Channel 3 texture image"
-msgstr ""
+msgstr "Imagen de textura del canal 3"
 
 #. Help text related to setting string with id 30028
 msgctxt "#30029"
 msgid "Channel 3 as *.png"
-msgstr ""
+msgstr "Canal 3 como *.png"
 
 #. Header text shown on notification dialog and on file selection dialog
 msgctxt "#30030"
 msgid "Shadertoy Visualization"
-msgstr ""
+msgstr "Visualización Shadertoy"
 
 #. Notification message shown on the screen when an incorrect preset list is given
 msgctxt "#30031"
 msgid "Cannot read the JSON file. Please check the formatting is correct and the file is available."
-msgstr ""
+msgstr "No se puede leer el archivo JSON. Compruebe que el formato es correcto y que el archivo está disponible."
 
 #. Settings value to open dialog for file selection
 msgctxt "#30032"
@@ -173,7 +173,7 @@ msgstr "Establezca la ruta a su archivo personalizado en formato JSON de ajustes
 #. Settings group name
 msgctxt "#30034"
 msgid "Configure a single shader"
-msgstr ""
+msgstr "Configurar un único sombreador"
 
 #. Settings value to open a dialog for showing help about the preset file
 msgctxt "#30035"
@@ -188,7 +188,7 @@ msgstr "Abrir para leer sobre la creación del archivo de ajustes preestablecido
 #. Header text on the help dialog within settings, related to the help text of string ID 30038
 msgctxt "#30037"
 msgid "Help about defining your own shaders in the JSON file"
-msgstr ""
+msgstr "Ayuda para definir sus propios sombreadores en el archivo JSON"
 
 #. Help text about showing the JSON-formatted preset file in a text window.
 #. Same text also on visualization.shadertoy/resources/presets.json.md, for here
@@ -232,7 +232,7 @@ msgstr ""
 "\n"
 "El contenido de [B]presets.json[/B] debería ser:\n"
 "[I]  1.[/I] Nombre del ajuste preestablecido. Cadena codificada o definida en [I]resources/language/.../strings.po[/I]\n"
-"[I]  2.[/I] Sombreador GLSL a utilizar. Si no se ha declarado ninguna ruta personalizada, se utilizará la predeterminada [B]resources/[/B]. Establece la ruta personalizada en './' para utilizar shaders de la misma ruta que tu archivo [B]presets.json[/B].\n"
+"[I]  2.[/I] Sombreador GLSL a utilizar. Si no se ha declarado ninguna ruta personalizada, se utilizará la predeterminada [B]resources/[/B]. Establece la ruta personalizada en './' para utilizar sombreadores de la misma ruta que tu archivo [B]presets.json[/B].\n"
 "[I]  3.[/I] Valor del canal 0. Define la textura a utilizar (ej. archivo PNG). También se puede establecer a \"audio\" para pasar datos de flujo relacionados dentro de la textura. Los archivos PNG y GLSL deben estar en el mismo directorio.\n"
 "[I]  4.[/I] Definición del valor del canal 1.\n"
 "[I]  5.[/I] Definición del valor del canal 2.\n"
