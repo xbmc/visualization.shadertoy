@@ -5,189 +5,190 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Addons\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/visualization.shadertoy/issues\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-01-11 17:15+0000\n"
+"Last-Translator: skypichat <skypichat@hotmail.fr>\n"
+"Language-Team: French (France) <https://kodi.weblate.cloud/projects/kodi-add-ons-look-and-feel/visualization-shadertoy/fr_fr/>\n"
 "Language: fr_fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.15\n"
 
 msgctxt "Addon Summary"
 msgid "Visualizations from Shadertoy"
-msgstr ""
+msgstr "Visualisations de Shadertoy"
 
 msgctxt "Addon Description"
 msgid "This music visualization is based on Shadertoy based GPU programs."
-msgstr ""
+msgstr "Cette visualisation musicale est basée sur des programmes GPU basés sur Shadertoy."
 
 #. Settings category
 msgctxt "#30000"
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 #. Settings category
 msgctxt "#30001"
 msgid "iChannel 0"
-msgstr ""
+msgstr "iChannel 0"
 
 #. Settings category
 msgctxt "#30002"
 msgid "iChannel 1"
-msgstr ""
+msgstr "iCanal 1"
 
 #. Settings category
 msgctxt "#30003"
 msgid "iChannel 2"
-msgstr ""
+msgstr "iCanal 2"
 
 #. Settings category
 msgctxt "#30004"
 msgid "iChannel 3"
-msgstr ""
+msgstr "iCanal 3"
 
 #. Boolean settings value to enable and allow selection of a ".glsl" file and related textures
 msgctxt "#30010"
 msgid "Choose one yourself"
-msgstr ""
+msgstr "Choisissez-en un vous-même"
 
 #. Help text related to setting string with id 30010
 msgctxt "#30011"
 msgid "Use your own shadertoy. Attention: Some shaders are not supported by some GPU's in performance!"
-msgstr ""
+msgstr "Utilisez votre propre shadertoy. Attention : Certains shaders ne sont pas supportés par certains GPU en performance !"
 
 #. To open the file selection dialog about *.glsl files, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30012"
 msgid "Shadertoy file"
-msgstr ""
+msgstr "Fichier Shadertoy"
 
 #. Help text related to setting string with id 30012
 msgctxt "#30013"
 msgid "Shader as *.glsl"
-msgstr ""
+msgstr "Shader comme *.glsl"
 
 #. Boolean value to use channel 0 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30014"
 msgid "Channel 0 as audio"
-msgstr ""
+msgstr "Canal 0 comme audio"
 
 #. Help text related to setting string with id 30014
 msgctxt "#30015"
 msgid "Use audio stream data on channel 0"
-msgstr ""
+msgstr "Utiliser les données de flux audio sur le canal 0"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30016"
 msgid "Channel 0 texture image"
-msgstr ""
+msgstr "Texture de l'image du canal 0"
 
 #. Help text related to setting string with id 30016
 msgctxt "#30017"
 msgid "Channel 0 as *.png"
-msgstr ""
+msgstr "Canal 0 en *.png"
 
 #. Boolean value to use channel 1 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30018"
 msgid "Channel 1 as audio"
-msgstr ""
+msgstr "Canal 1 comme audio"
 
 #. Help text related to setting string with id 30018
 msgctxt "#30019"
 msgid "Use audio stream data on channel 1"
-msgstr ""
+msgstr "Utiliser les données de flux audio sur le canal 1"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30020"
 msgid "Channel 1 texture image"
-msgstr ""
+msgstr "Texture de l'mage du canal 1"
 
 #. Help text related to setting string with id 30020
 msgctxt "#30021"
 msgid "Channel 1 as *.png"
-msgstr ""
+msgstr "Canal 1 en *.png"
 
 #. Boolean value to use channel 2 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30022"
 msgid "Channel 2 as audio"
-msgstr ""
+msgstr "Canal 2 comme audio"
 
 #. Help text related to setting string with id 30022
 msgctxt "#30023"
 msgid "Use audio stream data on channel 2"
-msgstr ""
+msgstr "Utiliser les données de flux audio sur le canal 2"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30024"
 msgid "Channel 2 texture image"
-msgstr ""
+msgstr "Texture de l'image du canal 2"
 
 #. Help text related to setting string with id 30024
 msgctxt "#30025"
 msgid "Channel 2 as *.png"
-msgstr ""
+msgstr "Canal 2 en *.png"
 
 #. Boolean value to use channel 3 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30026"
 msgid "Channel 3 as audio"
-msgstr ""
+msgstr "Canal 3 comme audio"
 
 #. Help text related to setting string with id 30026
 msgctxt "#30027"
 msgid "Use audio stream data on channel 3"
-msgstr ""
+msgstr "Utiliser les données de flux audio sur le canal 3"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30028"
 msgid "Channel 3 texture image"
-msgstr ""
+msgstr "Texture de l'image du canal 3"
 
 #. Help text related to setting string with id 30028
 msgctxt "#30029"
 msgid "Channel 3 as *.png"
-msgstr ""
+msgstr "Canal 3 en *.png"
 
 #. Header text shown on notification dialog and on file selection dialog
 msgctxt "#30030"
 msgid "Shadertoy Visualization"
-msgstr ""
+msgstr "Visualisation Shadertoy"
 
 #. Notification message shown on the screen when an incorrect preset list is given
 msgctxt "#30031"
 msgid "Cannot read the JSON file. Please check the formatting is correct and the file is available."
-msgstr ""
+msgstr "Impossible de lire le fichier JSON. Veuillez vérifier que le formatage est correct et que le fichier est disponible."
 
 #. Settings value to open dialog for file selection
 msgctxt "#30032"
 msgid "Path to custom preset list"
-msgstr ""
+msgstr "Chemin d'accès à la liste des préréglages personnalisés"
 
 #. Help text related to setting string with id 30032
 msgctxt "#30033"
 msgid "Set the path to your custom JSON-formatted preset file. If no path is configured, the add-on will use the default preset file."
-msgstr ""
+msgstr "Définir le chemin d'accès à votre fichier de préréglage personnalisé au format JSON. Si aucun chemin n'est configuré, le module complémentaire utilisera le fichier de préréglage par défaut."
 
 #. Settings group name
 msgctxt "#30034"
 msgid "Configure a single shader"
-msgstr ""
+msgstr "Configurer un seul shader"
 
 #. Settings value to open a dialog for showing help about the preset file
 msgctxt "#30035"
 msgid "Show help about preset file"
-msgstr ""
+msgstr "Afficher l'aide sur le fichier prédéfini"
 
 #. Help text related to setting string with id 30035
 msgctxt "#30036"
 msgid "Open to read about creating the JSON-formatted preset file."
-msgstr ""
+msgstr "Ouvrir pour en savoir plus sur la création du fichier de préréglage au format JSON."
 
 #. Header text on the help dialog within settings, related to the help text of string ID 30038
 msgctxt "#30037"
 msgid "Help about defining your own shaders in the JSON file"
-msgstr ""
+msgstr "Aide sur la définition de vos propres shaders dans le fichier JSON"
 
 #. Help text about showing the JSON-formatted preset file in a text window.
 #. Same text also on visualization.shadertoy/resources/presets.json.md, for here
@@ -224,3 +225,32 @@ msgid ""
 "[ [COLOR red]\"Fractal Land by Kali\"[/COLOR], [COLOR red]\"fractalland.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ]\n"
 "][COLOR green]}[/COLOR][/COLOR]"
 msgstr ""
+"[B][I]Fichier JSON pour les listes de shaders définies par l'utilisateur[/I][/B]\n"
+"\n"
+"Le fichier [B]presets.json[/B] est utilisé pour définir des shaders personnalisés.\n"
+"Un chemin personnalisé vers les fichiers de shader (GLSL) peut être déclaré dans les paramètres du module complémentaire.\n"
+"\n"
+"Le contenu de [B]presets.json[/B] doit être:\n"
+"[I] 1.[/I] Nom du préréglage. Chaîne codée en dur ou définie dans [I]resources/language/.../strings.po[/I]\n"
+"[I] 2.[/I] Shader GLSL à utiliser. Si aucun chemin personnalisé n'a été déclaré, les [B]ressources/[/B] par défaut seront utilisés. Définissez le chemin personnalisé sur './' pour utiliser les shaders du même chemin que votre fichier [B]presets.json[/B].\n"
+"[I] 3.[/I] Valeur du canal 0. Définit la texture à utiliser (par exemple, fichier PNG). Peut également être défini sur \"audio\" pour transmettre les données de flux associées dans la texture. Les fichiers PNG et GLSL doivent se trouver dans le même répertoire.\n"
+"[I] 4.[/I] Définition de la valeur du canal 1.\n"
+"[I] 5.[/I] Définition de la valeur du canal 2.\n"
+"[I] 6.[/I] Définition de la valeur du canal 3.\n"
+"[I] 7.[/I] [I][Facultatif][/I] ajoutez la chaîne [B]\"gl_only\"[/B] pour rendre ce préréglage disponible uniquement pour OpenGL.\n"
+"\n"
+"[B]Exemple:[/B]\n"
+"[COULEUR blanc][COULEUR vert]{[/COLOR] [COULEUR bleu]\"presets\"[/COLOR] :[\n"
+"[COLOR gray]/* Manière par défaut utilisée par l'addon lui-même */[/COLOR]\n"
+"[ [COLOR red]\"The Disco Tunnel by poljere\"[/COLOR], [COLOR red]\"discotunnel.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red ]\"tex15.png\"[/COLOR], [COULEUR rouge]\"audio\"[/COLOR], [COULEUR rouge]\"\"[/COLOR] ],\n"
+"[COULEUR gris]/* Description définie dans strings.po */[/COLOR]\n"
+"[ 30100, [COULEUR rouge]\"audioeclipse.frag.glsl\"[/COLOR], [COULEUR rouge]\"audio\"[/COLOR], [COULEUR rouge]\"\"[/COLOR], [COULEUR rouge]\"\"[/ COULEUR], [COULEUR rouge]\"\"[/COULEUR] ],\n"
+"[COULEUR gris]/* Définir les chemins de fichiers personnalisés */[/COLOR]\n"
+"[ [COLOR red]\"Mon propre\"[/COLOR], [COLOR red]\"/path/to/glsl/my.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COULEUR rouge]\"/chemin/vers/pngs/mon_image.png\"[/COLOR], [COULEUR rouge]\"\"[/COLOR], [COULEUR rouge]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Préréglage uniquement disponible pour OpenGL (voir 7) */[/COLOR]\n"
+"[ [COULEUR rouge]\"Polar Beats by sauj123\"[/COLOR], [COULEUR rouge]\"polarbeats.frag.glsl\"[/COLOR], [COULEUR rouge]\"audio\"[/COLOR], [COULEUR rouge]\"\" [/COLOR], [COULEUR rouge]\"\"[/COLOR], [COULEUR rouge]\"\"[/COLOR], [COULEUR rouge]\"gl_only\"[/COLOR] ],\n"
+"[COLOR gray]/* Les fichiers GLSL et PNG sont dans le même dossier que presets.json */[/COLOR]\n"
+"[ [COLOR red]\"Un autre\"[/COLOR], [COLOR red]\"./another.frag.glsl\"[/COLOR], [COLOR red]\"./my_01.png\"[/COLOR], [COLOR rouge]\"./my_02.png\"[/COLOR], [COULEUR rouge]\"audio\"[/COLOR], [COULEUR rouge]\"\"[/COLOR] ],\n"
+"[COULEUR gris]/* Sélectionnez l'image de texture par nom de fichier, utilisez le répertoire \"ressources/\" par défaut */[/COLOR]\n"
+"[ [COULEUR rouge]\"Fractal Land par Kali\"[/COLOR], [COULEUR rouge]\"fractalland.frag.glsl\"[/COLOR], [COULEUR rouge]\"tex02.png\"[/COLOR], [COULEUR rouge] \"tex15.png\"[/COLOR], [COULEUR rouge]\"audio\"[/COLOR], [COULEUR rouge]\"\"[/COLOR] ]\n"
+"][COULEUR vert]}[/COLOR][/COLOR]"
