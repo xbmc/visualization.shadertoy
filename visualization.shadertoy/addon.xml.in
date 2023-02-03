@@ -29,6 +29,7 @@
     <summary lang="da_DK">Visualiseringer fra Shadertoy</summary>
     <summary lang="de_DE">Visualisierungen von Shadertoy</summary>
     <summary lang="en_GB">Visualizations from Shadertoy</summary>
+    <summary lang="es_ES">Visualizaciones de Shadertoy</summary>
     <summary lang="fi_FI">Shadertoy-visualisointeja</summary>
     <summary lang="fr_FR">Visualisations de Shadertoy</summary>
     <summary lang="it_IT">Visualizzazioni da Shadertoy</summary>
@@ -37,6 +38,7 @@
     <description lang="da_DK">Denne musikvisualisering er baseret på Shadertoy-baserede GPU-programmer.</description>
     <description lang="de_DE">Diese Musikvisualisierung basiert auf Shadertoy-basierten GPU-Programmen.</description>
     <description lang="en_GB">This music visualization is based on Shadertoy based GPU programs.</description>
+    <description lang="es_ES">Esta visualización musical está basada en programas de GPU basados en Shadertoy.</description>
     <description lang="fi_FI">Tämä äänen visualisointi perustuu Shadertoy-pohjaisiin grafiikkasuoritinohjelmiin.</description>
     <description lang="fr_FR">Cette visualisation musicale est basée sur des programmes GPU basés sur Shadertoy.</description>
     <description lang="it_IT">Questa visualizzazione musicale si basa sui programmi GPU basati su Shadertoy.</description>
