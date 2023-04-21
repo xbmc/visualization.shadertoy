@@ -81,6 +81,7 @@ private:
 
   struct
   {
+    GLuint vao;
     GLuint vertex_buffer;
     GLuint attr_vertex_e;
     GLuint attr_vertex_r, uTexture;
