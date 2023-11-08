@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-12-12 07:43+0000\n"
+"PO-Revision-Date: 2023-11-08 21:40+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-look-and-feel/visualization-shadertoy/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 5.1\n"
 
 msgctxt "Addon Summary"
 msgid "Visualizations from Shadertoy"
@@ -158,17 +158,17 @@ msgstr "Visualizzazione Shadertoy"
 #. Notification message shown on the screen when an incorrect preset list is given
 msgctxt "#30031"
 msgid "Cannot read the JSON file. Please check the formatting is correct and the file is available."
-msgstr "Impossibile leggere il file JSON. Verifica che la formattazione sia corretta e che il file sia disponibile."
+msgstr "Impossibile leggere il file JSON. Controlla che la formattazione sia corretta e che il file sia disponibile."
 
 #. Settings value to open dialog for file selection
 msgctxt "#30032"
 msgid "Path to custom preset list"
-msgstr "Percorso elenco preset personalizzati"
+msgstr "Percorso elenco preimpostazioni personalizzate"
 
 #. Help text related to setting string with id 30032
 msgctxt "#30033"
 msgid "Set the path to your custom JSON-formatted preset file. If no path is configured, the add-on will use the default preset file."
-msgstr "Imposta il percorso del file predefinito in formato JSON personalizzato. Se non è configurato alcun percorso, l'Add-on utilizzerà il file predefinito."
+msgstr "Imposta il percorso del file preimpostato personalizzato in formato JSON. Se non è configurato alcun percorso, l'add-on userà il file preimpostato predefinito."
 
 #. Settings group name
 msgctxt "#30034"
@@ -178,17 +178,17 @@ msgstr "Configura un singolo shader"
 #. Settings value to open a dialog for showing help about the preset file
 msgctxt "#30035"
 msgid "Show help about preset file"
-msgstr "Mostra la guida sul file preset"
+msgstr "Mostra la guida sul file preimpostato"
 
 #. Help text related to setting string with id 30035
 msgctxt "#30036"
 msgid "Open to read about creating the JSON-formatted preset file."
-msgstr "Guida per la creazione del file preset in formato JSON."
+msgstr "Apri per leggere informazioni sulla creazione del file preimpostato in formato JSON."
 
 #. Header text on the help dialog within settings, related to the help text of string ID 30038
 msgctxt "#30037"
 msgid "Help about defining your own shaders in the JSON file"
-msgstr "Aiuta a definire i tuoi shader nel file JSON"
+msgstr "Aiuto su come definire i tuoi shader nel file JSON"
 
 #. Help text about showing the JSON-formatted preset file in a text window.
 #. Same text also on visualization.shadertoy/resources/presets.json.md, for here
