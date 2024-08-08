@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-02-02 22:15+0000\n"
-"Last-Translator: José Antonio Alvarado <jalvarado0.eses@gmail.com>\n"
+"PO-Revision-Date: 2024-08-08 05:26+0000\n"
+"Last-Translator: roliverosc <roliverosc@hotmail.com>\n"
 "Language-Team: Spanish (Spain) <https://kodi.weblate.cloud/projects/kodi-add-ons-look-and-feel/visualization-shadertoy/es_es/>\n"
 "Language: es_es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 5.6.2\n"
 
 msgctxt "Addon Summary"
 msgid "Visualizations from Shadertoy"
@@ -23,7 +23,7 @@ msgstr "Visualizaciones de Shadertoy"
 
 msgctxt "Addon Description"
 msgid "This music visualization is based on Shadertoy based GPU programs."
-msgstr "Esta visualización musical está basada en programas de GPU basados en Shadertoy."
+msgstr "Esta visualización musical se basa en programas de GPU basados en Shadertoy."
 
 #. Settings category
 msgctxt "#30000"
@@ -78,7 +78,7 @@ msgstr "Canal 0 como audio"
 #. Help text related to setting string with id 30014
 msgctxt "#30015"
 msgid "Use audio stream data on channel 0"
-msgstr "Utilizar flujo de datos de audio en el canal 0"
+msgstr "Utilizar datos del canal de audio en el canal 0"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30016"
@@ -98,7 +98,7 @@ msgstr "Canal 1 como audio"
 #. Help text related to setting string with id 30018
 msgctxt "#30019"
 msgid "Use audio stream data on channel 1"
-msgstr "Utilizar flujo de datos de audio en el canal 1"
+msgstr "Utiliza flujo de datos de audio en el canal 1"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30020"
@@ -118,7 +118,7 @@ msgstr "Canal 2 como audio"
 #. Help text related to setting string with id 30022
 msgctxt "#30023"
 msgid "Use audio stream data on channel 2"
-msgstr "Utilizar flujo de datos de audio en el canal 2"
+msgstr "Utiliza flujo de datos de audio en el canal 2"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30024"
@@ -138,7 +138,7 @@ msgstr "Canal 3 como audio"
 #. Help text related to setting string with id 30026
 msgctxt "#30027"
 msgid "Use audio stream data on channel 3"
-msgstr "Utilizar flujo de datos de audio en el canal 3"
+msgstr "Utiliza flujo de datos de audio en el canal 3"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30028"
@@ -168,7 +168,7 @@ msgstr "Ruta a la lista de ajustes preestablecidos personalizados"
 #. Help text related to setting string with id 30032
 msgctxt "#30033"
 msgid "Set the path to your custom JSON-formatted preset file. If no path is configured, the add-on will use the default preset file."
-msgstr "Establezca la ruta a su archivo personalizado en formato JSON de ajustes preestablecidos. Si no se configura ninguna ruta, el complemento utilizará el archivo de ajustes preestablecidos predeterminado."
+msgstr "Establezca la ruta de su archivo de ajustes preestablecidos personalizado con formato JSON. Si no se configura ninguna ruta, el complemento utilizará el archivo de ajustes preestablecidos por defecto."
 
 #. Settings group name
 msgctxt "#30034"
@@ -183,12 +183,12 @@ msgstr "Mostrar ayuda sobre el archivo de ajustes preestablecidos"
 #. Help text related to setting string with id 30035
 msgctxt "#30036"
 msgid "Open to read about creating the JSON-formatted preset file."
-msgstr "Abrir para leer sobre la creación del archivo de ajustes preestablecidos con formato JSON."
+msgstr "Abrir para leer sobre la creación del archivo preestablecido con formato JSON."
 
 #. Header text on the help dialog within settings, related to the help text of string ID 30038
 msgctxt "#30037"
 msgid "Help about defining your own shaders in the JSON file"
-msgstr "Ayuda para definir sus propios sombreadores en el archivo JSON"
+msgstr "Ayuda sobre cómo definir tus propios sombreadores en el archivo JSON"
 
 #. Help text about showing the JSON-formatted preset file in a text window.
 #. Same text also on visualization.shadertoy/resources/presets.json.md, for here
@@ -228,7 +228,7 @@ msgstr ""
 "[B][I]Archivo JSON para listas de sombreadores definidas por el usuario[/I][/B]\n"
 "\n"
 "El archivo [B]presets.json[/B] se utiliza para definir sombreadores personalizados.\n"
-"Se puede declarar una ruta personalizada a los archivos de sombreado (GLSL) en la configuración del complemento.\n"
+"Se puede declarar una ruta personalizada a los archivos de sombreado (GLSL) en los ajustes del complemento.\n"
 "\n"
 "El contenido de [B]presets.json[/B] debería ser:\n"
 "[I]  1.[/I] Nombre del ajuste preestablecido. Cadena codificada o definida en [I]resources/language/.../strings.po[/I]\n"
@@ -237,7 +237,7 @@ msgstr ""
 "[I]  4.[/I] Definición del valor del canal 1.\n"
 "[I]  5.[/I] Definición del valor del canal 2.\n"
 "[I]  6.[/I] Definición del valor del canal 3.\n"
-"[I]  7.[/I] [I][Opcional][/I] añade la cadena [B]\"gl_only\"[/B] para que este ajuste preestablecido sólo esté disponible para OpenGL.\n"
+"[I]  7.[/I] [I][Opcional][/I] añade la cadena [B]\"gl_only\"[/B] para que este ajuste preestablecido solo esté disponible para OpenGL.\n"
 "\n"
 "[B]Ejemplo:[/B]\n"
 "[COLOR white][COLOR green]{[/COLOR] [COLOR blue]\"ajuste preestablecido\"[/COLOR]:[\n"
@@ -247,7 +247,7 @@ msgstr ""
 "[ 30100, [COLOR red]\"audioeclipse.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
 "[COLOR gray]/* Definir rutas de archivo personalizadas */[/COLOR]\n"
 "[ [COLOR red]\"La mía\"[/COLOR], [COLOR red]\"/path/to/glsl/my.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"/path/to/pngs/my_image.png\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
-"[COLOR gray]/* Ajuste preestablecido sólo disponible para OpenGL (véase 7)  */[/COLOR]\n"
+"[COLOR gray]/* Ajuste preestablecido solo disponible para OpenGL (véase 7)  */[/COLOR]\n"
 "[ [COLOR red]\"Polar Beats por sauj123\"[/COLOR], [COLOR red]\"polarbeats.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"gl_only\"[/COLOR] ],\n"
 "[COLOR gray]/* Los archivos GLSL y PNG están en la misma carpeta que presets.json */[/COLOR]\n"
 "[ [COLOR red]\"Otro más\"[/COLOR], [COLOR red]\"./another.frag.glsl\"[/COLOR], [COLOR red]\"./my_01.png\"[/COLOR], [COLOR red]\"./my_02.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
