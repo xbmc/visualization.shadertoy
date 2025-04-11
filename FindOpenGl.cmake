@@ -17,7 +17,7 @@ endif()
 if(NOT CORE_SYSTEM_NAME STREQUAL osx)
   find_path(OPENGL_INCLUDE_DIR GL/gl.h
                                PATHS ${PC_OPENGL_gl_INCLUDEDIR})
-  find_library(OPENGL_gl_LIBRARY NAMES GL
+  find_library(OPENGL_gl_LIBRARY NAMES GL OpenGL
                                  PATHS ${PC_OPENGL_gl_LIBDIR})
 else()
   find_library(OPENGL_gl_LIBRARY NAMES OpenGL
