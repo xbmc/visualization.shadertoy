@@ -1,3 +1,7 @@
+[B]22.0.1[/B]
+- Update glm
+- FindOpenGL: fix compile failure on GLVND linux systems
+
 [B]20.3.0[/B]
 - Kodi visualization API update to version 4.0.0
 
