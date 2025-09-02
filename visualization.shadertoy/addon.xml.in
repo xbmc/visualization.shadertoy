@@ -26,6 +26,7 @@
       <screenshot>resources/screenshot-05.jpg</screenshot>
       <screenshot>resources/screenshot-06.jpg</screenshot>
     </assets>
+    <summary lang="bs_BA">Vizualizacije iz Shadertoy-a</summary>
     <summary lang="da_DK">Visualiseringer fra Shadertoy</summary>
     <summary lang="de_DE">Visualisierungen von Shadertoy</summary>
     <summary lang="en_GB">Visualizations from Shadertoy</summary>
@@ -36,6 +37,7 @@
     <summary lang="ru_RU">Визуализации от Shadertoy</summary>
     <summary lang="sv_SE">Visualiseringar från Shadertoy</summary>
     <summary lang="zh_CN">来自ShaderToy的可视化效果</summary>
+    <description lang="bs_BA">Ova vizualizacija muzike zasnovana je na GPU programima baziranim na Shadertoy-u.</description>
     <description lang="da_DK">Denne musikvisualisering er baseret på Shadertoy-baserede GPU-programmer.</description>
     <description lang="de_DE">Diese Musikvisualisierung basiert auf Shadertoy-basierten GPU-Programmen.</description>
     <description lang="en_GB">This music visualization is based on Shadertoy based GPU programs.</description>
