@@ -5,190 +5,190 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Addons\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/visualization.shadertoy/issues\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-05-20 22:29+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"PO-Revision-Date: 2025-08-31 13:29+0000\n"
+"Last-Translator: SecularSteve <fairfull.playing@gmail.com>\n"
 "Language-Team: Bosnian (Bosnia and Herzegovina) <https://kodi.weblate.cloud/projects/kodi-add-ons-look-and-feel/visualization-shadertoy/bs_ba/>\n"
 "Language: bs_ba\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.6.2\n"
+"X-Generator: Weblate 5.13\n"
 
 msgctxt "Addon Summary"
 msgid "Visualizations from Shadertoy"
-msgstr ""
+msgstr "Vizualizacije iz Shadertoy-a"
 
 msgctxt "Addon Description"
 msgid "This music visualization is based on Shadertoy based GPU programs."
-msgstr ""
+msgstr "Ova vizualizacija muzike zasnovana je na GPU programima baziranim na Shadertoy-u."
 
 #. Settings category
 msgctxt "#30000"
 msgid "General"
-msgstr "Opšte"
+msgstr "Općenito"
 
 #. Settings category
 msgctxt "#30001"
 msgid "iChannel 0"
-msgstr ""
+msgstr "iChannel 0"
 
 #. Settings category
 msgctxt "#30002"
 msgid "iChannel 1"
-msgstr ""
+msgstr "iChannel 1"
 
 #. Settings category
 msgctxt "#30003"
 msgid "iChannel 2"
-msgstr ""
+msgstr "iChannel 2"
 
 #. Settings category
 msgctxt "#30004"
 msgid "iChannel 3"
-msgstr ""
+msgstr "iChannel 3"
 
 #. Boolean settings value to enable and allow selection of a ".glsl" file and related textures
 msgctxt "#30010"
 msgid "Choose one yourself"
-msgstr ""
+msgstr "Izaberite sami"
 
 #. Help text related to setting string with id 30010
 msgctxt "#30011"
 msgid "Use your own shadertoy. Attention: Some shaders are not supported by some GPU's in performance!"
-msgstr ""
+msgstr "Koristite vlastiti shadertoy. Pažnja: Neki GPU-ovi ne podržavaju performanse nekih shadera!"
 
 #. To open the file selection dialog about *.glsl files, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30012"
 msgid "Shadertoy file"
-msgstr ""
+msgstr "Shadertoy datoteka"
 
 #. Help text related to setting string with id 30012
 msgctxt "#30013"
 msgid "Shader as *.glsl"
-msgstr ""
+msgstr "Shader kao *.glsl"
 
 #. Boolean value to use channel 0 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30014"
 msgid "Channel 0 as audio"
-msgstr ""
+msgstr "Kanal 0 kao audio"
 
 #. Help text related to setting string with id 30014
 msgctxt "#30015"
 msgid "Use audio stream data on channel 0"
-msgstr ""
+msgstr "Koristi podatke audio streama na kanalu 0"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30016"
 msgid "Channel 0 texture image"
-msgstr ""
+msgstr "Slika teksture kanala 0"
 
 #. Help text related to setting string with id 30016
 msgctxt "#30017"
 msgid "Channel 0 as *.png"
-msgstr ""
+msgstr "Kanal 0 kao *.png"
 
 #. Boolean value to use channel 1 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30018"
 msgid "Channel 1 as audio"
-msgstr ""
+msgstr "Kanal 1 kao audio"
 
 #. Help text related to setting string with id 30018
 msgctxt "#30019"
 msgid "Use audio stream data on channel 1"
-msgstr ""
+msgstr "Koristi podatke audio streama na kanalu 1"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30020"
 msgid "Channel 1 texture image"
-msgstr ""
+msgstr "Slika teksture Kanala 1"
 
 #. Help text related to setting string with id 30020
 msgctxt "#30021"
 msgid "Channel 1 as *.png"
-msgstr ""
+msgstr "Kanal 1 kao *.png"
 
 #. Boolean value to use channel 2 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30022"
 msgid "Channel 2 as audio"
-msgstr ""
+msgstr "Kanal 2 kao audio"
 
 #. Help text related to setting string with id 30022
 msgctxt "#30023"
 msgid "Use audio stream data on channel 2"
-msgstr ""
+msgstr "Koristi podatke audio streama na kanalu 2"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30024"
 msgid "Channel 2 texture image"
-msgstr ""
+msgstr "Slika teksture Kanala 2"
 
 #. Help text related to setting string with id 30024
 msgctxt "#30025"
 msgid "Channel 2 as *.png"
-msgstr ""
+msgstr "Kanal 2 kao *.png"
 
 #. Boolean value to use channel 3 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30026"
 msgid "Channel 3 as audio"
-msgstr ""
+msgstr "Kanal 3 kao audio"
 
 #. Help text related to setting string with id 30026
 msgctxt "#30027"
 msgid "Use audio stream data on channel 3"
-msgstr ""
+msgstr "Koristi podatke audio streama na kanalu 3"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30028"
 msgid "Channel 3 texture image"
-msgstr ""
+msgstr "Slika teksture kanala 3"
 
 #. Help text related to setting string with id 30028
 msgctxt "#30029"
 msgid "Channel 3 as *.png"
-msgstr ""
+msgstr "Kanal 3 kao *.png"
 
 #. Header text shown on notification dialog and on file selection dialog
 msgctxt "#30030"
 msgid "Shadertoy Visualization"
-msgstr ""
+msgstr "Vizualizacija Shadertoy-a"
 
 #. Notification message shown on the screen when an incorrect preset list is given
 msgctxt "#30031"
 msgid "Cannot read the JSON file. Please check the formatting is correct and the file is available."
-msgstr ""
+msgstr "Nije moguće pročitati JSON datoteku. Molimo provjerite da li je formatiranje ispravno i da li je datoteka dostupna."
 
 #. Settings value to open dialog for file selection
 msgctxt "#30032"
 msgid "Path to custom preset list"
-msgstr ""
+msgstr "Put do liste prilagođenih unaprijed postavljenih postavki"
 
 #. Help text related to setting string with id 30032
 msgctxt "#30033"
 msgid "Set the path to your custom JSON-formatted preset file. If no path is configured, the add-on will use the default preset file."
-msgstr ""
+msgstr "Postavite putanju do vaše prilagođene JSON-formatirane datoteke s unaprijed postavljenim postavkama. Ako putanja nije konfigurirana, dodatak će koristiti zadanu datoteku s unaprijed postavljenim postavkama."
 
 #. Settings group name
 msgctxt "#30034"
 msgid "Configure a single shader"
-msgstr ""
+msgstr "Konfigurišite jedan shader"
 
 #. Settings value to open a dialog for showing help about the preset file
 msgctxt "#30035"
 msgid "Show help about preset file"
-msgstr ""
+msgstr "Prikaži pomoć o unaprijed postavljenoj datoteci"
 
 #. Help text related to setting string with id 30035
 msgctxt "#30036"
 msgid "Open to read about creating the JSON-formatted preset file."
-msgstr ""
+msgstr "Otvorite da biste pročitali o kreiranju unaprijed postavljene datoteke u JSON formatu."
 
 #. Header text on the help dialog within settings, related to the help text of string ID 30038
 msgctxt "#30037"
 msgid "Help about defining your own shaders in the JSON file"
-msgstr ""
+msgstr "Pomoć oko definiranja vlastitih shadera u JSON datoteci"
 
 #. Help text about showing the JSON-formatted preset file in a text window.
 #. Same text also on visualization.shadertoy/resources/presets.json.md, for here
@@ -225,3 +225,32 @@ msgid ""
 "[ [COLOR red]\"Fractal Land by Kali\"[/COLOR], [COLOR red]\"fractalland.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ]\n"
 "][COLOR green]}[/COLOR][/COLOR]"
 msgstr ""
+"[B][I]JSON datoteka za korisnički definirane liste sjenčari[/I][/B]\n"
+"\n"
+"Datoteka [B]presets.json[/B] se koristi za definiranje prilagođenih shadera.\n"
+"Prilagođena putanja do shader datoteka (GLSL) može se deklarirati u postavkama dodatka.\n"
+"\n"
+"Sadržaj datoteke [B]presets.json[/B] treba biti:\n"
+"[I] 1.[/I] Naziv podešaja. Ili fiksno kodiran niz ili definiran u [I]resources/language/.../strings.po[/I]\n"
+"[I] 2.[/I] GLSL shader koji će se koristiti. Ako nije deklarirana prilagođena putanja, koristit će se zadana [B]sredstva/[/B]. Postavite prilagođenu putanju na './' da biste koristili sjenčare iz iste putanje kao i vaša datoteka [B]presets.json[/B].\n"
+"[I] 3.[/I] Vrijednost kanala 0. Definira teksturu koja će se koristiti (npr. PNG datoteka). Također se može postaviti na \"audio\" za prosljeđivanje povezanih podataka toka unutar teksture. PNG i GLSL datoteke trebaju se nalaziti u istom direktoriju.\n"
+"[I] 4.[/I] Definicija vrijednosti kanala 1.\n"
+"[I] 5.[/I] Definicija vrijednosti kanala 2.\n"
+"[I] 6.[/I] Definicija vrijednosti kanala 3.\n"
+"[I] 7.[/I] [I][Odabirno][/I] dodajte niz [B]\"gl_only\"[/B] da biste ovaj predefinisani podešaj učinili dostupnim samo za OpenGL.\n"
+"\n"
+"[B]Example:[/B]\n"
+"[COLOR white][COLOR green]{[/COLOR] [COLOR blue]\"podešaji\"[/COLOR]:[\n"
+"[COLOR gray]/* Zadani način koji koristi sam dodatak */[/COLOR]\n"
+"[ [COLOR red]\"Disko tunel od strane poljere\"[/COLOR],  [COLOR red]\"discotunnel.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Opis definisan u strings.po */[/COLOR]\n"
+"[ 30100, [COLOR red]\"audioeclipse.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Definirajte prilagođene putanje datoteka */[/COLOR]\n"
+"[ [COLOR red]\"Moj vlastiti\"[/COLOR], [COLOR red]\"/path/to/glsl/my.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"/path/to/pngs/my_image.png\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Podešaj je dostupan samo za OpenGL (see 7)  */[/COLOR]\n"
+"[ [COLOR red]\"Polarni ritmovi od sauj123\"[/COLOR], [COLOR red]\"polarbeats.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"gl_only\"[/COLOR] ],\n"
+"[COLOR gray]/* GLSL i PNG datoteke se nalaze u istoj mapi kao i presets.json */[/COLOR]\n"
+"[ [COLOR red]\"Još jedan\"[/COLOR], [COLOR red]\"./another.frag.glsl\"[/COLOR], [COLOR red]\"./my_01.png\"[/COLOR], [COLOR red]\"./my_02.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Odaberite sliku teksture prema nazivu datoteke, koristite zadani direktorij \"resources/\" */[/COLOR]\n"
+"[ [COLOR red]\"Fraktalna zemlja od Kali\"[/COLOR], [COLOR red]\"fractalland.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ]\n"
+"][COLOR green]}[/COLOR][/COLOR]"
