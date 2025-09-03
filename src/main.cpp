@@ -154,6 +154,8 @@ void CVisualizationShadertoy::Render()
 {
   if (m_initialized)
   {
+    glBindVertexArray(m_state.vao);
+
     if (m_state.fbwidth && m_state.fbheight)
     {
       RenderTo(m_shadertoyShader.ProgramHandle(), m_state.effect_fb);
@@ -163,6 +165,8 @@ void CVisualizationShadertoy::Render()
     {
       RenderTo(m_shadertoyShader.ProgramHandle(), 0);
     }
+
+    glBindVertexArray(0);
   }
 }
 
@@ -180,10 +184,15 @@ bool CVisualizationShadertoy::Start(int iChannels, int iSamplesPerSec, int iBits
     -1.0,-1.0, 1.0, 1.0,
   };
 
+  glGenVertexArrays(1, &m_state.vao);
+  glBindVertexArray(m_state.vao);
+
   // Upload vertex data to a buffer
   glGenBuffers(1, &m_state.vertex_buffer);
   glBindBuffer(GL_ARRAY_BUFFER, m_state.vertex_buffer);
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_data), vertex_data, GL_STATIC_DRAW);
+
+  glBindVertexArray(0);
 
   m_samplesPerSec = iSamplesPerSec;
   Launch(m_currentPreset);
@@ -203,6 +212,8 @@ void CVisualizationShadertoy::Stop()
   UnloadTextures();
 
   glDeleteBuffers(1, &m_state.vertex_buffer);
+
+  glDeleteVertexArrays(1, &m_state.vao);
 }
 
 
