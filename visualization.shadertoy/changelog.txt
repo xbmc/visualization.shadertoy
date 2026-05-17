@@ -1,3 +1,12 @@
+[B]22.1.0[/B]
+- Piers API change visualization API 4.1.0
+
+[B]22.0.3[/B]
+- Translation updates by Weblate
+
+[B]22.0.2[/B]
+- Translation updates by Weblate
+
 [B]22.0.1[/B]
 - Update glm
 - FindOpenGL: fix compile failure on GLVND linux systems
@@ -45,7 +54,7 @@
 
 [B]2.1.0[/B]
 - Matrix API change inputstream API 2.3.1
-- Matrix APi change Global API 1.2.0
+- Matrix API change Global API 1.2.0
 
 [B]2.0.2[/B]
 - Allow on new addon settings to set own Shadertoy file
