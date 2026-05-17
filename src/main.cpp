@@ -167,13 +167,10 @@ void CVisualizationShadertoy::Render()
   }
 }
 
-bool CVisualizationShadertoy::Start(int iChannels,
-                                    int iSamplesPerSec,
-                                    int iBitsPerSample,
-                                    const std::string& szSongName)
+bool CVisualizationShadertoy::AudioStart(int iChannels, int iSamplesPerSec, int iBitsPerSample)
 {
 #ifdef DEBUG_PRINT
-  printf("Start %i %i %i %s\n", iChannels, iSamplesPerSec, iBitsPerSample, szSongName.c_str());
+  printf("Start %i %i %i\n", iChannels, iSamplesPerSec, iBitsPerSample);
 #endif
 
   static const GLfloat vertex_data[] = {
@@ -192,7 +189,7 @@ bool CVisualizationShadertoy::Start(int iChannels,
   return true;
 }
 
-void CVisualizationShadertoy::Stop()
+void CVisualizationShadertoy::AudioStop()
 {
   m_initialized = false;
 #ifdef DEBUG_PRINT
