@@ -1,11 +1,12 @@
 /*
- *  Copyright (C) 2005-2021 Team Kodi (https://kodi.tv)
+ *  Copyright (C) 2005-2026 Team Kodi (https://kodi.tv)
  *
  *  SPDX-License-Identifier: GPL-2.0-or-later
  *  See LICENSE.md for more information.
  */
 
 #include "main.h"
+
 #include "lodepng.h"
 
 #define _USE_MATH_DEFINES
@@ -28,7 +29,7 @@
 #if defined(HAS_GL)
 
 std::string fsHeader =
-R"shader(#version 150
+    R"shader(#version 150
 
 #extension GL_OES_standard_derivatives : enable
 
@@ -54,7 +55,7 @@ out vec4 FragColor;
 )shader";
 
 std::string fsFooter =
-R"shader(
+    R"shader(
 void main(void)
 {
   vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
@@ -67,7 +68,7 @@ void main(void)
 #else
 
 std::string fsHeader =
-R"shader(#version 100
+    R"shader(#version 100
 
 #extension GL_OES_standard_derivatives : enable
 
@@ -100,7 +101,7 @@ vec4 textureLod(sampler2D sampler, vec2 uv, float lod)
 )shader";
 
 std::string fsFooter =
-R"shader(
+    R"shader(
 void main(void)
 {
   vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
@@ -141,9 +142,9 @@ CVisualizationShadertoy::CVisualizationShadertoy()
 
 CVisualizationShadertoy::~CVisualizationShadertoy()
 {
-  delete [] m_audioData;
-  delete [] m_magnitudeBuffer;
-  delete [] m_pcm;
+  delete[] m_audioData;
+  delete[] m_magnitudeBuffer;
+  delete[] m_pcm;
   free(m_kissCfg);
 }
 
@@ -166,18 +167,14 @@ void CVisualizationShadertoy::Render()
   }
 }
 
-bool CVisualizationShadertoy::Start(int iChannels, int iSamplesPerSec, int iBitsPerSample, const std::string& szSongName)
+bool CVisualizationShadertoy::AudioStart(int iChannels, int iSamplesPerSec, int iBitsPerSample)
 {
 #ifdef DEBUG_PRINT
-  printf("Start %i %i %i %s\n", iChannels, iSamplesPerSec, iBitsPerSample, szSongName.c_str());
+  printf("Start %i %i %i\n", iChannels, iSamplesPerSec, iBitsPerSample);
 #endif
 
-  static const GLfloat vertex_data[] =
-  {
-    -1.0, 1.0, 1.0, 1.0,
-     1.0, 1.0, 1.0, 1.0,
-     1.0,-1.0, 1.0, 1.0,
-    -1.0,-1.0, 1.0, 1.0,
+  static const GLfloat vertex_data[] = {
+      -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0,
   };
 
   // Upload vertex data to a buffer
@@ -192,7 +189,7 @@ bool CVisualizationShadertoy::Start(int iChannels, int iSamplesPerSec, int iBits
   return true;
 }
 
-void CVisualizationShadertoy::Stop()
+void CVisualizationShadertoy::AudioStop()
 {
   m_initialized = false;
 #ifdef DEBUG_PRINT
@@ -204,7 +201,6 @@ void CVisualizationShadertoy::Stop()
 
   glDeleteBuffers(1, &m_state.vertex_buffer);
 }
-
 
 void CVisualizationShadertoy::AudioData(const float* pAudioData, size_t iAudioDataLength)
 {
@@ -221,9 +217,11 @@ void CVisualizationShadertoy::AudioData(const float* pAudioData, size_t iAudioDa
 
   out[0].i = 0;
 
-  SmoothingOverTime(m_magnitudeBuffer, m_magnitudeBuffer, out, NUM_BANDS, SMOOTHING_TIME_CONSTANT, AUDIO_BUFFER);
+  SmoothingOverTime(m_magnitudeBuffer, m_magnitudeBuffer, out, NUM_BANDS, SMOOTHING_TIME_CONSTANT,
+                    AUDIO_BUFFER);
 
-  const double rangeScaleFactor = MAX_DECIBELS == MIN_DECIBELS ? 1 : (1.0 / (MAX_DECIBELS - MIN_DECIBELS));
+  const double rangeScaleFactor =
+      MAX_DECIBELS == MIN_DECIBELS ? 1 : (1.0 / (MAX_DECIBELS - MIN_DECIBELS));
   for (unsigned int i = 0; i < NUM_BANDS; i++)
   {
     float linearValue = m_magnitudeBuffer[i];
@@ -319,9 +317,14 @@ void CVisualizationShadertoy::RenderTo(GLuint shader, GLuint effect_fb)
     GLuint h = Height();
     if (m_state.fbwidth && m_state.fbheight)
       w = m_state.fbwidth, h = m_state.fbheight;
-    int64_t intt = static_cast<int64_t>(std::chrono::duration<double>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() * 1000.0) - m_initialTime;
+    int64_t intt =
+        static_cast<int64_t>(std::chrono::duration<double>(
+                                 std::chrono::high_resolution_clock::now().time_since_epoch())
+                                 .count() *
+                             1000.0) -
+        m_initialTime;
     if (m_bitsPrecision)
-      intt &= (1<<m_bitsPrecision)-1;
+      intt &= (1 << m_bitsPrecision) - 1;
 
     if (m_needsUpload)
     {
@@ -331,23 +334,25 @@ void CVisualizationShadertoy::RenderTo(GLuint shader, GLuint effect_fb)
         {
           glActiveTexture(GL_TEXTURE0 + i);
           glBindTexture(GL_TEXTURE_2D, m_channelTextures[i]);
-          glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, NUM_BANDS, 2, 0, GL_RED, GL_UNSIGNED_BYTE, m_audioData);
+          glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, NUM_BANDS, 2, 0, GL_RED, GL_UNSIGNED_BYTE,
+                       m_audioData);
         }
       }
       m_needsUpload = false;
     }
 
     float t = intt / 1000.0f;
-    GLfloat tv[] = { t, t, t, t };
+    GLfloat tv[] = {t, t, t, t};
 
     glUniform3f(m_attrResolutionLoc, w, h, 0.0f);
     glUniform1f(m_attrGlobalTimeLoc, t);
     glUniform1f(m_attrSampleRateLoc, m_samplesPerSec);
     glUniform1fv(m_attrChannelTimeLoc, 4, tv);
-    glUniform2f(m_state.uScale, static_cast<GLfloat>(Width()) / m_state.fbwidth, static_cast<GLfloat>(Height()) /m_state.fbheight);
+    glUniform2f(m_state.uScale, static_cast<GLfloat>(Width()) / m_state.fbwidth,
+                static_cast<GLfloat>(Height()) / m_state.fbheight);
 
     time_t now = time(NULL);
-    tm *ltm = localtime(&now);
+    tm* ltm = localtime(&now);
 
     float year = 1900 + ltm->tm_year;
     float month = ltm->tm_mon;
@@ -373,7 +378,8 @@ void CVisualizationShadertoy::RenderTo(GLuint shader, GLuint effect_fb)
   // Draw the effect to a texture or direct to framebuffer
   glBindFramebuffer(GL_FRAMEBUFFER, effect_fb);
 
-  GLuint attr_vertex = shader == m_shadertoyShader.ProgramHandle() ? m_state.attr_vertex_e : m_state.attr_vertex_r;
+  GLuint attr_vertex =
+      shader == m_shadertoyShader.ProgramHandle() ? m_state.attr_vertex_e : m_state.attr_vertex_r;
   glBindBuffer(GL_ARRAY_BUFFER, m_state.vertex_buffer);
   glVertexAttribPointer(attr_vertex, 4, GL_FLOAT, 0, 16, 0);
   glEnableVertexAttribArray(attr_vertex);
@@ -390,7 +396,10 @@ void CVisualizationShadertoy::RenderTo(GLuint shader, GLuint effect_fb)
   glUseProgram(0);
 }
 
-void CVisualizationShadertoy::Mix(float* destination, const float* source, size_t frames, size_t channels)
+void CVisualizationShadertoy::Mix(float* destination,
+                                  const float* source,
+                                  size_t frames,
+                                  size_t channels)
 {
   size_t length = frames * channels;
   for (unsigned int i = 0; i < length; i += channels)
@@ -485,17 +494,17 @@ void CVisualizationShadertoy::Launch(int preset)
     }
   }
 
-  const int size1 = 256, size2=512;
+  const int size1 = 256, size2 = 512;
   double t1 = MeasurePerformance(m_usedShaderFile, size1);
   double t2 = MeasurePerformance(m_usedShaderFile, size2);
 
   double expected_fps = 40.0;
   // time per pixel for rendering fragment shader
-  double B = (t2-t1)/(size2*size2-size1*size1);
+  double B = (t2 - t1) / (size2 * size2 - size1 * size1);
   // time to render to screen
-  double A = t2 - size2*size2 * B;
+  double A = t2 - size2 * size2 * B;
   // how many pixels get the desired fps
-  double pixels = (1000.0/expected_fps - A) / B;
+  double pixels = (1000.0 / expected_fps - A) / B;
   m_state.fbwidth = sqrtf(pixels * Width() / Height());
   if (m_state.fbwidth >= Width())
     m_state.fbwidth = 0;
@@ -504,7 +513,8 @@ void CVisualizationShadertoy::Launch(int preset)
   m_state.fbheight = m_state.fbwidth * Height() / Width();
 
 #ifdef DEBUG_PRINT
-  printf("expected fps=%f, pixels=%f %dx%d (A:%f B:%f t1:%.1f t2:%.1f)\n", expected_fps, pixels, m_state.fbwidth, m_state.fbheight, A, B, t1, t2);
+  printf("expected fps=%f, pixels=%f %dx%d (A:%f B:%f t1:%.1f t2:%.1f)\n", expected_fps, pixels,
+         m_state.fbwidth, m_state.fbheight, A, B, t1, t2);
 #endif
 
   LoadPreset(m_usedShaderFile);
@@ -525,11 +535,13 @@ void CVisualizationShadertoy::UnloadTextures()
 void CVisualizationShadertoy::LoadPreset(const std::string& shaderPath)
 {
   UnloadPreset();
-  std::string vertShadertoyShader = kodi::addon::GetAddonPath("resources/shaders/main_shadertoy_" GL_TYPE_STRING ".vert.glsl");
+  std::string vertShadertoyShader =
+      kodi::addon::GetAddonPath("resources/shaders/main_shadertoy_" GL_TYPE_STRING ".vert.glsl");
   if (!m_shadertoyShader.LoadShaderFiles(vertShadertoyShader, shaderPath) ||
       !m_shadertoyShader.CompileAndLink("", "", fsHeader, fsFooter))
   {
-    kodi::Log(ADDON_LOG_ERROR, "Failed to compile shadertoy shaders (current shadertoy file '%s')", shaderPath.c_str());
+    kodi::Log(ADDON_LOG_ERROR, "Failed to compile shadertoy shaders (current shadertoy file '%s')",
+              shaderPath.c_str());
     return;
   }
 
@@ -540,7 +552,7 @@ void CVisualizationShadertoy::LoadPreset(const std::string& shaderPath)
   m_attrChannelTimeLoc = glGetUniformLocation(shadertoyShader, "iChannelTime");
   m_attrMouseLoc = glGetUniformLocation(shadertoyShader, "iMouse");
   m_attrDateLoc = glGetUniformLocation(shadertoyShader, "iDate");
-  m_attrSampleRateLoc  = glGetUniformLocation(shadertoyShader, "iSampleRate");
+  m_attrSampleRateLoc = glGetUniformLocation(shadertoyShader, "iSampleRate");
   m_attrChannelResolutionLoc = glGetUniformLocation(shadertoyShader, "iChannelResolution");
   m_attrChannelLoc[0] = glGetUniformLocation(shadertoyShader, "iChannel0");
   m_attrChannelLoc[1] = glGetUniformLocation(shadertoyShader, "iChannel1");
@@ -548,12 +560,13 @@ void CVisualizationShadertoy::LoadPreset(const std::string& shaderPath)
   m_attrChannelLoc[3] = glGetUniformLocation(shadertoyShader, "iChannel3");
 
   m_state.uScale = glGetUniformLocation(shadertoyShader, "uScale");
-  m_state.attr_vertex_e = glGetAttribLocation(shadertoyShader,  "vertex");
+  m_state.attr_vertex_e = glGetAttribLocation(shadertoyShader, "vertex");
 
-  std::string vertShader = kodi::addon::GetAddonPath("resources/shaders/main_display_" GL_TYPE_STRING ".vert.glsl");
-  std::string fraqShader = kodi::addon::GetAddonPath("resources/shaders/main_display_" GL_TYPE_STRING ".frag.glsl");
-  if (!m_displayShader.LoadShaderFiles(vertShader, fraqShader) ||
-      !m_displayShader.CompileAndLink())
+  std::string vertShader =
+      kodi::addon::GetAddonPath("resources/shaders/main_display_" GL_TYPE_STRING ".vert.glsl");
+  std::string fraqShader =
+      kodi::addon::GetAddonPath("resources/shaders/main_display_" GL_TYPE_STRING ".frag.glsl");
+  if (!m_displayShader.LoadShaderFiles(vertShader, fraqShader) || !m_displayShader.CompileAndLink())
   {
     kodi::Log(ADDON_LOG_ERROR, "Failed to compile main shaders");
     return;
@@ -566,7 +579,8 @@ void CVisualizationShadertoy::LoadPreset(const std::string& shaderPath)
   glActiveTexture(GL_TEXTURE0);
   glGenTextures(1, &m_state.framebuffer_texture);
   glBindTexture(GL_TEXTURE_2D, m_state.framebuffer_texture);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_state.fbwidth, m_state.fbheight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_state.fbwidth, m_state.fbheight, 0, GL_RGB,
+               GL_UNSIGNED_BYTE, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -575,10 +589,14 @@ void CVisualizationShadertoy::LoadPreset(const std::string& shaderPath)
   // Prepare a framebuffer for rendering
   glGenFramebuffers(1, &m_state.effect_fb);
   glBindFramebuffer(GL_FRAMEBUFFER, m_state.effect_fb);
-  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_state.framebuffer_texture, 0);
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
+                         m_state.framebuffer_texture, 0);
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-  m_initialTime = static_cast<int64_t>(std::chrono::duration<double>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() * 1000.0);
+  m_initialTime = static_cast<int64_t>(
+      std::chrono::duration<double>(std::chrono::high_resolution_clock::now().time_since_epoch())
+          .count() *
+      1000.0);
 }
 
 void CVisualizationShadertoy::UnloadPreset()
@@ -595,15 +613,18 @@ void CVisualizationShadertoy::UnloadPreset()
   }
 }
 
-GLuint CVisualizationShadertoy::CreateTexture(GLint format, unsigned int w, unsigned int h, const GLvoid* data)
+GLuint CVisualizationShadertoy::CreateTexture(GLint format,
+                                              unsigned int w,
+                                              unsigned int h,
+                                              const GLvoid* data)
 {
   GLuint texture = 0;
   glActiveTexture(GL_TEXTURE0);
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
 
-  glTexParameteri(GL_TEXTURE_2D,  GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-  glTexParameteri(GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -612,7 +633,13 @@ GLuint CVisualizationShadertoy::CreateTexture(GLint format, unsigned int w, unsi
   return texture;
 }
 
-GLuint CVisualizationShadertoy::CreateTexture(const GLvoid* data, GLint format, unsigned int w, unsigned int h, GLint internalFormat, GLint scaling, GLint repeat)
+GLuint CVisualizationShadertoy::CreateTexture(const GLvoid* data,
+                                              GLint format,
+                                              unsigned int w,
+                                              unsigned int h,
+                                              GLint internalFormat,
+                                              GLint scaling,
+                                              GLint repeat)
 {
   GLuint texture = 0;
   glGenTextures(1, &texture);
@@ -630,7 +657,10 @@ GLuint CVisualizationShadertoy::CreateTexture(const GLvoid* data, GLint format, 
   return texture;
 }
 
-GLuint CVisualizationShadertoy::CreateTexture(const std::string& file, GLint internalFormat, GLint scaling, GLint repeat)
+GLuint CVisualizationShadertoy::CreateTexture(const std::string& file,
+                                              GLint internalFormat,
+                                              GLint scaling,
+                                              GLint repeat)
 {
 #ifdef DEBUG_PRINT
   printf("creating texture %s\n", file.c_str());
@@ -643,7 +673,8 @@ GLuint CVisualizationShadertoy::CreateTexture(const std::string& file, GLint int
   error = lodepng_decode32_file(&image, &width, &height, file.c_str());
   if (error)
   {
-    kodi::Log(ADDON_LOG_ERROR, "lodepng_decode32_file error %u: %s", error, lodepng_error_text(error));
+    kodi::Log(ADDON_LOG_ERROR, "lodepng_decode32_file error %u: %s", error,
+              lodepng_error_text(error));
     return 0;
   }
 
@@ -663,13 +694,19 @@ float CVisualizationShadertoy::BlackmanWindow(float in, size_t i, size_t length)
   return in * (a0 - a1 * cos(2.0 * M_PI * x) + a2 * cos(4.0 * M_PI * x));
 }
 
-void CVisualizationShadertoy::SmoothingOverTime(float* outputBuffer, float* lastOutputBuffer, kiss_fft_cpx* inputBuffer, size_t length, float smoothingTimeConstant, unsigned int fftSize)
+void CVisualizationShadertoy::SmoothingOverTime(float* outputBuffer,
+                                                float* lastOutputBuffer,
+                                                kiss_fft_cpx* inputBuffer,
+                                                size_t length,
+                                                float smoothingTimeConstant,
+                                                unsigned int fftSize)
 {
   for (size_t i = 0; i < length; i++)
   {
     kiss_fft_cpx c = inputBuffer[i];
     float magnitude = sqrt(c.r * c.r + c.i * c.i) / (float)fftSize;
-    outputBuffer[i] = smoothingTimeConstant * lastOutputBuffer[i] + (1.0 - smoothingTimeConstant) * magnitude;
+    outputBuffer[i] =
+        smoothingTimeConstant * lastOutputBuffer[i] + (1.0 - smoothingTimeConstant) * magnitude;
   }
 }
 
@@ -682,7 +719,7 @@ float CVisualizationShadertoy::LinearToDecibels(float linear)
 
 int CVisualizationShadertoy::DetermineBitsPrecision()
 {
-  m_state.fbwidth = 32, m_state.fbheight = 26*10;
+  m_state.fbwidth = 32, m_state.fbheight = 26 * 10;
   LoadPreset(kodi::addon::GetAddonPath("resources/shaders/main_test.frag.glsl"));
   RenderTo(m_shadertoyShader.ProgramHandle(), m_state.effect_fb);
   glFinish();
@@ -693,9 +730,9 @@ int CVisualizationShadertoy::DetermineBitsPrecision()
 
   int bits = 0;
   unsigned char b = 0;
-  for (int j=0; j<m_state.fbheight; j++)
+  for (int j = 0; j < m_state.fbheight; j++)
   {
-    unsigned char c = buffer[4*(j*m_state.fbwidth+(m_state.fbwidth>>1))];
+    unsigned char c = buffer[4 * (j * m_state.fbwidth + (m_state.fbwidth >> 1))];
     if (c && !b)
       bits++;
     b = c;
@@ -718,12 +755,18 @@ double CVisualizationShadertoy::MeasurePerformance(const std::string& shaderPath
     RenderTo(m_displayShader.ProgramHandle(), m_state.effect_fb);
     glFinish();
     if (++iterations == 0)
-      start = static_cast<int64_t>(std::chrono::duration<double>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() * 1000.0);
-    end = static_cast<int64_t>(std::chrono::duration<double>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() * 1000.0);
+      start = static_cast<int64_t>(std::chrono::duration<double>(
+                                       std::chrono::high_resolution_clock::now().time_since_epoch())
+                                       .count() *
+                                   1000.0);
+    end = static_cast<int64_t>(
+        std::chrono::duration<double>(std::chrono::high_resolution_clock::now().time_since_epoch())
+            .count() *
+        1000.0);
   } while (end - start < 50);
-  double t = (double)(end - start)/iterations;
+  double t = (double)(end - start) / iterations;
 #ifdef DEBUG_PRINT
-  printf("%s %dx%d %.1fms = %.2f fps\n", __func__, size, size, t, 1000.0/t);
+  printf("%s %dx%d %.1fms = %.2f fps\n", __func__, size, size, t, 1000.0 / t);
 #endif
   UnloadPreset();
   return t;

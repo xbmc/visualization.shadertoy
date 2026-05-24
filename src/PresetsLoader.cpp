@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2005-2021 Team Kodi (https://kodi.tv)
+ *  Copyright (C) 2005-2026 Team Kodi (https://kodi.tv)
  *
  *  SPDX-License-Identifier: GPL-2.0-or-later
  *  See LICENSE.md for more information.
@@ -75,8 +75,8 @@ bool CPresetLoader::Load(const std::string& path)
         if (entry[0].isString())
           preset.name = entry[0].asString();
         else
-          preset.name = kodi::addon::GetLocalizedString(entry[0].asInt(), "Unknown preset name " +
-                                                                            std::to_string(index + 1));
+          preset.name = kodi::addon::GetLocalizedString(
+              entry[0].asInt(), "Unknown preset name " + std::to_string(index + 1));
 
         // Check shader file included within addon or outside and set by user
         const std::string usedDirName = kodi::vfs::GetDirectoryName(entry[1].asString());
