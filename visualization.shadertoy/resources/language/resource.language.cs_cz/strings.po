@@ -5,25 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Addons\n"
-"Report-Msgid-Bugs-To: https://github.com/xbmc/visualization.shadertoy/issues\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-05-20 22:29+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"PO-Revision-Date: 2026-07-06 18:02+0000\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <https://kodi.weblate.cloud/projects/kodi-add-ons-look-and-feel/visualization-shadertoy/cs_cz/>\n"
 "Language: cs_cz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.6.2\n"
+"X-Generator: Weblate 2026.7\n"
 
 msgctxt "Addon Summary"
 msgid "Visualizations from Shadertoy"
-msgstr ""
+msgstr "Vizualizace ze Shadertoy"
 
 msgctxt "Addon Description"
 msgid "This music visualization is based on Shadertoy based GPU programs."
-msgstr ""
+msgstr "Tato hudební vizualizace je založena na GPU programech ze Shadertoy."
 
 #. Settings category
 msgctxt "#30000"
@@ -33,162 +33,162 @@ msgstr "Obecné"
 #. Settings category
 msgctxt "#30001"
 msgid "iChannel 0"
-msgstr ""
+msgstr "iChannel 0"
 
 #. Settings category
 msgctxt "#30002"
 msgid "iChannel 1"
-msgstr ""
+msgstr "iChannel 1"
 
 #. Settings category
 msgctxt "#30003"
 msgid "iChannel 2"
-msgstr ""
+msgstr "iChannel 2"
 
 #. Settings category
 msgctxt "#30004"
 msgid "iChannel 3"
-msgstr ""
+msgstr "iChannel 3"
 
 #. Boolean settings value to enable and allow selection of a ".glsl" file and related textures
 msgctxt "#30010"
 msgid "Choose one yourself"
-msgstr ""
+msgstr "Vybrat vlastní"
 
 #. Help text related to setting string with id 30010
 msgctxt "#30011"
 msgid "Use your own shadertoy. Attention: Some shaders are not supported by some GPU's in performance!"
-msgstr ""
+msgstr "Použít vlastní Shadertoy. Pozor: některé shadery nemusí být kvůli výkonu na některých GPU podporovány!"
 
 #. To open the file selection dialog about *.glsl files, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30012"
 msgid "Shadertoy file"
-msgstr ""
+msgstr "Soubor Shadertoy"
 
 #. Help text related to setting string with id 30012
 msgctxt "#30013"
 msgid "Shader as *.glsl"
-msgstr ""
+msgstr "Shader jako *.glsl"
 
 #. Boolean value to use channel 0 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30014"
 msgid "Channel 0 as audio"
-msgstr ""
+msgstr "Kanál 0 jako audio"
 
 #. Help text related to setting string with id 30014
 msgctxt "#30015"
 msgid "Use audio stream data on channel 0"
-msgstr ""
+msgstr "Použít data zvukového streamu na kanálu 0"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30016"
 msgid "Channel 0 texture image"
-msgstr ""
+msgstr "Obrázek textury kanálu 0"
 
 #. Help text related to setting string with id 30016
 msgctxt "#30017"
 msgid "Channel 0 as *.png"
-msgstr ""
+msgstr "Kanál 0 jako *.png"
 
 #. Boolean value to use channel 1 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30018"
 msgid "Channel 1 as audio"
-msgstr ""
+msgstr "Kanál 1 jako audio"
 
 #. Help text related to setting string with id 30018
 msgctxt "#30019"
 msgid "Use audio stream data on channel 1"
-msgstr ""
+msgstr "Použít data zvukového streamu na kanálu 1"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30020"
 msgid "Channel 1 texture image"
-msgstr ""
+msgstr "Obrázek textury kanálu 1"
 
 #. Help text related to setting string with id 30020
 msgctxt "#30021"
 msgid "Channel 1 as *.png"
-msgstr ""
+msgstr "Kanál 1 jako *.png"
 
 #. Boolean value to use channel 2 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30022"
 msgid "Channel 2 as audio"
-msgstr ""
+msgstr "Kanál 2 jako audio"
 
 #. Help text related to setting string with id 30022
 msgctxt "#30023"
 msgid "Use audio stream data on channel 2"
-msgstr ""
+msgstr "Použít data zvukového streamu na kanálu 2"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30024"
 msgid "Channel 2 texture image"
-msgstr ""
+msgstr "Obrázek textury kanálu 2"
 
 #. Help text related to setting string with id 30024
 msgctxt "#30025"
 msgid "Channel 2 as *.png"
-msgstr ""
+msgstr "Kanál 2 jako *.png"
 
 #. Boolean value to use channel 3 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30026"
 msgid "Channel 3 as audio"
-msgstr ""
+msgstr "Kanál 3 jako audio"
 
 #. Help text related to setting string with id 30026
 msgctxt "#30027"
 msgid "Use audio stream data on channel 3"
-msgstr ""
+msgstr "Použít data zvukového streamu na kanálu 3"
 
 #. Texture image to use, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30028"
 msgid "Channel 3 texture image"
-msgstr ""
+msgstr "Obrázek textury kanálu 3"
 
 #. Help text related to setting string with id 30028
 msgctxt "#30029"
 msgid "Channel 3 as *.png"
-msgstr ""
+msgstr "Kanál 3 jako *.png"
 
 #. Header text shown on notification dialog and on file selection dialog
 msgctxt "#30030"
 msgid "Shadertoy Visualization"
-msgstr ""
+msgstr "Vizualizace Shadertoy"
 
 #. Notification message shown on the screen when an incorrect preset list is given
 msgctxt "#30031"
 msgid "Cannot read the JSON file. Please check the formatting is correct and the file is available."
-msgstr ""
+msgstr "Soubor JSON nelze přečíst. Zkontrolujte, zda má správný formát a zda je dostupný."
 
 #. Settings value to open dialog for file selection
 msgctxt "#30032"
 msgid "Path to custom preset list"
-msgstr ""
+msgstr "Cesta k vlastnímu seznamu předvoleb"
 
 #. Help text related to setting string with id 30032
 msgctxt "#30033"
 msgid "Set the path to your custom JSON-formatted preset file. If no path is configured, the add-on will use the default preset file."
-msgstr ""
+msgstr "Nastavte cestu k vlastnímu souboru předvoleb ve formátu JSON. Pokud není nastavena žádná cesta, doplněk použije výchozí soubor předvoleb."
 
 #. Settings group name
 msgctxt "#30034"
 msgid "Configure a single shader"
-msgstr ""
+msgstr "Nastavit jeden shader"
 
 #. Settings value to open a dialog for showing help about the preset file
 msgctxt "#30035"
 msgid "Show help about preset file"
-msgstr ""
+msgstr "Zobrazit nápovědu k souboru předvoleb"
 
 #. Help text related to setting string with id 30035
 msgctxt "#30036"
 msgid "Open to read about creating the JSON-formatted preset file."
-msgstr ""
+msgstr "Otevřete, pokud si chcete přečíst informace o vytvoření souboru předvoleb ve formátu JSON."
 
 #. Header text on the help dialog within settings, related to the help text of string ID 30038
 msgctxt "#30037"
 msgid "Help about defining your own shaders in the JSON file"
-msgstr ""
+msgstr "Nápověda k definování vlastních shaderů v souboru JSON"
 
 #. Help text about showing the JSON-formatted preset file in a text window.
 #. Same text also on visualization.shadertoy/resources/presets.json.md, for here
@@ -225,3 +225,32 @@ msgid ""
 "[ [COLOR red]\"Fractal Land by Kali\"[/COLOR], [COLOR red]\"fractalland.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ]\n"
 "][COLOR green]}[/COLOR][/COLOR]"
 msgstr ""
+"[B][I]Soubor JSON pro uživatelsky definované seznamy shaderů[/I][/B]\n"
+"\n"
+"Soubor [B]presets.json[/B] slouží k definování vlastních shaderů.\n"
+"V nastavení doplňku lze zadat vlastní cestu k souborům shaderů (GLSL).\n"
+"\n"
+"Obsah souboru [B]presets.json[/B] by měl být:\n"
+"[I]  1.[/I] Název předvolby. Buď pevně zadaný řetězec, nebo definovaný v [I]resources/language/.../strings.po[/I]\n"
+"[I]  2.[/I] Shader GLSL, který se má použít. Pokud nebyla zadána vlastní cesta, použije se výchozí [B]resources/[/B]. Chcete-li použít shadery ze stejné složky jako soubor [B]presets.json[/B], nastavte vlastní cestu na './'.\n"
+"[I]  3.[/I] Hodnota kanálu 0. Definuje texturu, která se má použít (např. soubor PNG). Lze ji také nastavit na \"audio\", aby se v textuře předávala související data streamu. Soubory PNG a GLSL by měly být umístěny ve stejné složce.\n"
+"[I]  4.[/I] Definice hodnoty kanálu 1.\n"
+"[I]  5.[/I] Definice hodnoty kanálu 2.\n"
+"[I]  6.[/I] Definice hodnoty kanálu 3.\n"
+"[I]  7.[/I] [I][Volitelné][/I] přidejte řetězec [B]\"gl_only\"[/B], aby byla tato předvolba dostupná pouze pro OpenGL.\n"
+"\n"
+"[B]Příklad:[/B]\n"
+"[COLOR white][COLOR green]{[/COLOR] [COLOR blue]\"presets\"[/COLOR]:[\n"
+"[COLOR gray]/* Výchozí způsob používaný samotným doplňkem */[/COLOR]\n"
+"[ [COLOR red]\"The Disco Tunnel by poljere\"[/COLOR],  [COLOR red]\"discotunnel.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Popis definovaný ve strings.po */[/COLOR]\n"
+"[ 30100, [COLOR red]\"audioeclipse.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Definice vlastních cest k souborům */[/COLOR]\n"
+"[ [COLOR red]\"My own one\"[/COLOR], [COLOR red]\"/path/to/glsl/my.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"/path/to/pngs/my_image.png\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Předvolba dostupná pouze pro OpenGL (viz 7)  */[/COLOR]\n"
+"[ [COLOR red]\"Polar Beats by sauj123\"[/COLOR], [COLOR red]\"polarbeats.frag.glsl\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"\"[/COLOR], [COLOR red]\"gl_only\"[/COLOR] ],\n"
+"[COLOR gray]/* Soubory GLSL a PNG jsou ve stejné složce jako presets.json */[/COLOR]\n"
+"[ [COLOR red]\"Another one\"[/COLOR], [COLOR red]\"./another.frag.glsl\"[/COLOR], [COLOR red]\"./my_01.png\"[/COLOR], [COLOR red]\"./my_02.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ],\n"
+"[COLOR gray]/* Výběr obrázku textury podle názvu souboru, použije se výchozí složka \"resources/\" */[/COLOR]\n"
+"[ [COLOR red]\"Fractal Land by Kali\"[/COLOR], [COLOR red]\"fractalland.frag.glsl\"[/COLOR], [COLOR red]\"tex02.png\"[/COLOR], [COLOR red]\"tex15.png\"[/COLOR], [COLOR red]\"audio\"[/COLOR], [COLOR red]\"\"[/COLOR] ]\n"
+"][COLOR green]}[/COLOR][/COLOR]"
