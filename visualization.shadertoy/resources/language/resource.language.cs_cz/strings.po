@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2026-07-06 18:02+0000\n"
+"PO-Revision-Date: 2026-07-15 02:00+0000\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech <https://kodi.weblate.cloud/projects/kodi-add-ons-look-and-feel/visualization-shadertoy/cs_cz/>\n"
 "Language: cs_cz\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.7\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 msgctxt "Addon Summary"
 msgid "Visualizations from Shadertoy"
@@ -58,17 +58,17 @@ msgstr "Vybrat vlastní"
 #. Help text related to setting string with id 30010
 msgctxt "#30011"
 msgid "Use your own shadertoy. Attention: Some shaders are not supported by some GPU's in performance!"
-msgstr "Použít vlastní Shadertoy. Pozor: některé shadery nemusí být kvůli výkonu na některých GPU podporovány!"
+msgstr "Použít vlastní shader. Pozor: některé shadery nemusí být kvůli výkonu na některých GPU podporovány!"
 
 #. To open the file selection dialog about *.glsl files, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30012"
 msgid "Shadertoy file"
-msgstr "Soubor Shadertoy"
+msgstr "Soubor shaderu"
 
 #. Help text related to setting string with id 30012
 msgctxt "#30013"
 msgid "Shader as *.glsl"
-msgstr "Shader jako *.glsl"
+msgstr "Shader ve formátu *.glsl"
 
 #. Boolean value to use channel 0 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30014"
@@ -88,7 +88,7 @@ msgstr "Obrázek textury kanálu 0"
 #. Help text related to setting string with id 30016
 msgctxt "#30017"
 msgid "Channel 0 as *.png"
-msgstr "Kanál 0 jako *.png"
+msgstr "Kanál 0 jako obrázek *.png"
 
 #. Boolean value to use channel 1 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30018"
@@ -108,7 +108,7 @@ msgstr "Obrázek textury kanálu 1"
 #. Help text related to setting string with id 30020
 msgctxt "#30021"
 msgid "Channel 1 as *.png"
-msgstr "Kanál 1 jako *.png"
+msgstr "Kanál 1 jako obrázek *.png"
 
 #. Boolean value to use channel 2 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30022"
@@ -128,7 +128,7 @@ msgstr "Obrázek textury kanálu 2"
 #. Help text related to setting string with id 30024
 msgctxt "#30025"
 msgid "Channel 2 as *.png"
-msgstr "Kanál 2 jako *.png"
+msgstr "Kanál 2 jako obrázek *.png"
 
 #. Boolean value to use channel 3 as audio, if the setting "Choose one yourself"(30010) above is enabled.
 msgctxt "#30026"
@@ -148,7 +148,7 @@ msgstr "Obrázek textury kanálu 3"
 #. Help text related to setting string with id 30028
 msgctxt "#30029"
 msgid "Channel 3 as *.png"
-msgstr "Kanál 3 jako *.png"
+msgstr "Kanál 3 jako obrázek *.png"
 
 #. Header text shown on notification dialog and on file selection dialog
 msgctxt "#30030"
