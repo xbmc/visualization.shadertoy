@@ -1,7 +1,16 @@
+[B]22.1.1[/B]
+- Updated GLM from 1.0.1 to 1.0.3
+- Updated JsonCpp from 1.9.4 to 1.9.8
+- Updated ANGLE from chromium/3712 to kodi/7258
+- Updated translations
+
 [B]22.1.0[/B]
-- Piers API change visualization API 4.1.0
+- Piers API change visualization API 5.0.0
+- Update KissFFT to 131.2.0 and lodepng to commit 2256188
+- Require CMake 3.18
 
 [B]22.0.3[/B]
+- Update minimum global add-on API version
 - Translation updates by Weblate
 
 [B]22.0.2[/B]
