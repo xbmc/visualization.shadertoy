@@ -1,0 +1,25 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -109,5 +109,5 @@
+
+ if (WINDOWS_STORE)
+-    set(WINRT_DEFINES -DANGLE_ENABLE_WINDOWS_UWP -DWINAPI_FAMILY=WINAPI_FAMILY_PC_APP)
++    set(WINRT_DEFINES -DANGLE_IS_WINUWP -DANGLE_ENABLE_WINDOWS_UWP -DWINAPI_FAMILY=WINAPI_FAMILY_PC_APP)
+ else()
+     set(WINRT_DEFINES)
+@@ -485,4 +485,15 @@
+ )
+
++# Export the installed headers along with each public library target.
++if(ANGLE_UNOFFICIAL_INSTALL)
++    set(ANGLE_INSTALL_INCLUDE_DIR include/angle)
++else()
++    set(ANGLE_INSTALL_INCLUDE_DIR include)
++endif()
++foreach(angle_target IN LISTS _installableTargets)
++    target_include_directories(${angle_target} INTERFACE
++        $<INSTALL_INTERFACE:${ANGLE_INSTALL_INCLUDE_DIR}>)
++endforeach()
++
+ install(EXPORT ANGLEExport FILE ${ANGLE_UNOFFICIAL_NAME}-angle-targets.cmake NAMESPACE ${ANGLE_UNOFFICIAL_NAME}::angle:: DESTINATION lib/cmake/${ANGLE_UNOFFICIAL_NAME}-angle)
+ install(FILES ${ANGLE_UNOFFICIAL_NAME}-angle-config.cmake DESTINATION lib/cmake/${ANGLE_UNOFFICIAL_NAME}-angle)
