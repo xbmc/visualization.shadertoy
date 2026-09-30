@@ -1,0 +1,27 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -33,7 +33,6 @@
+ # Generate unofficial-angle-config.cmake
+ set(UNOFFICIAL_ANGLE_CONFIG_CMAKE
+   "include(CMakeFindDependencyMacro)\n"
+-  "find_package(ZLIB PATHS \${CMAKE_CURRENT_LIST_DIR}/../zlib COMPONENTS static)\n"
+   "\n"
+   "include(\"\${CMAKE_CURRENT_LIST_DIR}/${ANGLE_UNOFFICIAL_NAME}-angle-targets.cmake\")\n")
+ file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/${ANGLE_UNOFFICIAL_NAME}-angle-config.cmake" ${UNOFFICIAL_ANGLE_CONFIG_CMAKE})
+@@ -42,6 +41,7 @@
+ set(ZLIB_BUILD_SHARED FALSE)
+ set(ZLIB_BUILD_BENCHMARK FALSE)
+ add_subdirectory(third_party/zlib)
++set_target_properties(zlibstatic PROPERTIES OUTPUT_NAME angle_zlib)
+ # Hack fixes where the from Chromium team added zlib_bench his build can't disabled
+ # without code changes, as zlib_bench.cc not find zlib.h and created zlib.
+ target_include_directories(zlib_bench PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/third_party/zlib)
+@@ -471,7 +471,7 @@
+ endif()
+ set_target_properties(ANGLE PROPERTIES EXPORT_NAME libANGLE)
+
+-set(_possibleTargets EGL GLESv2 ANGLE)
++set(_possibleTargets EGL GLESv2 ANGLE zlibstatic)
+ foreach(_target IN LISTS _possibleTargets)
+     if(TARGET ${_target})
+         list(APPEND _installableTargets "${_target}")
